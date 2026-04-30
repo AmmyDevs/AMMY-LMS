@@ -1,0 +1,347 @@
+import type { EffectConfig } from '@/types'
+
+export const EFFECT_REGISTRY: Record<string, EffectConfig> = {
+  // ─── Lecture 1 ───────────────────────────────────────────────────────────
+  'sampling-quantization': {
+    id: 'sampling-quantization',
+    title: 'Sampling & Quantization',
+    description: 'Reduce spatial resolution (sampling) and bit depth (quantization) to see how digital representation affects image quality.',
+    pythonModule: 'transforms',
+    pythonFunction: 'sampling_quantization',
+    parameters: [
+      {
+        id: 'scale',
+        label: 'Spatial Resolution',
+        type: 'slider',
+        min: 10,
+        max: 100,
+        step: 5,
+        default: 100,
+        unit: '%',
+      },
+      {
+        id: 'bit_depth',
+        label: 'Bit Depth',
+        type: 'slider',
+        min: 1,
+        max: 8,
+        step: 1,
+        default: 8,
+        unit: 'bits',
+      },
+    ],
+    hint: 'Lower sampling to 64x64 to see blocking. Reduce bit depth to 2 to see posterisation.',
+  },
+
+  // ─── Lecture 2 ───────────────────────────────────────────────────────────
+  'gamma-correction': {
+    id: 'gamma-correction',
+    title: 'Gamma Correction',
+    description: 'Apply the power-law transformation s = c*r^gamma. Values below 1 brighten the image; values above 1 darken it.',
+    pythonModule: 'transforms',
+    pythonFunction: 'gamma_correction',
+    parameters: [
+      {
+        id: 'gamma',
+        label: 'Gamma (y)',
+        type: 'slider',
+        min: 0.1,
+        max: 5.0,
+        step: 0.1,
+        default: 1.0,
+      },
+    ],
+    hint: 'y = 0.4 dramatically brightens underexposed areas. y = 2.5 crushes highlights.',
+  },
+
+  'log-transform': {
+    id: 'log-transform',
+    title: 'Logarithmic Transform',
+    description: 'Compress bright dynamic range with g = c*log(1 + f). Useful for Fourier spectrum visualisation.',
+    pythonModule: 'transforms',
+    pythonFunction: 'log_transform',
+    parameters: [
+      {
+        id: 'c',
+        label: 'Scale constant (c)',
+        type: 'slider',
+        min: 1,
+        max: 100,
+        step: 1,
+        default: 30,
+      },
+    ],
+    hint: 'Try on a high-dynamic-range image — the shadows will open up significantly.',
+  },
+
+  'histogram-equalize': {
+    id: 'histogram-equalize',
+    title: 'Histogram Equalization',
+    description: 'Redistributes pixel intensities so they span the full 0-255 range. Best on low-contrast or underexposed images.',
+    pythonModule: 'transforms',
+    pythonFunction: 'histogram_equalize',
+    parameters: [],
+    hint: 'No parameters needed — compare the result on a dark image.',
+  },
+
+  'clahe': {
+    id: 'clahe',
+    title: 'CLAHE',
+    description: 'Adaptive histogram equalisation applied to local tiles, then stitched with bilinear interpolation. Avoids the over-amplification of global HE.',
+    pythonModule: 'transforms',
+    pythonFunction: 'clahe',
+    parameters: [
+      {
+        id: 'clip_limit',
+        label: 'Clip Limit',
+        type: 'slider',
+        min: 1.0,
+        max: 10.0,
+        step: 0.5,
+        default: 2.0,
+      },
+      {
+        id: 'tile_size',
+        label: 'Tile Size',
+        type: 'slider',
+        min: 4,
+        max: 32,
+        step: 4,
+        default: 8,
+        unit: 'px',
+      },
+    ],
+    hint: 'Increase clip limit to 8 to see tiling artefacts appear at tile boundaries.',
+  },
+
+  'gaussian-blur': {
+    id: 'gaussian-blur',
+    title: 'Gaussian Blur',
+    description: 'Smooth the image by convolving with a Gaussian kernel. Larger sigma spreads the blur.',
+    pythonModule: 'filters',
+    pythonFunction: 'gaussian_blur',
+    parameters: [
+      {
+        id: 'sigma',
+        label: 'Sigma (o)',
+        type: 'slider',
+        min: 0.5,
+        max: 10.0,
+        step: 0.5,
+        default: 1.0,
+      },
+      {
+        id: 'kernel',
+        label: 'Kernel Size',
+        type: 'slider',
+        min: 3,
+        max: 21,
+        step: 2,
+        default: 5,
+        unit: 'px',
+      },
+    ],
+    hint: 'o = 3 is noticeable; o = 10 produces strong oil-painting blur.',
+  },
+
+  'median-filter': {
+    id: 'median-filter',
+    title: 'Median Filter',
+    description: 'Replace each pixel with the median of its neighbourhood. Excellent for salt-and-pepper noise while preserving edges better than mean filters.',
+    pythonModule: 'filters',
+    pythonFunction: 'median_filter',
+    parameters: [
+      {
+        id: 'kernel',
+        label: 'Kernel Size',
+        type: 'slider',
+        min: 3,
+        max: 15,
+        step: 2,
+        default: 5,
+        unit: 'px',
+      },
+    ],
+    hint: 'First add salt-and-pepper noise above, then apply the median filter to remove it.',
+  },
+
+  'sharpen': {
+    id: 'sharpen',
+    title: 'Unsharp / Sharpen',
+    description: 'Enhance edges using a Laplacian-based sharpening kernel. Increase strength to amplify detail — and noise.',
+    pythonModule: 'filters',
+    pythonFunction: 'sharpen',
+    parameters: [
+      {
+        id: 'strength',
+        label: 'Strength',
+        type: 'slider',
+        min: 0.5,
+        max: 5.0,
+        step: 0.5,
+        default: 1.0,
+      },
+    ],
+    hint: 'Sharpening amplifies noise. Try it on a noisy image and observe the trade-off.',
+  },
+
+  // ─── Lecture 3 ───────────────────────────────────────────────────────────
+  'salt-pepper': {
+    id: 'salt-pepper',
+    title: 'Salt & Pepper Noise',
+    description: 'Add random black and white pixels at a given density. Simulates impulse noise from transmission errors or sensor defects.',
+    pythonModule: 'noise',
+    pythonFunction: 'salt_pepper',
+    parameters: [
+      {
+        id: 'density',
+        label: 'Noise Density',
+        type: 'slider',
+        min: 0.01,
+        max: 0.3,
+        step: 0.01,
+        default: 0.05,
+      },
+      {
+        id: 'salt_ratio',
+        label: 'Salt Ratio',
+        type: 'slider',
+        min: 0.0,
+        max: 1.0,
+        step: 0.1,
+        default: 0.5,
+      },
+    ],
+    hint: 'Set density to 0.15 and then switch to the Median Filter demo to see how well it removes this noise.',
+  },
+
+  'gaussian-noise': {
+    id: 'gaussian-noise',
+    title: 'Gaussian Noise',
+    description: 'Add noise drawn from a Gaussian distribution N(u, o2). Models sensor thermal noise.',
+    pythonModule: 'noise',
+    pythonFunction: 'gaussian_noise',
+    parameters: [
+      {
+        id: 'mean',
+        label: 'Mean (u)',
+        type: 'slider',
+        min: -50,
+        max: 50,
+        step: 1,
+        default: 0,
+      },
+      {
+        id: 'sigma',
+        label: 'Std Dev (o)',
+        type: 'slider',
+        min: 1,
+        max: 80,
+        step: 1,
+        default: 20,
+      },
+    ],
+    hint: 'u shifts overall brightness; o controls noise intensity. Real sensor noise has u ~ 0.',
+  },
+
+  'edge-detection': {
+    id: 'edge-detection',
+    title: 'Edge Detection',
+    description: 'Detect intensity discontinuities using gradient-based operators. Sobel computes first derivatives; Canny adds non-maximum suppression and hysteresis.',
+    pythonModule: 'segmentation',
+    pythonFunction: 'edge_detection',
+    parameters: [
+      {
+        id: 'method',
+        label: 'Method',
+        type: 'select',
+        default: 'canny',
+        options: [
+          { value: 'canny', label: 'Canny' },
+          { value: 'sobel', label: 'Sobel' },
+          { value: 'laplacian', label: 'Laplacian' },
+        ],
+      },
+      {
+        id: 'threshold1',
+        label: 'Low Threshold',
+        type: 'slider',
+        min: 10,
+        max: 200,
+        step: 5,
+        default: 50,
+      },
+      {
+        id: 'threshold2',
+        label: 'High Threshold',
+        type: 'slider',
+        min: 50,
+        max: 400,
+        step: 10,
+        default: 150,
+      },
+    ],
+    hint: 'Lower threshold1 on Canny to capture weaker edges; raise it to keep only strong ones.',
+  },
+
+  'threshold': {
+    id: 'threshold',
+    title: 'Image Thresholding',
+    description: 'Create a binary image by classifying pixels as object (above threshold) or background. Try global vs Otsu auto-threshold.',
+    pythonModule: 'segmentation',
+    pythonFunction: 'threshold',
+    parameters: [
+      {
+        id: 'method',
+        label: 'Method',
+        type: 'select',
+        default: 'global',
+        options: [
+          { value: 'global', label: 'Global' },
+          { value: 'otsu', label: 'Otsu (auto)' },
+          { value: 'adaptive', label: 'Adaptive' },
+        ],
+      },
+      {
+        id: 'value',
+        label: 'Threshold Value',
+        type: 'slider',
+        min: 0,
+        max: 255,
+        step: 1,
+        default: 128,
+      },
+    ],
+    hint: 'Otsu automatically picks the optimal threshold — compare it to your manual choice.',
+  },
+
+  'region-growing': {
+    id: 'region-growing',
+    title: 'Region Growing',
+    description: 'Segment a region by growing outward from the image centre as seed point, adding neighbours whose intensity is within the tolerance threshold T.',
+    pythonModule: 'segmentation',
+    pythonFunction: 'region_growing',
+    parameters: [
+      {
+        id: 'tolerance',
+        label: 'Tolerance (T)',
+        type: 'slider',
+        min: 1,
+        max: 80,
+        step: 1,
+        default: 15,
+      },
+      {
+        id: 'connectivity',
+        label: 'Connectivity',
+        type: 'select',
+        default: '4',
+        options: [
+          { value: '4', label: '4-connected' },
+          { value: '8', label: '8-connected' },
+        ],
+      },
+    ],
+    hint: 'Low tolerance selects only uniform areas. High tolerance may flood the entire image.',
+  },
+}
