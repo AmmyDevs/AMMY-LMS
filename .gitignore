@@ -1,4 +1,32 @@
+# Dependencies
+node_modules/
+
+# Next.js
+.next/
+out/
+
+# Bun
+bun.lockb
+
+# Build
+dist/
+build/
+
+# Env
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+.kilo
 # [DOCS-TOGGLE-START]
 docs/
-REFERENCE/
 # [DOCS-TOGGLE-END]
