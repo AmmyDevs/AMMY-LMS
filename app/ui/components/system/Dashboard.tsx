@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import Link from 'next/link'
 import {
   BookOpen,
   FlaskConical,
@@ -10,7 +10,7 @@ import {
   Play,
 } from 'lucide-react'
 import { useLMSStore } from '@/lib/store'
-import { CONTENT_NAV } from '@/content'
+import { CONTENT_NAV } from '@/lib/mock'
 
 const TYPE_CONFIG = {
   lecture: {
@@ -140,7 +140,7 @@ export function Dashboard() {
 
                 {firstChild && (
                   <Link
-                    to={`/module/image-processing/${firstChild.slug}`}
+                    href={`/modules/${firstChild.slug}`}
                     className="inline-flex items-center gap-2 text-sm font-medium text-brand hover:gap-3 transition-all"
                   >
                     <Play className="w-4 h-4" />

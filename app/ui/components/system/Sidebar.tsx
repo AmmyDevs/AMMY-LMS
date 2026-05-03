@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import {
   BookOpen,
   ChevronDown,
@@ -11,8 +12,8 @@ import {
   Telescope,
 } from 'lucide-react'
 import { useLMSStore } from '@/lib/store'
-import { CONTENT_NAV } from '@/content'
-import { ThemeToggle } from './ThemeToggle'
+import { CONTENT_NAV } from '@/lib/mock'
+import { ThemeToggle } from '../molecule/ThemeToggle'
 
 const TYPE_ICONS = {
   lecture: BookOpen,
@@ -27,7 +28,7 @@ const TYPE_COLORS = {
 }
 
 export function Sidebar() {
-  const location = useLocation()
+  const pathname = usePathname()
   const { username, progress, setCurrentPath } = useLMSStore()
   const [expanded, setExpanded] = useState<Record<string, boolean>>({
     'lecture-1': true,
@@ -40,7 +41,7 @@ export function Sidebar() {
   }
 
   const isActive = (slug: string) => {
-    return location.pathname === `/module/image-processing/${slug}`
+    return pathname === `/modules/${slug}`
   }
 
   const getProgressForItem = (slug: string) => {
@@ -56,7 +57,7 @@ export function Sidebar() {
     <aside className="fixed left-0 top-0 h-screen w-72 bg-surface border-r border-border flex flex-col z-40">
       {/* Header */}
       <div className="px-5 py-5 border-b border-border">
-        <Link to="/" className="flex items-center gap-3">
+        <Link href="/" className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-brand/10 flex items-center justify-center">
             <GraduationCap className="w-5 h-5 text-brand" />
           </div>
@@ -125,8 +126,7 @@ export function Sidebar() {
                     return (
                       <Link
                         key={child.id}
-                        to={`/module/image-processing/${child.slug}`}
-                        onClick={() => setCurrentPath([section.id, child.id])}
+                        href={`/modules/${child.slug}`}
                         className={`flex items-center gap-2 px-4 py-2 text-sm rounded-lg transition-colors ${
                           active
                             ? 'bg-brand/10 text-brand font-medium'

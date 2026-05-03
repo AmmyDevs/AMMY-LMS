@@ -1,11 +1,12 @@
 import { useMemo, useEffect } from 'react'
-import { useParams, Link } from 'react-router-dom'
+import { useParams, Link } from 'next/navigation'
 import { ChevronLeft, BookOpen } from 'lucide-react'
-import { MarkdownRenderer } from '@/components/MarkdownRenderer'
-import { CONTENT_FILES, SLUG_TO_FILE } from '@/content'
+import { MarkdownRenderer } from '@/app/ui/components/molecule/MarkdownRenderer'
+import { CONTENT_FILES, SLUG_TO_FILE } from '@/lib/mock'
 
 export function ContentPage() {
-  const { '*': slug } = useParams()
+  const params = useParams()
+  const slug = Array.isArray(params.slug) ? params.slug.join('/') : params.slug || ''
 
   const content = useMemo(() => {
     if (!slug) return null
@@ -34,7 +35,7 @@ export function ContentPage() {
           <h2 className="text-xl font-semibold text-text mb-2">Content Not Found</h2>
           <p className="text-muted mb-4">The requested lecture content could not be loaded.</p>
           <Link
-            to="/"
+            href="/"
             className="inline-flex items-center gap-2 text-brand hover:underline"
           >
             <ChevronLeft className="w-4 h-4" />
