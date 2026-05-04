@@ -1,10 +1,11 @@
 import { useState, useCallback, useRef, useEffect } from 'react'
 import { Download, RotateCcw, Loader2, AlertCircle, ImagePlus } from 'lucide-react'
+import Image from 'next/image'
 import { useLMSStore } from '@/lib/store'
-import { EFFECT_REGISTRY } from '@/lib/effects'
+import { EFFECT_REGISTRY } from '@/app/lib/effects'
 import { ParameterPanel } from './ParameterPanel'
 import { CompareSlider } from './CompareSlider'
-import type { InteractiveBlockInternalState } from '@/types'
+import type { InteractiveBlockInternalState } from '@/lib/utils/types'
 
 interface InteractiveBlockProps {
   effectId: string
@@ -463,7 +464,7 @@ function applyCanny(
   t2: number
 ): ImageData {
   // Simplified Canny: gaussian -> sobel -> threshold
-  let blurred = new Uint8Array(gray)
+  const blurred = new Uint8Array(gray)
   // Quick box blur
   for (let i = 0; i < 1; i++) {
     const temp = new Uint8Array(blurred)
@@ -690,7 +691,7 @@ export function InteractiveBlock({ effectId }: InteractiveBlockProps) {
 
       const reader = new FileReader()
       reader.onload = (e) => {
-        const img = new Image()
+        const img = new window.Image()
         img.onload = () => {
           const maxDim = 600
           let w = img.naturalWidth
@@ -888,10 +889,12 @@ export function InteractiveBlock({ effectId }: InteractiveBlockProps) {
             />
           ) : (
             <div className="relative w-full aspect-[4/3] rounded-lg border border-border bg-page flex items-center justify-center">
-              <img
+              <Image
                 src={state.originalUrl}
                 alt="Original"
-                className="max-w-full max-h-full object-contain opacity-60"
+                fill
+                unoptimized
+                className="object-contain opacity-60"
               />
               {state.blockState === 'processing' && (
                 <div className="absolute inset-0 flex flex-col items-center justify-center bg-surface/80">

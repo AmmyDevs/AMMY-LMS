@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import type { LMSState } from '@/types'
+import type { LMSState } from '@/lib/utils/types'
 
 export const useLMSStore = create<LMSState>()(
   persist(

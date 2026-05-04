@@ -1,5 +1,8 @@
+'use client'
+
 import { useMemo, useEffect } from 'react'
-import { useParams, Link } from 'next/navigation'
+import { useParams } from 'next/navigation'
+import Link from 'next/link'
 import { ChevronLeft, BookOpen } from 'lucide-react'
 import { MarkdownRenderer } from '@/app/ui/components/molecule/MarkdownRenderer'
 import { CONTENT_FILES, SLUG_TO_FILE } from '@/lib/mock'
@@ -52,7 +55,7 @@ export function ContentPage() {
         {/* Breadcrumb */}
         <div className="mb-8">
           <Link
-            to="/"
+            href="/"
             className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand transition-colors"
           >
             <ChevronLeft className="w-4 h-4" />

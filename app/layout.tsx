@@ -1,10 +1,13 @@
 import type { Metadata } from 'next'
-import { Layout } from '../ui/components/system/Layout'
+import { Layout } from './ui/components/system/Layout'
 import './ui/global.css'
 
 export const metadata: Metadata = {
-  title: 'AMMY LMS',
-  description: 'Learning Management System',
+  title: 'Msomi Hub — Learn Smarter',
+  description: 'Interactive notes, AI tutoring, and assessments for modern learners.',
+  icons: {
+    icon: '/image/Logo.png',
+  },
 }
 
 export default function RootLayout({

@@ -1,4 +1,4 @@
-import type { EffectConfig } from '@/types'
+import type { EffectConfig } from '@/lib/utils/types'
 
 export const EFFECT_REGISTRY: Record<string, EffectConfig> = {
   // ─── Lecture 1 ───────────────────────────────────────────────────────────

@@ -13,7 +13,6 @@ import {
 } from 'lucide-react'
 import { useLMSStore } from '@/lib/store'
 import { CONTENT_NAV } from '@/lib/mock'
-import { ThemeToggle } from '../molecule/ThemeToggle'
 
 const TYPE_ICONS = {
   lecture: BookOpen,
@@ -63,7 +62,6 @@ export function Sidebar() {
           </div>
           <div>
             <h1 className="text-lg font-semibold text-text leading-tight">AMMY LMS</h1>
-            <p className="text-xs text-muted">Image Processing</p>
           </div>
         </Link>
       </div>
@@ -79,11 +77,6 @@ export function Sidebar() {
 
       {/* Navigation */}
       <nav className="flex-1 overflow-y-auto scrollbar-thin py-3">
-        <div className="px-4 mb-2">
-          <p className="text-xs font-semibold text-muted uppercase tracking-wider px-2">
-            Course Content
-          </p>
-        </div>
 
         {CONTENT_NAV.map((section) => {
           const Icon = TYPE_ICONS[section.type]
@@ -151,14 +144,6 @@ export function Sidebar() {
           )
         })}
       </nav>
-
-      {/* Footer */}
-      <div className="px-5 py-4 border-t border-border flex items-center justify-between">
-        <span className="text-xs text-muted">
-          v1.0
-        </span>
-        <ThemeToggle />
-      </div>
     </aside>
   )
 }

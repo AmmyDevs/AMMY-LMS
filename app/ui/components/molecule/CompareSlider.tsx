@@ -1,5 +1,6 @@
 import { useRef, useState, useCallback, useEffect } from 'react'
 import { MoveHorizontal } from 'lucide-react'
+import Image from 'next/image'
 
 interface CompareSliderProps {
   originalUrl: string
@@ -17,6 +18,7 @@ export function CompareSlider({
 }: CompareSliderProps) {
   const [position, setPosition] = useState(defaultPosition)
   const [isDragging, setIsDragging] = useState(false)
+  const [pointerId, setPointerId] = useState<number | null>(null)
   const containerRef = useRef<HTMLDivElement>(null)
 
   const handlePointerMove = useCallback(
@@ -34,13 +36,14 @@ export function CompareSlider({
 
   const handlePointerUp = useCallback(() => {
     setIsDragging(false)
-    if (containerRef.current) {
-      containerRef.current.releasePointerCapture
+    if (containerRef.current && pointerId !== null) {
+      containerRef.current.releasePointerCapture(pointerId)
+      setPointerId(null)
       try {
         // releasePointerCapture might throw if not captured
       } catch { /* ignore */ }
     }
-  }, [])
+  }, [pointerId])
 
   useEffect(() => {
     if (isDragging) {
@@ -55,6 +58,7 @@ export function CompareSlider({
 
   const handlePointerDown = (e: React.PointerEvent) => {
     setIsDragging(true)
+    setPointerId(e.pointerId)
     if (containerRef.current) {
       containerRef.current.setPointerCapture(e.pointerId)
     }
@@ -72,10 +76,12 @@ export function CompareSlider({
       onPointerDown={handlePointerDown}
     >
       {/* Original image (bottom layer) */}
-      <img
+      <Image
         src={originalUrl}
         alt="Original"
-        className="absolute inset-0 w-full h-full object-contain"
+        fill
+        unoptimized
+        className="object-contain"
         draggable={false}
       />
 
@@ -84,10 +90,12 @@ export function CompareSlider({
         className="absolute inset-0 overflow-hidden"
         style={{ clipPath: `inset(0 0 0 ${position}%)` }}
       >
-        <img
+        <Image
           src={processedUrl}
           alt="Processed"
-          className="absolute inset-0 w-full h-full object-contain"
+          fill
+          unoptimized
+          className="object-contain"
           draggable={false}
         />
       </div>

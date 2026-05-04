@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import { SlidersHorizontal } from 'lucide-react'
-import type { ParameterSchema } from '@/types'
+import type { ParameterConfig } from '@/lib/utils/types'
 
 interface ParameterPanelProps {
-  parameters: ParameterSchema[]
+  parameters: ParameterConfig[]
   values: Record<string, unknown>
   onChange: (id: string, value: unknown) => void
   disabled?: boolean
