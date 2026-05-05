@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Image from 'next/image'
+import { Target, Bot } from 'lucide-react'
 
 interface HeroProps {
   onLogin: (name: string) => void
@@ -30,7 +31,7 @@ export function Hero({ onLogin }: HeroProps) {
 
             <h1 className="hero-title">
               Learn smarter with{' '}
-              <span className="hero-title-accent">Msomi Hub</span>
+              <span className="hero-title-accent">AMMY LMS</span>
             </h1>
 
             <p className="hero-subtitle">
@@ -95,7 +96,7 @@ export function Hero({ onLogin }: HeroProps) {
 
               {/* Floating badge 1 */}
               <div className="hero-badge">
-                <span className="hero-badge-icon">🎯</span>
+                <Target className="hero-badge-icon" size={24} />
                 <div>
                   <div className="hero-badge-text">Quiz Streak</div>
                   <div className="hero-badge-sub">7 days in a row</div>
@@ -104,7 +105,7 @@ export function Hero({ onLogin }: HeroProps) {
 
               {/* Floating badge 2 */}
               <div className="hero-badge hero-badge-2">
-                <span className="hero-badge-icon">🤖</span>
+                <Bot className="hero-badge-icon" size={24} />
                 <div>
                   <div className="hero-badge-text">AI Tutor</div>
                   <div className="hero-badge-sub">Always available</div>

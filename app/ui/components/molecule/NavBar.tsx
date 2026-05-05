@@ -12,10 +12,10 @@ export function Navbar() {
       <div className="navbar-inner">
 
         {/* Brand */}
-        <Link href="/" className="navbar-brand" aria-label="Msomi Hub home">
+        <Link href="/" className="navbar-brand" aria-label="AMMY LMS home">
           <div className="navbar-logo-mark" aria-hidden="true">M</div>
           <span className="navbar-name">
-            Msomi <span>Hub</span>
+            AMMY <span>LMS</span>
           </span>
         </Link>
 

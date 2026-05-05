@@ -22,7 +22,7 @@ build/
 .idea/
 *.swp
 *.swo
-
+.junie/
 # OS
 .DS_Store
 Thumbs.db

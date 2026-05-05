@@ -11,9 +11,9 @@ export function Footer() {
         {/* Brand column */}
         <div className="footer-brand">
           <div className="footer-brand-row">
-            <Image src="/image/BrandLogo.png" alt="Msomi Hub" width={40} height={40} className="footer-logo" />
+            <Image src="/image/BrandLogo.png" alt="AMMY LMS" width={40} height={40} className="footer-logo" />
             <span className="footer-title">
-              Msomi <span>Hub</span>
+              AMMY <span>LMS</span>
             </span>
           </div>
           <p className="footer-description">
@@ -47,7 +47,7 @@ export function Footer() {
 
       {/* Bottom bar */}
       <div className="footer-bottom">
-        <p className="footer-copyright">© {year} Msomi Hub. All rights reserved.</p>
+        <p className="footer-copyright">© {year} AMMY LMS. All rights reserved.</p>
         <span className="footer-badge">Built with passion for learning</span>
       </div>
     </footer>

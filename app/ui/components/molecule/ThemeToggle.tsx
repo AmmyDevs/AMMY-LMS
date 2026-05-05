@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-
+import { Moon, Sun } from 'lucide-react'
 
 
  export function ThemeToggle() {
@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react'
 
   /* Initialise from localStorage or system preference */
   useEffect(() => {
-    const stored = localStorage.getItem('msomi-theme')
+    const stored = localStorage.getItem('ammy-theme')
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
     const isDark = stored ? stored === 'dark' : prefersDark
     setDark(isDark)
@@ -19,7 +19,7 @@ import { useEffect, useState } from 'react'
     setDark(next)
     const value = next ? 'dark' : 'light'
     document.documentElement.setAttribute('data-theme', value)
-    localStorage.setItem('msomi-theme', value)
+    localStorage.setItem('ammy-theme', value)
   }
 
   return (
@@ -33,7 +33,7 @@ import { useEffect, useState } from 'react'
         <span className="theme-toggle-thumb" />
       </span>
       <span className="theme-toggle-icon" aria-hidden="true">
-        {dark ? '🌙' : '☀️'}
+        {dark ? <Moon size={20} /> : <Sun size={20} />}
       </span>
     </button>
   )

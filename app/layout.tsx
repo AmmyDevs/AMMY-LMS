@@ -3,7 +3,7 @@ import { Layout } from './ui/components/system/Layout'
 import './ui/global.css'
 
 export const metadata: Metadata = {
-  title: 'Msomi Hub — Learn Smarter',
+  title: 'AMMY LMS — Learn Smarter',
   description: 'Interactive notes, AI tutoring, and assessments for modern learners.',
   icons: {
     icon: '/image/Logo.png',
