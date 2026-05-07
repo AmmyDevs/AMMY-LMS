@@ -1,15 +1,33 @@
 'use client'
 
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import { Home, BookOpen, Bot, FileText } from 'lucide-react'
+
+const navItems = [
+  { href: '/lms', label: 'Dashboard', icon: Home },
+  { href: '/lms/modules', label: 'Modules', icon: BookOpen },
+  { href: '/lms/assistant', label: 'Assistant', icon: Bot },
+  { href: '/lms/assessment', label: 'Assessment', icon: FileText },
+]
 
 export default function SideNav() {
+  const pathname = usePathname()
+
   return (
     <nav className="sidenav">
       <ul className="sidenav-list">
-        <li><Link href="/dashboard" className="sidenav-link">Dashboard</Link></li>
-        <li><Link href="/modules" className="sidenav-link">Modules</Link></li>
-        <li><Link href="/assistant" className="sidenav-link">Assistant</Link></li>
-        <li><Link href="/assessment" className="sidenav-link">Assessment</Link></li>
+        {navItems.map(({ href, label, icon: Icon }) => {
+          const isActive = pathname === href
+          return (
+            <li key={href}>
+              <Link href={href} className={`sidenav-link ${isActive ? 'active' : ''}`}>
+                <Icon />
+                <span>{label}</span>
+              </Link>
+            </li>
+          )
+        })}
       </ul>
     </nav>
   )

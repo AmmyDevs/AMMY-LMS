@@ -1,5 +1,5 @@
 import ModuleCard from '@/app/ui/components/molecule/ModuleCard'
-import modulesData from '../../docs/module.json'
+import modulesData from '../../../docs/module.json'
 
 export default function ModulesPage() {
   const { modules } = modulesData

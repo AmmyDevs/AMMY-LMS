@@ -11,6 +11,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
 
   const isLandingPage = pathname === '/'
+  const isLMSPage = pathname.startsWith('/lms')
 
   useEffect(() => {
     if (theme === 'dark') {
@@ -22,7 +23,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="min-h-screen bg-page">
-      {isLandingPage ? (
+      {isLandingPage || isLMSPage ? (
         <main className="min-h-screen">
           {children}
         </main>

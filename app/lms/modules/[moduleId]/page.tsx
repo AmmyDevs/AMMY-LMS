@@ -4,7 +4,7 @@ import { useMemo } from 'react'
 import { useParams } from 'next/navigation'
 import Link from 'next/link'
 import { ChevronLeft, Calendar, User, BookOpen } from 'lucide-react'
-import modulesData from '../../../docs/module.json'
+import modulesData from '../../../../docs/module.json'
 
 export default function ModulePage() {
   const params = useParams()
@@ -23,7 +23,7 @@ export default function ModulePage() {
           <h2 className="text-xl font-semibold text-text mb-2">Module Not Found</h2>
           <p className="text-muted mb-4">The requested module could not be found.</p>
           <Link
-            href="/modules"
+            href="/lms/modules"
             className="inline-flex items-center gap-2 text-brand hover:underline"
           >
             <ChevronLeft className="w-4 h-4" />

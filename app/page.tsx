@@ -29,7 +29,7 @@ export default function HomePage() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleLogin = (_userName: string) => {
     // Navigate to dashboard after setting name
-    router.push('/dashboard')
+    router.push('/lms')
   }
 
 

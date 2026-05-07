@@ -22,7 +22,7 @@ export default function ModuleCard({ module }: ModuleCardProps) {
   const moduleSlug = module.code.replace(/\s+/g, '')
 
   return (
-    <Link href={`/modules/${moduleSlug}`} className="module-card">
+    <Link href={`/lms/modules/${moduleSlug}`} className="module-card">
       <div className="module-card-content">
         <h3 className="module-card-title">{module.name}</h3>
         <p className="module-card-code">{module.code}</p>
