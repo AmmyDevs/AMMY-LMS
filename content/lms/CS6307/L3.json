@@ -1,0 +1,437 @@
+{
+  "moduleId": "L3",
+  "title": "Image Restoration & Segmentation",
+  "course": "Image, Video and Speech Processing",
+  "lecturer": "Mr. Ayubu Mbaga",
+  "date": "22 May 2025",
+  "estimatedMinutes": 40,
+  "lessons": [
+    {
+      "id": "L3-1",
+      "title": "What is Image Restoration?",
+      "blocks": [
+        {
+          "id": "L3-1-b1",
+          "type": "paragraph",
+          "text": "This lecture covers two closely related but conceptually distinct topics: image restoration and image segmentation. Restoration asks: the image I have is damaged — how do I recover what it should look like? Segmentation asks: how do I partition this image into meaningful regions? Both represent the shift from low-level processing (manipulating pixels) to mid-level processing (making sense of image structure)."
+        },
+        {
+          "id": "L3-1-b2",
+          "type": "paragraph",
+          "text": "Image restoration is the process of recovering an image that has been degraded — blurred, corrupted by noise, or distorted by the imaging system. Unlike enhancement, which is judged subjectively, restoration is an objective process guided by a mathematical model. The goal is to estimate the original image f(x, y) given the observed degraded image g(x, y) and knowledge of the degradation process."
+        },
+        {
+          "id": "L3-1-b3",
+          "type": "callout",
+          "variant": "analogy",
+          "title": "Enhancement vs Restoration — a concrete example",
+          "text": "When you sharpen a blurry photo to make it look better for a client, that is enhancement. When a forensic laboratory uses known camera blur parameters to mathematically reverse the blur and recover what was actually in a security camera image, that is restoration."
+        },
+        {
+          "id": "L3-1-b4",
+          "type": "definition_table",
+          "title": "Key Terms",
+          "rows": [
+            { "term": "Restoration", "description": "Objective recovery of a degraded image using a mathematical degradation model" },
+            { "term": "Enhancement", "description": "Subjective improvement of image appearance without a degradation model" },
+            { "term": "Degradation", "description": "Any process that reduces the quality or accuracy of an image" },
+            { "term": "A priori knowledge", "description": "Information about the degradation known before processing begins" },
+            { "term": "Degradation function H", "description": "The mathematical operator that models how the original image was corrupted" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "L3-2",
+      "title": "Sources of Degradation & The Degradation Model",
+      "blocks": [
+        {
+          "id": "L3-2-b1",
+          "type": "table",
+          "caption": "Sources of image degradation",
+          "headers": ["Category", "Examples"],
+          "rows": [
+            ["Acquisition", "Sensor noise, lens aberrations, diffraction limits, detector saturation"],
+            ["Motion", "Camera shake during exposure, moving subjects, vibration"],
+            ["Atmospheric", "Turbulence, haze, fog, rain — common in satellite and remote sensing images"],
+            ["Electronic", "Transmission channel errors, quantization noise, compression artefacts"],
+            ["Optical", "Defocus (camera misfocus), lens distortion"]
+          ]
+        },
+        {
+          "id": "L3-2-b2",
+          "type": "heading",
+          "level": 3,
+          "text": "The degradation model"
+        },
+        {
+          "id": "L3-2-b3",
+          "type": "paragraph",
+          "text": "The standard linear model for image degradation in the spatial domain is: g(x, y) = f(x, y) * h(x, y) + η(x, y). In the frequency domain this becomes: G(u, v) = F(u, v) · H(u, v) + N(u, v). Here h(x, y) / H(u, v) is the point spread function (PSF), η(x, y) / N(u, v) is additive noise, and * denotes convolution."
+        },
+        {
+          "id": "L3-2-b4",
+          "type": "callout",
+          "variant": "key",
+          "title": "Why the frequency domain?",
+          "text": "The Fourier transform converts convolution into multiplication. This is why many restoration algorithms work in the frequency domain — the mathematics is much simpler."
+        },
+        {
+          "id": "L3-2-b5",
+          "type": "callout",
+          "variant": "important",
+          "title": "The restoration problem",
+          "text": "Given g(x, y), h(x, y), and some model of η, estimate f(x, y). The quality of the estimate depends entirely on how well we know the degradation function H and the noise model."
+        },
+        {
+          "id": "L3-2-b6",
+          "type": "quiz",
+          "question": "In the degradation model G(u,v) = F(u,v) · H(u,v) + N(u,v), what does H(u,v) represent?",
+          "options": [
+            "The restored image in the frequency domain",
+            "The additive noise spectrum",
+            "The point spread function (degradation function) in the frequency domain",
+            "The histogram of the degraded image"
+          ],
+          "answer": 2,
+          "explanation": "H(u,v) is the Fourier transform of the point spread function h(x,y) — it models how the imaging system spread or distorted the original image."
+        }
+      ]
+    },
+    {
+      "id": "L3-3",
+      "title": "Noise Models",
+      "blocks": [
+        {
+          "id": "L3-3-b1",
+          "type": "paragraph",
+          "text": "Noise is characterised by its probability density function (PDF) — the statistical distribution that describes the likelihood of any particular noise value occurring. Different noise types require different restoration strategies."
+        },
+        {
+          "id": "L3-3-b2",
+          "type": "heading",
+          "level": 3,
+          "text": "Gaussian noise"
+        },
+        {
+          "id": "L3-3-b3",
+          "type": "paragraph",
+          "text": "The most commonly modelled noise type. Arises from thermal agitation of electrons in sensor circuitry. Its PDF is: p(z) = 1/(√(2π)σ) · e^(-(z-μ)²/2σ²). Gaussian noise is symmetric around the mean and tractable in both spatial and frequency domains."
+        },
+        {
+          "id": "L3-3-b4",
+          "type": "callout",
+          "variant": "tip",
+          "title": "Interpretation",
+          "text": "If μ = 0, the noise adds zero on average but randomly perturbs each pixel up or down. A larger σ means bigger random perturbations — a noisier image."
+        },
+        {
+          "id": "L3-3-b5",
+          "type": "interactive",
+          "widgetId": "gaussian-noise",
+          "label": "Interactive: Gaussian Noise"
+        },
+        {
+          "id": "L3-3-b6",
+          "type": "heading",
+          "level": 3,
+          "text": "Rayleigh noise"
+        },
+        {
+          "id": "L3-3-b7",
+          "type": "paragraph",
+          "text": "An asymmetric noise distribution that models noise in range images and radar systems. Its PDF is: p(z) = (2/b)(z - a) · e^(-(z-a)²/b) for z ≥ a, and 0 for z < a. The distribution starts at a and has a right tail — unlike Gaussian, it cannot produce values below the minimum a."
+        },
+        {
+          "id": "L3-3-b8",
+          "type": "heading",
+          "level": 3,
+          "text": "Impulse noise (salt-and-pepper)"
+        },
+        {
+          "id": "L3-3-b9",
+          "type": "paragraph",
+          "text": "Impulse noise replaces individual pixels with either the maximum intensity value (255 — salt, white) or the minimum (0 — pepper, black). Because individual pixels are set to extreme values, it produces scattered white and black dots on the image — random isolated speckles rather than uniform graininess."
+        },
+        {
+          "id": "L3-3-b10",
+          "type": "interactive",
+          "widgetId": "salt-pepper",
+          "label": "Interactive: Salt-and-Pepper Noise"
+        },
+        {
+          "id": "L3-3-b11",
+          "type": "definition_table",
+          "title": "Key Terms",
+          "rows": [
+            { "term": "PDF", "description": "Probability Density Function — describes the likelihood of each noise value occurring" },
+            { "term": "Gaussian noise", "description": "Symmetric bell-curve noise — models thermal/electronic sensor noise" },
+            { "term": "Rayleigh noise", "description": "Asymmetric noise — common in radar and range imaging systems" },
+            { "term": "Impulse noise", "description": "Random pixels set to extreme (min/max) values — produces salt and pepper dots" },
+            { "term": "Salt-and-pepper", "description": "Common name for bipolar impulse noise — white dots (salt) and black dots (pepper)" },
+            { "term": "Noise density", "description": "The fraction of pixels affected by impulse noise" }
+          ]
+        },
+        {
+          "id": "L3-3-b12",
+          "type": "quiz",
+          "question": "What makes impulse noise visually distinctive compared to Gaussian noise?",
+          "options": [
+            "Impulse noise creates a uniform graininess across the image",
+            "Impulse noise produces isolated extreme-value pixels (dots) rather than general graininess",
+            "Impulse noise only affects bright areas of the image",
+            "Impulse noise follows a symmetric bell-curve distribution"
+          ],
+          "answer": 1,
+          "explanation": "Impulse noise sets individual pixels to extreme values (0 or 255), creating isolated black or white dots. Gaussian noise perturbs every pixel slightly, producing uniform graininess."
+        }
+      ]
+    },
+    {
+      "id": "L3-4",
+      "title": "Restoration Filters",
+      "blocks": [
+        {
+          "id": "L3-4-b1",
+          "type": "paragraph",
+          "text": "When the degradation is purely additive noise — no blur — the model simplifies to g(x, y) = f(x, y) + η(x, y). The task is to estimate f from g by suppressing the noise η. Two main approaches: mean filters (linear) and the median filter (nonlinear)."
+        },
+        {
+          "id": "L3-4-b2",
+          "type": "callout",
+          "variant": "important",
+          "title": "Trade-off: smoothing vs edge preservation",
+          "text": "Mean filters reduce noise effectively but blur edges in the process. The median filter reduces impulse noise with much less edge blurring because it picks an actual pixel value from the neighbourhood rather than averaging across boundaries."
+        },
+        {
+          "id": "L3-4-b3",
+          "type": "table",
+          "caption": "Restoration filter comparison",
+          "headers": ["Filter", "Type", "Best noise type", "Edge preservation"],
+          "rows": [
+            ["Arithmetic mean", "Linear", "Gaussian noise", "Poor — blurs edges"],
+            ["Geometric mean", "Linear", "Gaussian noise", "Slightly better than arithmetic"],
+            ["Median", "Nonlinear", "Impulse (salt-and-pepper)", "Good — preserves edges"],
+            ["Max filter", "Nonlinear", "Pepper noise only", "N/A — removes only dark specks"],
+            ["Min filter", "Nonlinear", "Salt noise only", "N/A — removes only bright specks"]
+          ]
+        },
+        {
+          "id": "L3-4-b4",
+          "type": "flashcard",
+          "cards": [
+            { "front": "What degradation model does image restoration assume?", "back": "g(x,y) = f(x,y) * h(x,y) + η(x,y) — original image convolved with the PSF, plus additive noise." },
+            { "front": "Why does the frequency domain simplify restoration?", "back": "The Fourier transform converts convolution into multiplication — making the math much simpler to work with." },
+            { "front": "Which filter best handles salt-and-pepper noise?", "back": "The median filter — it picks the middle value so outlier spikes cannot shift the result significantly." },
+            { "front": "What is the PSF?", "back": "Point Spread Function — how a single point of light spreads through the imaging system. Describes the blur." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "L3-5",
+      "title": "Image Segmentation — Edge Detection",
+      "blocks": [
+        {
+          "id": "L3-5-b1",
+          "type": "paragraph",
+          "text": "Image segmentation partitions an image into meaningful regions. Edge detection finds locations of abrupt intensity change — these correspond to physical boundaries between objects. An edge is defined by a local gradient: the rate of change of intensity with respect to position."
+        },
+        {
+          "id": "L3-5-b2",
+          "type": "heading",
+          "level": 3,
+          "text": "Approach 1: Search-based (first derivative)"
+        },
+        {
+          "id": "L3-5-b3",
+          "type": "paragraph",
+          "text": "Compute the first derivative (gradient magnitude) of the intensity function. Find pixels where the gradient exceeds a threshold — these are edge candidates. Common operators: Sobel (weighted, noise-robust), Prewitt (simpler, equal weights), Roberts (fast, diagonal edges)."
+        },
+        {
+          "id": "L3-5-b4",
+          "type": "heading",
+          "level": 3,
+          "text": "Approach 2: Zero-crossing (second derivative)"
+        },
+        {
+          "id": "L3-5-b5",
+          "type": "paragraph",
+          "text": "Compute the second derivative (Laplacian) of the intensity function. Find pixels where the second derivative crosses zero — these correspond to intensity inflection points, which occur at the centre of edges. The Laplacian-of-Gaussian (LoG) filter first smooths with a Gaussian to suppress noise, then computes the Laplacian."
+        },
+        {
+          "id": "L3-5-b6",
+          "type": "heading",
+          "level": 3,
+          "text": "Edge thinning and thresholding"
+        },
+        {
+          "id": "L3-5-b7",
+          "type": "paragraph",
+          "text": "After edge detection, raw edge maps contain thick edges and spurious noise responses. Thresholding labels a pixel as an edge only if its gradient magnitude exceeds a threshold. Canny's method uses two thresholds (hysteresis): a high threshold to start edges and a lower threshold to continue them. Non-maximum suppression removes pixels that are not local maxima in their gradient direction, thinning edges to exactly one pixel wide."
+        },
+        {
+          "id": "L3-5-b8",
+          "type": "interactive",
+          "widgetId": "edge-detection",
+          "label": "Interactive: Edge Detection"
+        },
+        {
+          "id": "L3-5-b9",
+          "type": "definition_table",
+          "title": "Key Terms",
+          "rows": [
+            { "term": "Edge", "description": "A location of abrupt intensity change — corresponds to a physical boundary" },
+            { "term": "Gradient magnitude", "description": "The rate of change of intensity — indicates edge strength" },
+            { "term": "Gradient direction", "description": "The direction of steepest intensity increase — perpendicular to the edge" },
+            { "term": "Laplacian", "description": "Second derivative of intensity — zero-crossings locate edge centres" },
+            { "term": "LoG", "description": "Laplacian of Gaussian — smooth then second-derivative for noise-robust edge detection" },
+            { "term": "Non-maximum suppression", "description": "Keeping only pixels that are local maxima in their gradient direction — thins edges to 1 pixel" },
+            { "term": "Hysteresis thresholding", "description": "Using two thresholds to start and continue edges — Canny's approach" }
+          ]
+        },
+        {
+          "id": "L3-5-b10",
+          "type": "quiz",
+          "question": "What is the purpose of non-maximum suppression in edge detection?",
+          "options": [
+            "To increase the gradient magnitude at edge pixels",
+            "To thin edges to exactly one pixel wide by removing non-local-maxima",
+            "To suppress Gaussian noise before computing the gradient",
+            "To select the threshold automatically"
+          ],
+          "answer": 1,
+          "explanation": "Non-maximum suppression examines each edge pixel's gradient direction and removes it if it is not the local maximum in that direction. This thins wide edge bands to single-pixel-wide lines."
+        }
+      ]
+    },
+    {
+      "id": "L3-6",
+      "title": "Thresholding & Region Growing",
+      "blocks": [
+        {
+          "id": "L3-6-b1",
+          "type": "paragraph",
+          "text": "Thresholding is the simplest segmentation method. It converts a grayscale image into a binary image: g(x, y) = 255 if f(x, y) > T (foreground), 0 if f(x, y) ≤ T (background). Three variants: global (one T for the whole image), Otsu's method (automatic T selection), and adaptive (spatially varying T)."
+        },
+        {
+          "id": "L3-6-b2",
+          "type": "table",
+          "caption": "Thresholding methods compared",
+          "headers": ["Method", "How T is chosen", "Best used when"],
+          "rows": [
+            ["Global", "Manually or from image statistics (mean/median)", "Uniform illumination, clear histogram valley"],
+            ["Otsu's method", "Automatically maximises between-class variance", "Bimodal histogram (two clear peaks)"],
+            ["Adaptive (local)", "Computed from local neighbourhood statistics", "Uneven illumination, varying background"]
+          ]
+        },
+        {
+          "id": "L3-6-b3",
+          "type": "interactive",
+          "widgetId": "threshold",
+          "label": "Interactive: Thresholding"
+        },
+        {
+          "id": "L3-6-b4",
+          "type": "heading",
+          "level": 3,
+          "text": "Region growing"
+        },
+        {
+          "id": "L3-6-b5",
+          "type": "paragraph",
+          "text": "Region growing builds regions by starting from seed points and expanding outward by adding neighbouring pixels that are similar to the current region according to a similarity criterion: |I(x, y) - I(seed)| < T."
+        },
+        {
+          "id": "L3-6-b6",
+          "type": "image_step",
+          "steps": [
+            { "number": 1, "title": "Select seeds", "text": "Choose pixels that are definitely inside the target object" },
+            { "number": 2, "title": "Define criterion", "text": "Set the similarity rule — e.g., intensity difference less than threshold T" },
+            { "number": 3, "title": "Expand", "text": "For each pixel in the region, examine its 4 or 8 neighbours. Add any that meet the criterion." },
+            { "number": 4, "title": "Repeat", "text": "Continue until no further pixels qualify for addition" },
+            { "number": 5, "title": "Output", "text": "A binary mask or labelled map showing the segmented region" }
+          ]
+        },
+        {
+          "id": "L3-6-b7",
+          "type": "table",
+          "caption": "Region growing: advantages and limitations",
+          "headers": ["Advantage", "Limitation"],
+          "rows": [
+            ["Correctly segments regions with well-defined, uniform properties", "Computationally expensive for large images"],
+            ["Handles irregular, non-convex boundaries", "Very sensitive to seed point placement"],
+            ["Works well with noisy images when threshold is appropriate", "Fails with strong shading or intensity gradients"],
+            ["Supports multi-criteria similarity (colour + texture)", "Can over-segment or under-segment without proper stopping rules"]
+          ]
+        },
+        {
+          "id": "L3-6-b8",
+          "type": "callout",
+          "variant": "tip",
+          "title": "Practical tip",
+          "text": "Always pre-filter the image with a Gaussian or median filter before running region growing. Isolated noise pixels can cause unwanted small regions to grow into large ones if their values happen to satisfy the similarity criterion."
+        },
+        {
+          "id": "L3-6-b9",
+          "type": "interactive",
+          "widgetId": "region-growing",
+          "label": "Interactive: Region Growing"
+        },
+        {
+          "id": "L3-6-b10",
+          "type": "definition_table",
+          "title": "Key Terms",
+          "rows": [
+            { "term": "Thresholding", "description": "Classifying pixels as object or background based on intensity vs a threshold value" },
+            { "term": "Binary image", "description": "An image with only two intensity values — typically 0 (black) and 255 (white)" },
+            { "term": "Otsu's method", "description": "Automatic threshold selection by maximising between-class variance" },
+            { "term": "Adaptive threshold", "description": "A spatially varying threshold — computed from local neighbourhood statistics" },
+            { "term": "Seed point", "description": "An initial pixel that defines the starting location for region growing" },
+            { "term": "Similarity criterion", "description": "The rule that determines whether a neighbouring pixel is added to a region" },
+            { "term": "4-connectivity", "description": "Neighbourhood including only up/down/left/right pixels" },
+            { "term": "8-connectivity", "description": "Neighbourhood including all 8 surrounding pixels (diagonals included)" },
+            { "term": "Over-segmentation", "description": "Too many small regions produced — caused by a tolerance threshold that is too small" },
+            { "term": "Under-segmentation", "description": "Regions merge incorrectly — caused by a tolerance threshold that is too large" }
+          ]
+        },
+        {
+          "id": "L3-6-b11",
+          "type": "quiz",
+          "question": "Otsu's method selects a threshold by:",
+          "options": [
+            "Using the image mean as T",
+            "Maximising the within-class variance of the two pixel populations",
+            "Maximising the between-class variance of the object and background populations",
+            "Computing a local threshold for each pixel based on its neighbourhood"
+          ],
+          "answer": 2,
+          "explanation": "Otsu's method examines every possible threshold and picks the one that maximises the between-class variance — the statistical separation between the two pixel groups (object and background)."
+        },
+        {
+          "id": "L3-6-b12",
+          "type": "table",
+          "caption": "Restoration vs Segmentation at a glance",
+          "headers": ["", "Image Restoration", "Image Segmentation"],
+          "rows": [
+            ["Goal", "Recover original image from degradation", "Partition image into meaningful regions"],
+            ["Input", "Degraded image + degradation model", "Any image"],
+            ["Output", "Restored image (closer to original)", "Labelled regions / binary masks"],
+            ["Objectivity", "Objective — mathematical model guides result", "Semi-objective — depends on criteria and seeds"],
+            ["Knowledge required", "Degradation function and noise model", "Domain knowledge for seeds and thresholds"]
+          ]
+        },
+        {
+          "id": "L3-6-b13",
+          "type": "flashcard",
+          "cards": [
+            { "front": "Difference between global and adaptive thresholding?", "back": "Global applies a single T to the entire image. Adaptive computes a different T for each pixel based on local neighbourhood statistics." },
+            { "front": "What is 8-connectivity in region growing?", "back": "Including all 8 surrounding pixels — up, down, left, right, and the 4 diagonals — as potential neighbours." },
+            { "front": "What causes over-segmentation in region growing?", "back": "A similarity threshold T that is too small — only very similar pixels are added, splitting one object into many regions." },
+            { "front": "Name two post-processing steps in edge detection", "back": "Thresholding (to remove weak edges) and non-maximum suppression (to thin edges to 1 pixel wide)." }
+          ]
+        }
+      ]
+    }
+  ]
+}

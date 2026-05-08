@@ -1,0 +1,406 @@
+{
+  "moduleId": "L2",
+  "title": "Intensity Transformations & Spatial Filtering",
+  "course": "Image, Video and Speech Processing",
+  "lecturer": "Mr. Ayubu Mbaga",
+  "date": "10 April 2025",
+  "estimatedMinutes": 35,
+  "lessons": [
+    {
+      "id": "L2-1",
+      "title": "The Spatial Domain Framework",
+      "blocks": [
+        {
+          "id": "L2-1-b1",
+          "type": "paragraph",
+          "text": "Processing an image in the spatial domain means working directly on the pixel values themselves — no transformation to another mathematical space is required. This makes spatial domain methods intuitive and computationally efficient. This lecture covers two closely related families: intensity transformations (operations on individual pixels) and spatial filtering (operations on each pixel's neighbourhood)."
+        },
+        {
+          "id": "L2-1-b2",
+          "type": "heading",
+          "level": 3,
+          "text": "The operator model"
+        },
+        {
+          "id": "L2-1-b3",
+          "type": "paragraph",
+          "text": "All spatial domain processing can be expressed as g(x, y) = T[ f(x, y) ], where f(x, y) is the input image, g(x, y) is the output image, and T is an operator defined over a neighbourhood around point (x, y)."
+        },
+        {
+          "id": "L2-1-b4",
+          "type": "callout",
+          "variant": "key",
+          "title": "Two special cases",
+          "text": "When the neighbourhood is just one pixel, T reduces to s = T(r) — this is an intensity transformation. When the neighbourhood is larger than one pixel, T looks at surrounding pixels — this is spatial filtering."
+        },
+        {
+          "id": "L2-1-b5",
+          "type": "definition_table",
+          "title": "Key Terms",
+          "rows": [
+            { "term": "Spatial domain", "description": "The image plane — working directly on pixel coordinates and values" },
+            { "term": "Operator T", "description": "A function that maps an input intensity (or neighbourhood) to an output value" },
+            { "term": "Neighbourhood", "description": "The set of pixels surrounding a central pixel, used in filtering" },
+            { "term": "Intensity transformation", "description": "A mapping s = T(r) — output depends only on input pixel value, not neighbours" },
+            { "term": "Spatial filtering", "description": "Output at each pixel depends on a neighbourhood of surrounding pixels" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "L2-2",
+      "title": "Intensity Transformation Functions",
+      "blocks": [
+        {
+          "id": "L2-2-b1",
+          "type": "heading",
+          "level": 3,
+          "text": "Gamma (power-law) transformation"
+        },
+        {
+          "id": "L2-2-b2",
+          "type": "paragraph",
+          "text": "The gamma transformation maps input intensity r to output intensity s using a power function: s = c · r^γ, where c is a positive constant (usually 1) and γ (gamma) controls the shape of the curve."
+        },
+        {
+          "id": "L2-2-b3",
+          "type": "table",
+          "caption": "Effect of gamma value",
+          "headers": ["Gamma value", "Effect"],
+          "rows": [
+            ["γ < 1", "Expands dark tones — brightens the image"],
+            ["γ = 1", "Linear mapping — image is unchanged"],
+            ["γ > 1", "Compresses dark tones — darkens the image"]
+          ]
+        },
+        {
+          "id": "L2-2-b4",
+          "type": "callout",
+          "variant": "tip",
+          "title": "Why gamma matters",
+          "text": "Camera sensors and display monitors do not respond to light linearly. Gamma correction compensates for this non-linearity. When you adjust brightness in a photo editor, you are almost always applying a gamma transformation."
+        },
+        {
+          "id": "L2-2-b5",
+          "type": "code",
+          "language": "matlab",
+          "label": "MATLAB: gamma correction",
+          "code": "g = imadjust(f, [low_in high_in], [low_out high_out], gamma)"
+        },
+        {
+          "id": "L2-2-b6",
+          "type": "interactive",
+          "widgetId": "gamma-correction",
+          "label": "Interactive: Gamma Correction"
+        },
+        {
+          "id": "L2-2-b7",
+          "type": "heading",
+          "level": 3,
+          "text": "Logarithmic transformation"
+        },
+        {
+          "id": "L2-2-b8",
+          "type": "paragraph",
+          "text": "The logarithm compresses a very wide range of input values into a narrower output range using the formula g = c · log(1 + f). It is especially useful when the image has a few very bright pixels that would otherwise dominate the display."
+        },
+        {
+          "id": "L2-2-b9",
+          "type": "callout",
+          "variant": "analogy",
+          "title": "Classic use case",
+          "text": "The magnitude spectrum of a Fourier transform has values ranging over many orders of magnitude. Without log compression, the high-frequency components are invisible. Applying the log transform makes the full spectrum visible."
+        },
+        {
+          "id": "L2-2-b10",
+          "type": "interactive",
+          "widgetId": "log-transform",
+          "label": "Interactive: Log Transform"
+        },
+        {
+          "id": "L2-2-b11",
+          "type": "heading",
+          "level": 3,
+          "text": "Contrast stretching"
+        },
+        {
+          "id": "L2-2-b12",
+          "type": "paragraph",
+          "text": "Contrast stretching takes a narrow band of input intensities and maps it to a wider output range. If an image uses only levels 80–120 out of a possible 0–255, contrast stretching redistributes those values across the full 0–255 range, making the image appear much higher in contrast."
+        },
+        {
+          "id": "L2-2-b13",
+          "type": "definition_table",
+          "title": "Key Terms",
+          "rows": [
+            { "term": "Gamma (γ)", "description": "The exponent in the power-law transformation — controls tonal curve shape" },
+            { "term": "Log transformation", "description": "g = c·log(1+f) — compresses high-intensity dynamic range" },
+            { "term": "Contrast stretching", "description": "Expanding a narrow intensity range to span the full available range" },
+            { "term": "Dynamic range", "description": "The ratio between the maximum and minimum intensity values in an image" },
+            { "term": "imadjust", "description": "MATLAB function for intensity transformations including gamma and range mapping" }
+          ]
+        },
+        {
+          "id": "L2-2-b14",
+          "type": "quiz",
+          "question": "Which gamma value brightens an image by expanding dark tones?",
+          "options": ["γ > 1", "γ = 1", "γ < 1", "γ = 0"],
+          "answer": 2,
+          "explanation": "When γ < 1, the power-law curve bends upward — dark input values map to brighter outputs, expanding the shadow region of the tonal range."
+        }
+      ]
+    },
+    {
+      "id": "L2-3",
+      "title": "Image Histograms & Equalization",
+      "blocks": [
+        {
+          "id": "L2-3-b1",
+          "type": "paragraph",
+          "text": "An image histogram is a bar chart that counts how many pixels in the image have each possible intensity value. For an 8-bit grayscale image, there are 256 possible values (0–255), so the histogram has 256 bars. Formally: h(r_k) = n_k, where r_k is intensity level k and n_k is the number of pixels with that intensity."
+        },
+        {
+          "id": "L2-3-b2",
+          "type": "table",
+          "caption": "Reading a histogram",
+          "headers": ["Histogram shape", "What it means"],
+          "rows": [
+            ["Concentrated toward left", "Dark image — underexposed"],
+            ["Concentrated toward right", "Bright image — overexposed"],
+            ["Narrow peak in the middle", "Low contrast — limited dynamic range"],
+            ["Wide, spread distribution", "High contrast — full dynamic range used"],
+            ["Multiple distinct peaks", "Multiple distinct regions (e.g., background + object)"]
+          ]
+        },
+        {
+          "id": "L2-3-b3",
+          "type": "callout",
+          "variant": "tip",
+          "title": "Diagnostics first",
+          "text": "The histogram is a powerful diagnostic tool. Before applying any enhancement, inspect the histogram to understand what problem you are solving."
+        },
+        {
+          "id": "L2-3-b4",
+          "type": "heading",
+          "level": 3,
+          "text": "Histogram equalization"
+        },
+        {
+          "id": "L2-3-b5",
+          "type": "paragraph",
+          "text": "Histogram equalization redistributes the pixel intensities so the histogram becomes approximately flat (uniform). The result is a full-contrast image that uses the entire available intensity range. The transformation uses the cumulative distribution function (CDF): s_k = (L - 1) · Σ p(r_j) for j = 0 to k, where p(r_j) = n_j / N is the probability of intensity r_j."
+        },
+        {
+          "id": "L2-3-b6",
+          "type": "callout",
+          "variant": "important",
+          "title": "When to use histogram equalization",
+          "text": "Works best on images with a narrow intensity distribution (low contrast) where the histogram is bunched up toward one end. Does not work well on images that are already high-contrast or that have multimodal histograms (multiple distinct peaks)."
+        },
+        {
+          "id": "L2-3-b7",
+          "type": "interactive",
+          "widgetId": "histogram-equalize",
+          "label": "Interactive: Histogram Equalization"
+        },
+        {
+          "id": "L2-3-b8",
+          "type": "heading",
+          "level": 3,
+          "text": "CLAHE — Contrast-Limited Adaptive Histogram Equalization"
+        },
+        {
+          "id": "L2-3-b9",
+          "type": "paragraph",
+          "text": "Global histogram equalization applies the same transformation to every pixel. CLAHE solves the problem of uneven lighting by: (1) dividing the image into small rectangular tiles, (2) performing histogram equalization independently on each tile, (3) recombining tiles using bilinear interpolation to avoid sharp boundaries, and (4) applying a clip limit to prevent over-amplification of noise."
+        },
+        {
+          "id": "L2-3-b10",
+          "type": "interactive",
+          "widgetId": "clahe",
+          "label": "Interactive: CLAHE"
+        },
+        {
+          "id": "L2-3-b11",
+          "type": "definition_table",
+          "title": "Key Terms",
+          "rows": [
+            { "term": "Histogram", "description": "A count of how many pixels have each intensity value" },
+            { "term": "CDF", "description": "Cumulative Distribution Function — the running sum of histogram probabilities" },
+            { "term": "Histogram equalization", "description": "Remapping intensities so the CDF becomes linear (histogram becomes flat)" },
+            { "term": "CLAHE", "description": "Adaptive histogram equalization on local tiles with a noise-limiting clip threshold" },
+            { "term": "Clip limit", "description": "Maximum height of a histogram bar before redistribution — controls CLAHE aggressiveness" },
+            { "term": "Bilinear interpolation", "description": "Smooth blending between adjacent tile equalization results" }
+          ]
+        },
+        {
+          "id": "L2-3-b12",
+          "type": "quiz",
+          "question": "Why is CLAHE preferred over global histogram equalization for unevenly lit images?",
+          "options": [
+            "CLAHE uses a log transform instead of a CDF",
+            "CLAHE applies equalization to local tiles independently, handling different lighting across regions",
+            "CLAHE converts the image to RGB before processing",
+            "CLAHE uses the median instead of the mean for redistribution"
+          ],
+          "answer": 1,
+          "explanation": "Global equalization uses a single CDF for the whole image. CLAHE computes a separate equalization for each tile, so regions with different exposure levels are handled appropriately."
+        }
+      ]
+    },
+    {
+      "id": "L2-4",
+      "title": "Spatial Filtering",
+      "blocks": [
+        {
+          "id": "L2-4-b1",
+          "type": "paragraph",
+          "text": "Spatial filtering goes beyond single-pixel transformations. The output at each pixel is computed from the values of the pixel and its neighbours. This makes it possible to detect patterns, blur detail, sharpen edges, and remove noise — operations that are fundamentally relational between neighbouring pixels."
+        },
+        {
+          "id": "L2-4-b2",
+          "type": "heading",
+          "level": 3,
+          "text": "Linear spatial filtering"
+        },
+        {
+          "id": "L2-4-b3",
+          "type": "paragraph",
+          "text": "In linear spatial filtering, the output is a weighted sum of neighbourhood pixel values: g(x, y) = Σ Σ w(s, t) · f(x+s, y+t), where w(s, t) are the kernel coefficients. This is called correlation when the kernel slides as-is, and convolution when the kernel is rotated 180° first. For symmetric kernels (like a Gaussian), both produce identical results."
+        },
+        {
+          "id": "L2-4-b4",
+          "type": "table",
+          "caption": "Common linear filters",
+          "headers": ["Filter", "How it works", "Best for"],
+          "rows": [
+            ["Averaging (box)", "All kernel values equal 1/(kernel size)", "Smoothing, noise reduction — blurs edges"],
+            ["Gaussian", "Kernel values follow a 2D bell curve", "Softer blur — nearby pixels weighted more"],
+            ["Sharpening (Laplacian)", "Emphasises centre pixel relative to neighbours", "Enhancing edges and fine detail"]
+          ]
+        },
+        {
+          "id": "L2-4-b5",
+          "type": "table",
+          "caption": "imfilter output size modes",
+          "headers": ["Mode", "What happens at image borders"],
+          "rows": [
+            ["'full'", "Kernel extends beyond boundary; output is larger than input"],
+            ["'same'", "Output is same size as input; border pixels use zero-padding"]
+          ]
+        },
+        {
+          "id": "L2-4-b6",
+          "type": "interactive",
+          "widgetId": "gaussian-blur",
+          "label": "Interactive: Gaussian Blur"
+        },
+        {
+          "id": "L2-4-b7",
+          "type": "interactive",
+          "widgetId": "sharpen",
+          "label": "Interactive: Sharpening Filter"
+        },
+        {
+          "id": "L2-4-b8",
+          "type": "heading",
+          "level": 3,
+          "text": "Nonlinear spatial filtering — the median filter"
+        },
+        {
+          "id": "L2-4-b9",
+          "type": "paragraph",
+          "text": "Nonlinear spatial filtering uses the same sliding-window mechanics but replaces the weighted sum with a nonlinear operation — typically sorting or ranking the neighbourhood values. The median filter replaces each pixel with the median (middle value) of its neighbourhood."
+        },
+        {
+          "id": "L2-4-b10",
+          "type": "image_step",
+          "steps": [
+            { "number": 1, "title": "Collect", "text": "Gather all pixel values in the neighbourhood into a list" },
+            { "number": 2, "title": "Sort", "text": "Sort the list from lowest to highest value" },
+            { "number": 3, "title": "Pick", "text": "Take the middle value (the median)" },
+            { "number": 4, "title": "Write", "text": "Write that value as the output pixel and move the window" }
+          ]
+        },
+        {
+          "id": "L2-4-b11",
+          "type": "callout",
+          "variant": "important",
+          "title": "Why the median beats the mean for impulse noise",
+          "text": "A single outlier pixel (e.g., a salt or pepper spike) cannot move the median much, but it can dramatically shift the mean. The median filter is the standard tool for removing salt-and-pepper noise."
+        },
+        {
+          "id": "L2-4-b12",
+          "type": "interactive",
+          "widgetId": "median-filter",
+          "label": "Interactive: Median Filter"
+        },
+        {
+          "id": "L2-4-b13",
+          "type": "definition_table",
+          "title": "Key Terms",
+          "rows": [
+            { "term": "Kernel", "description": "A small matrix of coefficients that defines how neighbouring pixels are combined" },
+            { "term": "Correlation", "description": "Sliding a kernel over an image and computing weighted sums at each position" },
+            { "term": "Convolution", "description": "Same as correlation but the kernel is rotated 180° before sliding" },
+            { "term": "Linear filter", "description": "Output is a weighted sum of neighbourhood pixel values" },
+            { "term": "Nonlinear filter", "description": "Output is a nonlinear function of neighbourhood values (e.g., median, min, max)" },
+            { "term": "Averaging filter", "description": "Replaces each pixel with the mean of its neighbourhood — smooths and blurs" },
+            { "term": "Gaussian filter", "description": "Distance-weighted averaging using a bell-curve kernel — softer blur than box filter" },
+            { "term": "Median filter", "description": "Replaces each pixel with the median of its neighbourhood — removes impulse noise" }
+          ]
+        },
+        {
+          "id": "L2-4-b14",
+          "type": "quiz",
+          "question": "You have an image corrupted by salt-and-pepper noise. Which filter should you use?",
+          "options": [
+            "Averaging (box) filter",
+            "Gaussian filter",
+            "Median filter",
+            "Laplacian sharpening filter"
+          ],
+          "answer": 2,
+          "explanation": "The median filter is robust to outliers. A single extreme pixel (salt or pepper) cannot shift the median significantly, while averaging or Gaussian filters would spread the spike into surrounding pixels."
+        }
+      ]
+    },
+    {
+      "id": "L2-5",
+      "title": "Choosing the Right Tool",
+      "blocks": [
+        {
+          "id": "L2-5-b1",
+          "type": "table",
+          "caption": "Method selection guide",
+          "headers": ["Goal", "Recommended method"],
+          "rows": [
+            ["Brighten a dark image", "Gamma correction (γ < 1) or histogram equalization"],
+            ["Compress bright highlights", "Logarithmic transformation"],
+            ["Improve local contrast in uneven lighting", "CLAHE"],
+            ["Smooth out random (Gaussian) noise", "Gaussian filter or averaging filter"],
+            ["Remove salt-and-pepper (impulse) noise", "Median filter"],
+            ["Sharpen blurry edges", "Laplacian-based sharpening filter"]
+          ]
+        },
+        {
+          "id": "L2-5-b2",
+          "type": "callout",
+          "variant": "tip",
+          "title": "Rule of thumb",
+          "text": "If you need to preserve edges while reducing noise, prefer the median filter over any linear filter. Linear filters blur edges because they average across boundaries."
+        },
+        {
+          "id": "L2-5-b3",
+          "type": "flashcard",
+          "cards": [
+            { "front": "What does γ < 1 do to an image?", "back": "Expands dark tones — the image becomes brighter overall." },
+            { "front": "When should you use CLAHE instead of global histogram equalization?", "back": "When illumination varies across the image — CLAHE processes each local tile independently." },
+            { "front": "What is the key difference between correlation and convolution?", "back": "Convolution rotates the kernel 180° before sliding. For symmetric kernels the results are identical." },
+            { "front": "Why does the median filter preserve edges better than averaging?", "back": "The median picks an actual pixel value from the neighbourhood — it cannot create new blended values that smear across an edge." }
+          ]
+        }
+      ]
+    }
+  ]
+}

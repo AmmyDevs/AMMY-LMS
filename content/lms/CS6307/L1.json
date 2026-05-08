@@ -1,0 +1,275 @@
+{
+  "moduleId": "L1",
+  "title": "Introduction & Digital Image Fundamentals",
+  "course": "Image, Video and Speech Processing",
+  "lecturer": "Mr. Ayubu Mbaga",
+  "date": null,
+  "estimatedMinutes": 25,
+  "lessons": [
+    {
+      "id": "L1-1",
+      "title": "What is an Image?",
+      "blocks": [
+        {
+          "id": "L1-1-b1",
+          "type": "paragraph",
+          "text": "An image is a two-dimensional function f(x, y) where x and y are the spatial coordinates and the value f(x, y) at any point is the intensity (brightness) at that location. In simpler terms: an image is a grid of measurements. Each measurement tells you how bright — or what colour — a particular point in the scene is."
+        },
+        {
+          "id": "L1-1-b2",
+          "type": "heading",
+          "level": 3,
+          "text": "Key properties"
+        },
+        {
+          "id": "L1-1-b3",
+          "type": "paragraph",
+          "text": "For monochrome (black-and-white) images, the value f(x, y) represents brightness, often called the gray level. A colour image is not a single function but a combination of three separate 2D functions — one each for red, green, and blue in the RGB model. Every technique developed for monochrome images can generally be applied to colour images by processing each colour channel individually."
+        },
+        {
+          "id": "L1-1-b4",
+          "type": "callout",
+          "variant": "important",
+          "title": "Continuous vs Digital",
+          "text": "A photograph of the real world is continuous — coordinates and intensity can take any value. To process it on a computer, both must be made discrete through sampling and quantization."
+        },
+        {
+          "id": "L1-1-b5",
+          "type": "definition_table",
+          "title": "Key Terms",
+          "rows": [
+            { "term": "Image", "description": "A 2D function f(x, y) mapping spatial coordinates to intensity values" },
+            { "term": "Intensity", "description": "The amplitude of f at a given coordinate — represents brightness" },
+            { "term": "Gray level", "description": "Another name for intensity in a monochrome (single-channel) image" },
+            { "term": "Pixel", "description": "A single element of a digital image — short for picture element" },
+            { "term": "Spatial coordinates", "description": "The (x, y) position of a pixel within the image grid" },
+            { "term": "RGB", "description": "Red-Green-Blue colour model — a colour image as three intensity layers" }
+          ]
+        },
+        {
+          "id": "L1-1-b6",
+          "type": "quiz",
+          "question": "A colour image in the RGB model is best described as:",
+          "options": [
+            "A single 2D function with values ranging from 0 to 255",
+            "Three separate 2D intensity functions, one per colour channel",
+            "A 3D function where the third dimension is time",
+            "A matrix of binary (0 or 1) values"
+          ],
+          "answer": 1,
+          "explanation": "An RGB colour image is three separate 2D intensity functions — red, green, and blue channels — each processed independently."
+        }
+      ]
+    },
+    {
+      "id": "L1-2",
+      "title": "How a Digital Image is Formed",
+      "blocks": [
+        {
+          "id": "L1-2-b1",
+          "type": "paragraph",
+          "text": "A digital image does not exist naturally — it must be created by capturing and converting energy from the real world. The process has three stages."
+        },
+        {
+          "id": "L1-2-b2",
+          "type": "image_step",
+          "steps": [
+            {
+              "number": 1,
+              "title": "Energy and sensing",
+              "text": "A source of energy (commonly sunlight, but also X-rays, infrared, or radar) illuminates or passes through a scene. A sensor array — a grid of tiny light-sensitive elements — detects the reflected energy and converts it into continuous electrical voltage signals."
+            },
+            {
+              "number": 2,
+              "title": "Sampling (space discretisation)",
+              "text": "The continuous voltage signal from the sensor covers a continuous spatial area. Sampling divides that area into a finite grid of locations. Each location becomes one pixel. The density of this grid is the spatial resolution of the image."
+            },
+            {
+              "number": 3,
+              "title": "Quantization (intensity discretisation)",
+              "text": "At each sampled location, the continuous voltage must be rounded to one of a finite set of allowed values. The number of allowed values is determined by the bit depth: 1-bit gives 2 levels, 8-bit gives 256 levels, 24-bit gives 16.7 million colours."
+            }
+          ]
+        },
+        {
+          "id": "L1-2-b3",
+          "type": "callout",
+          "variant": "analogy",
+          "title": "Analogy",
+          "text": "Imagine covering a painting with a net. Each cell of the net captures one colour value. A finer net (more cells) gives a more accurate reproduction; a coarser net loses detail."
+        },
+        {
+          "id": "L1-2-b4",
+          "type": "table",
+          "caption": "Bit depth and intensity levels",
+          "headers": ["Bit depth", "Levels available", "Common use"],
+          "rows": [
+            ["1-bit", "2 levels", "Pure black or white"],
+            ["8-bit", "256 levels", "Standard grayscale images"],
+            ["24-bit", "16.7 million colours", "Standard RGB (8 bits × 3 channels)"]
+          ]
+        },
+        {
+          "id": "L1-2-b5",
+          "type": "definition_table",
+          "title": "Key Terms",
+          "rows": [
+            { "term": "Sampling", "description": "Dividing the continuous image area into a finite grid of pixel locations" },
+            { "term": "Quantization", "description": "Rounding continuous intensity values to discrete integer levels" },
+            { "term": "Spatial resolution", "description": "The number of pixels per unit area — determines how much fine detail is captured" },
+            { "term": "Bit depth", "description": "Number of bits used to store each pixel's intensity — determines how many grey/colour levels are possible" },
+            { "term": "Sensor array", "description": "A grid of energy-sensitive elements used to capture the scene" }
+          ]
+        },
+        {
+          "id": "L1-2-b6",
+          "type": "interactive",
+          "widgetId": "sampling-quantization",
+          "label": "Interactive: Sampling & Quantization"
+        },
+        {
+          "id": "L1-2-b7",
+          "type": "quiz",
+          "question": "An 8-bit grayscale image can store how many distinct intensity levels?",
+          "options": ["8", "64", "256", "65536"],
+          "answer": 2,
+          "explanation": "8-bit means 2^8 = 256 possible values, ranging from 0 (black) to 255 (white)."
+        }
+      ]
+    },
+    {
+      "id": "L1-3",
+      "title": "Digital Image Processing",
+      "blocks": [
+        {
+          "id": "L1-3-b1",
+          "type": "paragraph",
+          "text": "Digital image processing is the manipulation of digital images using a computer. Because an image is a matrix of numbers, any mathematical operation that can be applied to a matrix can, in principle, be applied to an image."
+        },
+        {
+          "id": "L1-3-b2",
+          "type": "callout",
+          "variant": "key",
+          "title": "Two output types",
+          "text": "Processing pipelines produce either (1) images as output — the processed result is another image, e.g. a denoised photograph — or (2) attributes as output — extracted information, e.g. the number of cells in a microscope slide."
+        },
+        {
+          "id": "L1-3-b3",
+          "type": "heading",
+          "level": 3,
+          "text": "Steps that produce images"
+        },
+        {
+          "id": "L1-3-b4",
+          "type": "table",
+          "headers": ["Step", "What it does", "Example"],
+          "rows": [
+            ["Image Acquisition", "Captures or receives the raw digital image", "Camera sensor, MRI scanner, satellite download"],
+            ["Image Enhancement", "Improves subjective appearance — makes detail more visible", "Brightening a dark photo, sharpening edges"],
+            ["Image Restoration", "Objectively reconstructs a degraded image using a model", "Removing motion blur from a photo"],
+            ["Colour Processing", "Manipulates colour models and colour channels", "Converting RGB to HSV for better segmentation"],
+            ["Compression", "Reduces file size for storage or transmission", "JPEG (lossy), PNG (lossless)"],
+            ["Morphological Processing", "Extracts shapes and structural features", "Counting cells, measuring grain sizes"]
+          ]
+        },
+        {
+          "id": "L1-3-b5",
+          "type": "heading",
+          "level": 3,
+          "text": "Steps that produce attributes"
+        },
+        {
+          "id": "L1-3-b6",
+          "type": "table",
+          "headers": ["Step", "What it does", "Example"],
+          "rows": [
+            ["Segmentation", "Partitions the image into meaningful regions", "Separating foreground from background"],
+            ["Representation & Description", "Converts regions to numerical features", "Boundary length, texture coefficients"],
+            ["Recognition", "Assigns a label to a detected object", "This region is a tumour / This digit is a 5"]
+          ]
+        },
+        {
+          "id": "L1-3-b7",
+          "type": "callout",
+          "variant": "important",
+          "title": "Enhancement vs Restoration",
+          "text": "Enhancement is subjective — it makes an image look better to a human viewer. Restoration is objective — it attempts to reverse a known degradation process using a mathematical model."
+        },
+        {
+          "id": "L1-3-b8",
+          "type": "definition_table",
+          "title": "Key Terms",
+          "rows": [
+            { "term": "Enhancement", "description": "Subjective improvement of image appearance for human viewing" },
+            { "term": "Restoration", "description": "Objective reconstruction of a degraded image using a degradation model" },
+            { "term": "Segmentation", "description": "Partitioning an image into regions that share a property (colour, texture, intensity)" },
+            { "term": "Morphological processing", "description": "Shape-based operations using set theory — extracts structural information" },
+            { "term": "Knowledge base", "description": "Domain-specific information used to guide processing decisions" }
+          ]
+        },
+        {
+          "id": "L1-3-b9",
+          "type": "quiz",
+          "question": "Which processing step is OBJECTIVE, guided by a mathematical model?",
+          "options": ["Image Enhancement", "Image Restoration", "Image Acquisition", "Colour Processing"],
+          "answer": 1,
+          "explanation": "Restoration is objective — it uses a known degradation model to mathematically reverse damage. Enhancement is subjective, aimed at human preference."
+        }
+      ]
+    },
+    {
+      "id": "L1-4",
+      "title": "System Components & Applications",
+      "blocks": [
+        {
+          "id": "L1-4-b1",
+          "type": "heading",
+          "level": 3,
+          "text": "Hardware components"
+        },
+        {
+          "id": "L1-4-b2",
+          "type": "paragraph",
+          "text": "A complete system for digital image processing requires several hardware and software components working together: image sensors (input devices), specialised image processing hardware, a general-purpose computer, mass storage, image display, hardcopy devices, and networking."
+        },
+        {
+          "id": "L1-4-b3",
+          "type": "callout",
+          "variant": "tip",
+          "title": "Storage levels",
+          "text": "A single uncompressed 1024×1024 grayscale image requires 1 MB. Storage is organised at three levels: RAM (short-term, fast), SSD/HDD (online, working datasets), and tape/optical (archival, long-term)."
+        },
+        {
+          "id": "L1-4-b4",
+          "type": "heading",
+          "level": 3,
+          "text": "Applications"
+        },
+        {
+          "id": "L1-4-b5",
+          "type": "table",
+          "headers": ["Field", "Examples"],
+          "rows": [
+            ["Medicine", "X-ray enhancement, MRI reconstruction, tumour detection, retinal analysis"],
+            ["Remote sensing", "Satellite imagery for crop prediction, flood monitoring, geological survey"],
+            ["Security", "CCTV systems, face recognition, automated number plate reading"],
+            ["Industrial", "Quality control on production lines, robotic vision"],
+            ["Communications", "Image and video compression for broadcast, streaming, video conferencing"],
+            ["Defence / Space", "Radar and sonar image processing, deep-space probe imagery"],
+            ["Acoustics", "Underwater imaging, structural non-destructive testing"]
+          ]
+        },
+        {
+          "id": "L1-4-b6",
+          "type": "flashcard",
+          "cards": [
+            { "front": "What is spatial resolution?", "back": "The number of pixels per unit area — determines how much fine detail the image captures." },
+            { "front": "What is bit depth?", "back": "The number of bits used to store each pixel's intensity value — determines how many grey/colour levels are possible." },
+            { "front": "Difference between sampling and quantization?", "back": "Sampling discretises space (creates pixel grid). Quantization discretises intensity (rounds values to allowed levels)." },
+            { "front": "What does the operator T represent?", "back": "A function that maps an input intensity or neighbourhood to an output value — the core of every spatial domain operation." }
+          ]
+        }
+      ]
+    }
+  ]
+}
