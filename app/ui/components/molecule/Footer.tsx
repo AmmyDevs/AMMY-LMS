@@ -1,54 +1,54 @@
-import Image from 'next/image'
+import { Logo } from '../atomic/Logo'
 import Link from 'next/link'
 
 export function Footer() {
   const year = new Date().getFullYear()
 
   return (
-    <footer className="footer">
-      <div className="footer-container">
+    <footer className="page-footer">
+      <div className="page-container grid-auto gap-section"> {/* Applied grid-auto and gap-section */}
 
         {/* Brand column */}
-        <div className="footer-brand">
-          <div className="footer-brand-row">
-            <Image src="/image/BrandLogo.png" alt="AMMY LMS" width={40} height={40} className="footer-logo" />
-            <span className="footer-title">
+        <div className="col gap-block"> {/* Changed to col gap-block for vertical spacing */}
+          <div className="row gap-item">
+            <Logo variant="full" size={40} />
+            <span className="text-subheading">
               AMMY <span>LMS</span>
             </span>
           </div>
-          <p className="footer-description">
+          <p className="text-caption color-muted"> {/* Applied text-caption and color-muted */}
             Empowering learners across Africa with modern tools for interactive, AI-assisted education.
           </p>
         </div>
 
         {/* Product links */}
-        <div className="footer-col">
-          <p className="footer-col-heading">Product</p>
-          <ul className="footer-col-links">
-            <li><Link href="#">Study Modules</Link></li>
-            <li><Link href="#">AI Assistant</Link></li>
-            <li><Link href="#">Quizzes</Link></li>
-            <li><Link href="#">Progress Tracking</Link></li>
+        <div className="col gap-block"> {/* Changed to col gap-block */}
+          <p className="text-label">Product</p> {/* Applied text-label */}
+          <ul className="stack-md"> {/* Used stack-md for vertical spacing */}
+            <li><Link href="#" className="text-body">Study Modules</Link></li> {/* Applied text-body */}
+            <li><Link href="#" className="text-body">AI Assistant</Link></li>
+            <li><Link href="#" className="text-body">Quizzes</Link></li>
+            <li><Link href="#" className="text-body">Progress Tracking</Link></li>
           </ul>
         </div>
 
         {/* Company links */}
-        <div className="footer-col">
-          <p className="footer-col-heading">Company</p>
-          <ul className="footer-col-links">
-            <li><Link href="#">About</Link></li>
-            <li><Link href="#">Contact</Link></li>
-            <li><Link href="#">Privacy Policy</Link></li>
-            <li><Link href="#">Terms of Use</Link></li>
+        <div className="col gap-block"> {/* Changed to col gap-block */}
+          <p className="text-label">Company</p> {/* Applied text-label */}
+          <ul className="stack-md"> {/* Used stack-md for vertical spacing */}
+            <li><Link href="#" className="text-body">About</Link></li> {/* Applied text-body */}
+            <li><Link href="#" className="text-body">Contact</Link></li>
+            <li><Link href="#" className="text-body">Privacy Policy</Link></li>
+            <li><Link href="#" className="text-body">Terms of Use</Link></li>
           </ul>
         </div>
 
       </div>
 
       {/* Bottom bar */}
-      <div className="footer-bottom">
-        <p className="footer-copyright">© {year} AMMY LMS. All rights reserved.</p>
-        <span className="footer-badge">Built with passion for learning</span>
+      <div className="row-between border-top page-container text-caption color-muted" style={{ marginTop: 'var(--gap-section)' }}> {/* Applied row-between, border-top, page-container, text-caption, color-muted, and inline style for margin */}
+        <p>© {year} AMMY LMS. All rights reserved.</p>
+        <span className="text-caption">Built with passion for learning</span> {/* Applied text-caption */}
       </div>
     </footer>
   )

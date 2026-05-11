@@ -1,6 +1,6 @@
 import Link from 'next/link'
-import Image from 'next/image'
 import ThemeToggle from './ThemeToggle'
+import { Logo } from './Logo'
 
 export default function TopBar() {
   return (
@@ -8,7 +8,7 @@ export default function TopBar() {
       <div className="topbar-inner">
         <Link href="/" className="topbar-brand">
           <div className="p-1.5 rounded-xl bg-[var(--accent-light)] dark:bg-[var(--accent)]/10 ring-1 ring-[var(--accent-mid)]">
-            <Image src="/image/Logo.png" alt="AMMY LMS" width={28} height={28} className="topbar-logo" />
+            <Logo variant="icon" size={28} />
           </div>
           <span className="topbar-title font-display font-extrabold tracking-tight">AMMY LMS</span>
         </Link>

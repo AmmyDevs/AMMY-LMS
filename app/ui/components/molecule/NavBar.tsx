@@ -1,5 +1,7 @@
 'use client'
-import { ThemeToggle } from './ThemeToggle'
+import ThemeToggle from '../atomic/ThemeToggle'
+import { Logo } from '../atomic/Logo'
+import { Button } from '../atomic/button' // Import the Button component
 import Link from 'next/link'
 
 
@@ -8,22 +10,21 @@ import Link from 'next/link'
 ───────────────────────────────────────── */
 export function Navbar() {
   return (
-    <nav className="navbar" role="navigation" aria-label="Main navigation">
-      <div className="navbar-inner">
+    <nav className="header-sticky bg-glass" style={{ '--header-h': '4.5rem' } as React.CSSProperties} role="navigation">
+      <div className="page-container row-between">
 
         {/* Brand */}
-        <Link href="/" className="navbar-brand" aria-label="AMMY LMS home">
-          <div className="navbar-logo-mark" aria-hidden="true">M</div>
-          <span className="navbar-name">
-            AMMY <span>LMS</span>
+        <Link href="/" className="brand-link row gap-item" aria-label="AMMY LMS home">
+          <Logo variant="icon" size={24} withBackground />
+          <span className="text-subheading">
+            AMMY <span className="color-accent">LMS</span>
           </span>
         </Link>
 
         {/* Actions */}
-        <div className="navbar-actions">
-          <Link href="#features" className="btn btn-ghost">Features</Link>
-          <ThemeToggle />
-          <Link href="#get-started" className="btn btn-primary">Get Started</Link>
+        <div className="row gap-block">
+          <ThemeToggle size="lg" />
+          <Button variant="default" size="lg">Get Started</Button>
         </div>
 
       </div>
