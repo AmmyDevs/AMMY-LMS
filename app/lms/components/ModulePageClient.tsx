@@ -84,66 +84,69 @@ export default function ModulePageClient({ module }: ModulePageClientProps) {
   }, [recordQuiz])
 
   return (
-    <div className="flex h-screen overflow-hidden bg-white dark:bg-gray-950">
-      <aside className="w-80 border-r border-gray-200 dark:border-gray-800 overflow-y-auto hidden lg:block bg-gray-50/50 dark:bg-gray-900/50">
-        <LessonBoard
-          module={module}
-          activeLessonId={activeLessonId}
-          getLessonStatus={getLessonStatus}
-          onLessonClick={handleLessonClick}
-        />
-      </aside>
-      <main className="flex-1 overflow-y-auto">
-        <div className="max-w-3xl mx-auto px-6 py-12">
-          {/* Header */}
-          <div className="mb-12 border-b border-gray-100 dark:border-gray-800 pb-8">
-            <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-              {module.title}
-            </h1>
-            <div className="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400">
-              <span className="flex items-center gap-1">
-                ⏱️ {module.estimatedMinutes} min
-              </span>
-              <span className="flex items-center gap-1">
-                👨‍🏫 {module.lecturer}
-              </span>
-            </div>
-          </div>
-
-          {module.lessons.map((lesson) => (
-            <section
-              key={lesson.id}
-              id={lesson.id}
-              data-lesson={lesson.id}
-              className="mb-16 scroll-mt-10"
-            >
-              <h2 className="text-2xl font-bold mb-8 text-gray-900 dark:text-gray-100 flex items-center gap-3">
-                <span className="text-blue-500">#</span>
-                {lesson.title}
-              </h2>
-              <div className="space-y-6">
-                {lesson.blocks.map((block) => (
-                  <BlockRenderer
-                    key={block.id}
-                    block={block}
-                    lessonId={lesson.id}
-                    onQuizAnswer={(blockId, correct) => handleQuizAnswer(lesson.id, blockId, correct)}
-                  />
-                ))}
+    <div className="layout-shell h-screen overflow-hidden bg-page">
+      <div className="layout-main pt-0"> {/* Override padding-top for full-screen lesson */}
+        <aside className="layout-aside border-r border-standard bg-surface overflow-y-auto hidden lg:block" style={{ top: 0, height: '100vh' }}>
+          <LessonBoard
+            module={module}
+            activeLessonId={activeLessonId}
+            getLessonStatus={getLessonStatus}
+            onLessonClick={handleLessonClick}
+          />
+        </aside>
+        
+        <main className="layout-content overflow-y-auto">
+          <div className="max-w-3xl mx-auto py-12">
+            {/* Header */}
+            <header className="mb-12 border-bottom pb-8">
+              <h1 className="text-title mb-4">
+                {module.title}
+              </h1>
+              <div className="row gap-row text-fine color-muted">
+                <span className="row gap-inline">
+                   ⏱️ {module.estimatedMinutes} min
+                </span>
+                <span className="row gap-inline">
+                   👨‍🏫 {module.lecturer}
+                </span>
               </div>
-              <div data-sentinel={lesson.id} className="h-1 mt-8" />
-            </section>
-          ))}
-          
-          {/* Footer Navigation */}
-          <footer className="mt-20 pt-10 border-t border-gray-100 dark:border-gray-800 flex justify-between items-center text-sm text-gray-500">
-             <a href={`/lms/modules/${module.course.replace(/\s+/g, '')}`} className="hover:text-blue-500 transition-colors flex items-center gap-2">
-               ← Back to Module Overview
-             </a>
-             <span>End of Lesson</span>
-          </footer>
-        </div>
-      </main>
+            </header>
+
+            {module.lessons.map((lesson) => (
+              <section
+                key={lesson.id}
+                id={lesson.id}
+                data-lesson={lesson.id}
+                className="mb-16 scroll-mt-10"
+              >
+                <h2 className="text-heading mb-8 color-heading row gap-item">
+                  <span className="color-accent opacity-50">#</span>
+                  {lesson.title}
+                </h2>
+                <div className="stack-md">
+                  {lesson.blocks.map((block) => (
+                    <BlockRenderer
+                      key={block.id}
+                      block={block}
+                      lessonId={lesson.id}
+                      onQuizAnswer={(blockId, correct) => handleQuizAnswer(lesson.id, blockId, correct)}
+                    />
+                  ))}
+                </div>
+                <div data-sentinel={lesson.id} className="h-1 mt-8" />
+              </section>
+            ))}
+            
+            {/* Footer Navigation */}
+            <footer className="mt-20 pt-10 border-top row-between text-fine color-muted">
+               <a href={`/lms/modules/${module.course.replace(/\s+/g, '')}`} className="btn-secondary btn-sm">
+                 ← Back to Module Overview
+               </a>
+               <span className="text-label">End of Lesson</span>
+            </footer>
+          </div>
+        </main>
+      </div>
     </div>
   )
 }

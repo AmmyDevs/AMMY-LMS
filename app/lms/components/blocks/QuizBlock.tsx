@@ -26,47 +26,62 @@ export default function QuizBlock({ block, onAnswer }: QuizBlockProps) {
 
   const getOptionClass = (index: number) => {
     if (!revealed) {
-      return 'border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer'
+      return 'border-standard bg-card hover:bg-hover cursor-pointer'
     }
     if (index === block.answer) {
-      return 'border-emerald-500 bg-emerald-50 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300'
+      return 'border-accent pill-success' // pill-success class might need adjustment or we use inline
     }
     if (index === selectedOption && index !== block.answer) {
-      return 'border-red-400 bg-red-50 dark:bg-red-950 text-red-700 dark:text-red-300'
+      return 'border-standard pill-danger'
     }
-    return 'border-gray-200 dark:border-gray-700'
+    return 'border-standard opacity-50'
+  }
+
+  const getOptionStyle = (index: number) => {
+    if (!revealed) return {}
+    if (index === block.answer) {
+      return { borderColor: 'var(--tone-success-text)', backgroundColor: 'var(--tone-success-bg)', color: 'var(--tone-success-text)' }
+    }
+    if (index === selectedOption && index !== block.answer) {
+      return { borderColor: 'var(--tone-danger-text)', backgroundColor: 'var(--tone-danger-bg)', color: 'var(--tone-danger-text)' }
+    }
+    return {}
   }
 
   return (
-    <div className="my-4">
-      <div className="space-y-3">
-        <h3 className="text-sm font-medium text-gray-900 dark:text-gray-100">
+    <div className="my-8 animate-fade-up">
+      <div className="surface-card bg-mesh p-8">
+        <h3 className="text-subheading color-heading mb-6">
           {block.question}
         </h3>
-        <div className="space-y-2">
+        <div className="grid gap-3">
           {block.options.map((option, index) => (
             <button
               key={index}
               onClick={() => handleOptionClick(index)}
               className={cn(
-                'w-full text-left border rounded-lg px-4 py-2.5 text-sm transition-colors',
-                getOptionClass(index),
-                'focus:ring-2 focus:ring-blue-500 focus:outline-none'
+                'w-full text-left border radius-md px-5 py-3 text-body transition-all duration-200',
+                getOptionClass(index)
               )}
+              style={getOptionStyle(index)}
               disabled={revealed}
             >
-              {option}
+              <div className="row gap-item">
+                <span className="text-label opacity-40">{String.fromCharCode(65 + index)}.</span>
+                <span className="weight-bold">{option}</span>
+              </div>
             </button>
           ))}
         </div>
         {revealed && (
-          <div className="bg-gray-50 dark:bg-gray-900 rounded-lg p-3 mt-4">
-            <p className="text-sm text-gray-600 dark:text-gray-400">
+          <div className="bg-surface radius-md p-6 mt-8 animate-fade-up">
+            <p className="text-body color-body mb-4">
+              <span className="text-label block mb-1">Explanation</span>
               {block.explanation}
             </p>
             <button
               onClick={resetQuiz}
-              className="mt-3 text-xs text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300"
+              className="btn-secondary btn-sm"
             >
               Try again
             </button>

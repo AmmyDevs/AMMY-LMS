@@ -139,6 +139,9 @@
   --z-dropdown: 100;
   --z-overlay:  400;
   --z-toaster:  500;
+
+  /* --- Layout Constants --- */
+  --header-h: 4.5rem;
 }
 
 /* ============================================================
@@ -254,6 +257,46 @@ body {
 .no-events   { pointer-events: none; }
 .dim         { opacity: 0.5; }
 .text-center { text-align: center; }
+
+/* ============================================================
+   § 4.1 LAYOUT PRIMITIVES
+   ============================================================ */
+
+.layout-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.layout-main {
+  display: flex;
+  flex: 1;
+  padding-top: var(--header-h);
+}
+
+.layout-aside {
+  width: 280px;
+  border-right: 1px solid var(--color-border);
+  background-color: var(--color-bg-surface);
+  position: sticky;
+  top: var(--header-h);
+  height: calc(100vh - var(--header-h));
+  overflow-y: auto;
+  padding: var(--space-6);
+  flex-shrink: 0;
+}
+
+.layout-content {
+  flex: 1;
+  padding: var(--pad-page-y) var(--pad-page-x);
+  background-color: var(--color-bg-page);
+}
+
+@media (max-width: 768px) {
+  .layout-aside {
+    display: none;
+  }
+}
 
 /* ============================================================
    § 5. TYPOGRAPHY
@@ -526,6 +569,46 @@ body {
 .btn-sm { height: 40px; padding-inline: var(--space-4); font-size: var(--size-fine); }
 .btn-lg { height: 56px; padding-inline: var(--space-8); font-size: var(--size-subheading); }
 .btn-icon { width: 40px; height: 40px; padding: 0; }
+
+/* ============================================================
+   § 9.1 NAVIGATION PRIMITIVES
+   ============================================================ */
+
+.nav-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-item);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  color: var(--color-text-body);
+  text-decoration: none;
+  font-weight: 500;
+  transition: all var(--transition-fast);
+}
+
+.nav-link:hover {
+  background-color: var(--color-bg-hover);
+  color: var(--accent);
+}
+
+.nav-link.active {
+  background-color: var(--accent);
+  color: var(--white);
+  box-shadow: var(--shadow-accent);
+}
+
+.nav-link svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
 
 /* ============================================================
    § 13. STRUCTURAL PATTERNS

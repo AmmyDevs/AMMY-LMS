@@ -1,15 +1,21 @@
 import TopBar from '@/app/ui/components/atomic/TopBar'
 import SideNav from '@/app/ui/components/atomic/SideNav'
 
+/**
+ * LMS Layout component.
+ * Provides the structural shell for the student dashboard.
+ */
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="dashboard-wrapper">
+    <div className="layout-shell">
       <TopBar />
-      <div className="dashboard-main">
-        <aside className="sidenav">
+      
+      <div className="layout-main">
+        <aside className="layout-aside">
           <SideNav />
         </aside>
-        <main className="dashboard-content">
+
+        <main className="layout-content">
           {children}
         </main>
       </div>

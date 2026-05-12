@@ -2,23 +2,36 @@ import Link from 'next/link'
 import ThemeToggle from './ThemeToggle'
 import { Logo } from './Logo'
 
+/**
+ * A polished, high-end TopBar component that aligns with the 
+ * Design System v2.0.
+ */
 export default function TopBar() {
   return (
-    <header className="topbar">
-      <div className="topbar-inner">
-        <Link href="/" className="topbar-brand">
-          <div className="p-1.5 rounded-xl bg-[var(--accent-light)] dark:bg-[var(--accent)]/10 ring-1 ring-[var(--accent-mid)]">
-            <Logo variant="icon" size={28} />
-          </div>
-          <span className="topbar-title font-display font-extrabold tracking-tight">AMMY LMS</span>
+    <header className="header-sticky bg-glass">
+      <div className="page-container row-between">
+        {/* Brand Section */}
+        <Link href="/" className="brand-link row gap-item">
+          <Logo variant="icon" size={32} withBackground />
+          <span className="text-subheading tracking-tight color-heading">
+            AMMY <span className="color-accent">LMS</span>
+          </span>
         </Link>
 
         {/* Right Actions */}
-        <div className="flex items-center gap-4">
-          <ThemeToggle />
+        <div className="row gap-row">
+          <ThemeToggle size="sm" />
           
-          {/* User Profile Placeholder */}
-          <div className="w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-800 ring-1 ring-gray-200 dark:ring-white/10 hidden sm:block"></div>
+          {/* User Profile / Account */}
+          <div className="row gap-item">
+            <div className="hidden sm:flex flex-col items-end">
+              <span className="text-fine weight-bold color-heading">Ayubu Mbaga</span>
+              <span className="text-label" style={{ fontSize: '10px' }}>Instructor</span>
+            </div>
+            <div className="w-10 h-10 radius-pill border-standard bg-surface centered overflow-hidden">
+              <div className="w-full h-full bg-mesh centered text-label color-accent">AM</div>
+            </div>
+          </div>
         </div>
       </div>
     </header>

@@ -28,11 +28,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
           {children}
         </main>
       ) : (
-        <div className="dashboard-wrapper">
+        <div className="layout-shell">
           <TopBar />
-          <div className="dashboard-main">
-            <SideNav />
-            <main className="dashboard-content">
+          <div className="layout-main">
+            <aside className="layout-aside">
+              <SideNav />
+            </aside>
+            <main className="layout-content">
               {children}
             </main>
           </div>

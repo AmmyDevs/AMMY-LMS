@@ -1,13 +1,17 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
+import { ArrowLeft } from 'lucide-react'
 import { getModuleByCode, getLessonsForModule, getLessonContent } from '@/lib/lms'
 import LessonBoard, { LessonItem } from '@/app/ui/components/molecule/LessonBoard'
-import { LessonContent } from '@/app/lms/types/module'
 
 interface Props {
   params: { moduleCode: string }
 }
 
+/**
+ * Module Detail Page.
+ * Displays lesson board for a specific module.
+ */
 export default async function ModuleOverviewPage({ params }: Props) {
   const { moduleCode } = params
   
@@ -18,7 +22,6 @@ export default async function ModuleOverviewPage({ params }: Props) {
 
   const lessonIds = await getLessonsForModule(moduleCode)
   
-  // Transform lesson content into the new LessonItem format
   const lessons: LessonItem[] = []
   for (const id of lessonIds) {
     const content = await getLessonContent(moduleCode, id)
@@ -30,7 +33,7 @@ export default async function ModuleOverviewPage({ params }: Props) {
         topics: content.lessons.map(l => ({
           title: l.title,
           blockCount: l.blocks.length,
-          progress: 0, // Mocked for now
+          progress: 0,
           status: 'New'
         }))
       })
@@ -38,36 +41,34 @@ export default async function ModuleOverviewPage({ params }: Props) {
   }
 
   return (
-    <div className="min-h-screen bg-[var(--bg-page)]">
-      <div className="max-w-4xl mx-auto px-6 py-16">
-        {/* Module Header */}
-        <header className="mb-12">
-          <div className="flex items-center gap-3 mb-4">
-             <span className="px-3 py-1 bg-[var(--accent-light)] text-[var(--accent)] text-xs font-bold rounded-full uppercase tracking-widest border border-[var(--accent-mid)]">
-               {moduleInfo.code}
-             </span>
-          </div>
-          <h1 className="text-4xl font-display font-extrabold text-[var(--text-heading)] mb-3 tracking-tight">
-            {moduleInfo.name}
-          </h1>
-          <p className="text-lg text-[var(--text-body)] max-w-2xl">
-            Explore the lectures and course materials for this module. Each lesson contains interactive blocks, quizzes, and practical examples.
-          </p>
-        </header>
-
-        {/* The Reference-Accurate LessonBoard */}
-        <LessonBoard lessons={lessons} />
-
-        {/* Back link */}
-        <div className="mt-16 text-center">
-          <Link
-            href="/lms"
-            className="inline-flex items-center gap-2 text-[var(--text-muted)] hover:text-[var(--accent)] transition-colors text-sm font-medium"
-          >
-            <span className="text-lg">←</span>
-            Back to Dashboard
-          </Link>
+    <div className="animate-fade-up">
+      {/* Module Header */}
+      <header className="mb-12">
+        <div className="flex items-center gap-3 mb-4">
+           <span className="pill pill-info">{moduleInfo.code}</span>
         </div>
+        <h1 className="text-title mb-3">
+          {moduleInfo.name}
+        </h1>
+        <p className="text-base color-muted max-w-2xl">
+          Explore the lectures and course materials for this module. Each lesson contains interactive blocks, quizzes, and practical examples.
+        </p>
+      </header>
+
+      {/* The Reference-Accurate LessonBoard */}
+      <div className="surface-card p-0 overflow-hidden">
+        <LessonBoard lessons={lessons} />
+      </div>
+
+      {/* Back link */}
+      <div className="mt-16 text-center">
+        <Link
+          href="/lms/modules"
+          className="btn-secondary"
+        >
+          <ArrowLeft size={18} />
+          <span>Back to Modules</span>
+        </Link>
       </div>
     </div>
   )

@@ -1,10 +1,23 @@
 export default function DashboardPage() {
   return (
-    <div className="max-w-6xl mx-auto px-4 py-8">
-      <h1 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Dashboard</h1>
-      <div className="p-8 border-2 border-dashed border-gray-200 dark:border-gray-800 rounded-2xl flex items-center justify-center text-gray-500 dark:text-gray-400">
-        Dashboard content to be added later...
-      </div>
+    <div className="animate-fade-up">
+      <header className="mb-12">
+        <h1 className="text-title mb-2">Dashboard</h1>
+        <p className="text-base color-muted">Welcome back! Here's an overview of your learning journey.</p>
+      </header>
+
+      <section className="page-section">
+        <div className="surface-card p-12 centered col gap-item bg-mesh">
+          <div className="w-16 h-16 radius-lg bg-subtle centered border-standard mb-4">
+             {/* Icon could go here */}
+             <span className="text-heading color-accent">📚</span>
+          </div>
+          <p className="text-subheading color-heading mb-1">No Recent Activity</p>
+          <p className="text-base color-muted text-center max-w-sm">
+            Your recently accessed modules and upcoming assessments will appear here.
+          </p>
+        </div>
+      </section>
     </div>
   )
 }
