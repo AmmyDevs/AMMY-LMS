@@ -5,7 +5,7 @@ import { getModuleByCode, getLessonsForModule, getLessonContent } from '@/lib/lm
 import LessonBoard, { LessonItem } from '@/app/ui/components/molecule/LessonBoard'
 
 interface Props {
-  params: { moduleCode: string }
+  params: Promise<{ moduleCode: string }>
 }
 
 /**
@@ -13,7 +13,7 @@ interface Props {
  * Displays lesson board for a specific module.
  */
 export default async function ModuleOverviewPage({ params }: Props) {
-  const { moduleCode } = params
+  const { moduleCode } = await params
   
   const moduleInfo = await getModuleByCode(moduleCode)
   if (!moduleInfo) {

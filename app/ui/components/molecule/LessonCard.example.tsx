@@ -12,8 +12,7 @@ const sampleLessons: LessonCardProps[] = [
   {
     id: '1',
     title: 'Introduction to Quantum Computing',
-    description: 'Learn the fundamental concepts of quantum mechanics and how they apply to computing.',
-    topicCount: 5,
+    topicsCount: 5,
     progress: 0,
     status: 'New',
     duration: '45 min',
@@ -23,8 +22,7 @@ const sampleLessons: LessonCardProps[] = [
   {
     id: '2',
     title: 'Qubits and Superposition',
-    description: 'Dive deep into qubit architecture and understand superposition in quantum systems.',
-    topicCount: 8,
+    topicsCount: 8,
     progress: 45,
     status: 'In Progress',
     duration: '1 hr 15 min',
@@ -34,8 +32,7 @@ const sampleLessons: LessonCardProps[] = [
   {
     id: '3',
     title: 'Quantum Gates and Circuits',
-    description: 'Master the building blocks of quantum circuits with hands-on examples.',
-    topicCount: 12,
+    topicsCount: 12,
     progress: 100,
     status: 'Completed',
     duration: '2 hr',
@@ -45,10 +42,9 @@ const sampleLessons: LessonCardProps[] = [
   {
     id: '4',
     title: 'Shor\'s Algorithm',
-    description: 'Explore one of the most important quantum algorithms for integer factorization.',
-    topicCount: 6,
+    topicsCount: 6,
     progress: 0,
-    status: 'Locked',
+    status: 'New',
     duration: '1 hr 30 min',
     href: '/lms/modules/mock/lesson/4',
     order: 4
@@ -71,8 +67,7 @@ export function LessonCardShowcase() {
  * <LessonCard
  *   id="lesson-1"
  *   title="Lesson Title"
- *   description="Optional description"
- *   topicCount={5}
+ *   topicsCount={5}
  *   progress={30}
  *   status="In Progress"
  *   duration="45 min"

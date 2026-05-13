@@ -3,11 +3,11 @@ import { getLessonContent } from '@/lib/lms'
 import ModulePageClient from '@/app/lms/components/ModulePageClient'
 
 interface Props {
-  params: { moduleCode: string; lessonId: string }
+  params: Promise<{ moduleCode: string; lessonId: string }>
 }
 
 export default async function LessonPage({ params }: Props) {
-  const { moduleCode, lessonId } = params
+  const { moduleCode, lessonId } = await params
   
   const content = await getLessonContent(moduleCode, lessonId)
   if (!content) {

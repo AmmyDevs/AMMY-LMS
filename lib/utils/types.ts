@@ -53,7 +53,7 @@ export type LMSState = {
   progress: Record<string, ProgressValue>;
   setProgress: (key: string, data: Partial<ProgressValue>) => void;
   resetProgress: () => void;
-  theme: 'dark' | 'light';
+  theme: 'dark' | 'light' | null;
   toggleTheme: () => void;
   setTheme: (theme: 'dark' | 'light') => void;
 };

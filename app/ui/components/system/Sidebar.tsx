@@ -21,9 +21,9 @@ const TYPE_ICONS = {
 }
 
 const TYPE_COLORS = {
-  lecture: 'text-brand',
-  'self-study': 'text-emerald-500',
-  further: 'text-amber-500',
+  lecture: 'text-accent',
+  'self-study': 'text-accent',
+  further: 'text-muted',
 }
 
 export function Sidebar() {
@@ -53,24 +53,24 @@ export function Sidebar() {
   }
 
   return (
-    <aside className="fixed left-0 top-0 h-screen w-72 bg-surface border-r border-border flex flex-col z-40">
+    <aside className="fixed left-0 top-0 h-screen w-72 bg-surface border-r border-standard flex flex-col z-40">
       {/* Header */}
-      <div className="px-5 py-5 border-b border-border">
+      <div className="px-5 py-5 border-b border-standard">
         <Link href="/" className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-brand/10 flex items-center justify-center">
-            <GraduationCap className="w-5 h-5 text-brand" />
+          <div className="w-10 h-10 radius-md flex items-center justify-center bg-accent-light">
+            <GraduationCap className="w-5 h-5 text-accent" />
           </div>
           <div>
-            <h1 className="text-lg font-semibold text-text leading-tight">AMMY LMS</h1>
+            <h1 className="text-subheading font-bold text-heading leading-tight">AMMY LMS</h1>
           </div>
         </Link>
       </div>
 
       {/* User info */}
       {username && (
-        <div className="px-5 py-3 border-b border-border bg-navy-fill/50">
-          <p className="text-sm text-muted">
-            Hello, <span className="font-medium text-text">{username}</span>
+        <div className="px-5 py-3 border-b border-standard bg-surface">
+          <p className="text-caption text-muted">
+            Hello, <span className="font-medium text-body">{username}</span>
           </p>
         </div>
       )}
@@ -92,8 +92,8 @@ export function Sidebar() {
                     setCurrentPath([section.id, section.children![0].id])
                   }
                 }}
-                className={`w-full flex items-center gap-2 px-4 py-2.5 text-sm rounded-lg transition-colors ${
-                  isExpanded ? 'bg-elevated text-text' : 'text-muted hover:text-text hover:bg-elevated/50'
+                className={`w-full flex items-center gap-2 px-4 py-2.5 text-caption radius-lg transition-colors ${
+                  isExpanded ? 'bg-surface text-body' : 'text-muted hover:text-body hover:bg-surface'
                 }`}
               >
                 <Icon className={`w-4 h-4 shrink-0 ${TYPE_COLORS[section.type]}`} />
@@ -120,20 +120,20 @@ export function Sidebar() {
                       <Link
                         key={child.id}
                         href={`/modules/${child.slug}`}
-                        className={`flex items-center gap-2 px-4 py-2 text-sm rounded-lg transition-colors ${
+                        className={`flex items-center gap-2 px-4 py-2 text-caption radius-lg transition-colors ${
                           active
-                            ? 'bg-brand/10 text-brand font-medium'
-                            : 'text-muted hover:text-text hover:bg-elevated/50'
+                            ? 'bg-accent-light text-accent font-medium'
+                            : 'text-muted hover:text-body hover:bg-surface'
                         }`}
                       >
                         {isCompleted ? (
-                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                          <CheckCircle2 className="w-3.5 h-3.5 text-accent shrink-0" />
                         ) : (
-                          <Circle className="w-3.5 h-3.5 text-border shrink-0" />
+                          <Circle className="w-3.5 h-3.5 text-muted opacity-40 shrink-0" />
                         )}
                         <span className="truncate">{child.label}</span>
                         {active && (
-                          <div className="ml-auto w-1.5 h-1.5 rounded-full bg-brand" />
+                          <div className="ml-auto w-1.5 h-1.5 radius-pill bg-accent" />
                         )}
                       </Link>
                     )

@@ -8,15 +8,15 @@ interface CardProps {
 
 export default function DashboardCard({ title, description, href }: CardProps) {
   const content = (
-    <div className="card-body">
-      <h3 className="card-title">{title}</h3>
-      <p className="card-text">{description}</p>
-    </div>
+    <>
+      <h3 className="text-subheading">{title}</h3>
+      <p className="text-caption text-muted">{description}</p>
+    </>
   )
 
   return href ? (
-    <a href={href} className="dashboard-card">{content}</a>
+    <a href={href} className="surface-card col gap-item">{content}</a>
   ) : (
-    <div className="dashboard-card">{content}</div>
+    <div className="surface-card col gap-item">{content}</div>
   )
 }

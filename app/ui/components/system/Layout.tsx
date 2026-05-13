@@ -14,11 +14,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const isLMSPage = pathname.startsWith('/lms')
 
   useEffect(() => {
-    if (theme === 'dark') {
-      document.documentElement.classList.add('dark')
-    } else {
-      document.documentElement.classList.remove('dark')
-    }
+    const resolved = theme ?? (
+      window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+    )
+    document.documentElement.classList.toggle('dark', resolved === 'dark')
   }, [theme])
 
   return (

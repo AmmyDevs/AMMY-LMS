@@ -22,7 +22,7 @@ export const useLMSStore = create<LMSState>()(
         })),
       resetProgress: () => set({ progress: {} }),
 
-      theme: 'dark',
+      theme: null as 'light' | 'dark' | null,
       toggleTheme: () => set((s) => ({ theme: s.theme === 'dark' ? 'light' : 'dark' })),
       setTheme: (t) => set({ theme: t }),
     }),

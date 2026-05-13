@@ -13,10 +13,12 @@ const buttonVariants = cva(
         outline: "btn-outline",
         secondary: "btn-secondary",
         ghost: "btn-ghost",
+        tertiary: "btn-tertiary",
+        "tertiary-bordered": "btn-tertiary-bordered",
         premium: "btn-premium",
       },
       size: {
-        default: "btn-primary", // Maps to the standard 48px height
+        default: "btn-md",
         sm: "btn-sm",
         lg: "btn-lg",
         icon: "btn-icon",

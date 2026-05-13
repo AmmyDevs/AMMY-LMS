@@ -1,9 +1,97 @@
 /* ============================================================
    AMMY LMS — Design System v2.0
-   Single source of truth. Fully custom. No Tailwind.
+   Single source of truth. Tailwind v4 CSS-first.
    ============================================================ */
 
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&family=Jost:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+/* ============================================================
+   § 0. TAILWIND THEME MAPPINGS
+   Maps every design token that needs a Tailwind utility class
+   to its CSS custom property reference. This makes each token
+   simultaneously a CSS custom property and a Tailwind utility.
+   ============================================================ */
+
+@theme {
+
+  /* --- Accent / Brand Color --- */
+  --color-accent:              var(--accent);
+
+  /* --- Semantic Background Colors --- */
+  --color-bg-page:             var(--color-bg-page);
+  --color-bg-surface:          var(--color-bg-surface);
+  --color-bg-card:             var(--color-bg-card);
+  --color-bg-hover:            var(--color-bg-hover);
+
+  /* --- Semantic Text Colors --- */
+  --color-text-heading:        var(--color-text-heading);
+  --color-text-body:           var(--color-text-body);
+  --color-text-muted:          var(--color-text-muted);
+  --color-text-accent:         var(--color-text-accent);
+  --color-text-white:          var(--color-text-white);
+
+  /* --- Semantic Border Colors --- */
+  --color-border:              var(--color-border);
+  --color-border-subtle:       var(--color-border-subtle);
+  --color-border-strong:       var(--color-border-strong);
+
+  /* --- Font Families --- */
+  --font-display:              var(--font-display);
+  --font-body:                 var(--font-body);
+
+  /* --- Type Scale --- */
+  --size-hero:                 var(--size-hero);
+  --size-title:                var(--size-title);
+  --size-heading:              var(--size-heading);
+  --size-subheading:           var(--size-subheading);
+  --size-body:                 var(--size-body);
+  --size-caption:              var(--size-caption);
+  --size-fine:                 var(--size-fine);
+  --size-label:                var(--size-label);
+
+  /* --- Base Spacing Scale --- */
+  --space-1:                   var(--space-1);
+  --space-2:                   var(--space-2);
+  --space-3:                   var(--space-3);
+  --space-4:                   var(--space-4);
+  --space-5:                   var(--space-5);
+  --space-6:                   var(--space-6);
+  --space-8:                   var(--space-8);
+  --space-10:                  var(--space-10);
+  --space-12:                  var(--space-12);
+  --space-16:                  var(--space-16);
+  --space-20:                  var(--space-20);
+  --space-32:                  var(--space-32);
+
+  /* --- Border Radius --- */
+  --radius-xs:                 var(--radius-xs);
+  --radius-sm:                 var(--radius-sm);
+  --radius-md:                 var(--radius-md);
+  --radius-lg:                 var(--radius-lg);
+  --radius-xl:                 var(--radius-xl);
+  --radius-pill:               var(--radius-pill);
+
+  /* --- Shadows --- */
+  --shadow-sm:                 var(--shadow-sm);
+  --shadow-md:                 var(--shadow-md);
+  --shadow-lg:                 var(--shadow-lg);
+  --shadow-accent:             var(--shadow-accent);
+  --shadow-premium:            var(--shadow-premium);
+
+  /* --- Transitions --- */
+  --transition-fast:           var(--transition-fast);
+  --transition-normal:         var(--transition-normal);
+  --transition-slow:           var(--transition-slow);
+
+  /* --- Z-Index Scale --- */
+  --z-base:                    var(--z-base);
+  --z-raised:                  var(--z-raised);
+  --z-dropdown:                var(--z-dropdown);
+  --z-overlay:                 var(--z-overlay);
+  --z-toaster:                 var(--z-toaster);
+
+}
 
 /* ============================================================
    § 1. DESIGN TOKENS
@@ -175,7 +263,7 @@
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; background-color: var(--color-bg-page); }
 
 body {
   font-family:      var(--font-body);
@@ -184,6 +272,14 @@ body {
   background-color: var(--color-bg-page);
   line-height:      var(--leading-normal);
 }
+
+/* ============================================================
+   § 4. COMPONENT CLASSES
+   All semantic class definitions live inside @layer components {}
+   so Tailwind v4 can recognise and override them correctly.
+   ============================================================ */
+
+@layer components {
 
 /* ============================================================
    § 4. LAYOUT
@@ -813,7 +909,7 @@ body {
   width: var(--logo-sz, 32px);
   height: var(--logo-sz, 32px);
   background: var(--accent);
-  color: white;
+  color: var(--white);
   border-radius: var(--radius-md);
   display: flex;
   align-items: center;
@@ -888,3 +984,128 @@ body {
   z-index: var(--z-raised);
   pointer-events: none;
 }
+
+/* ============================================================
+   § 14. MISSING SEMANTIC CLASSES (Task 2.5)
+   ============================================================ */
+
+/* --- Background --- */
+/* Requirements: 8.1 */
+.bg-subtle { background-color: var(--color-bg-surface); }
+
+/* --- Layout --- */
+/* Requirements: 8.2 */
+.flex-center { display: flex; align-items: center; justify-content: center; }
+
+/* Requirements: 8.3 */
+.grid-standard {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--gap-row);
+}
+
+/* --- Color-only text modifiers --- */
+/* Requirements: 8.4 */
+.text-accent { color: var(--color-text-accent); }
+
+/* Requirements: 8.5 */
+.text-muted { color: var(--color-text-muted); }
+
+/* Requirements: 8.6 */
+.text-white { color: var(--white); }
+
+/* --- Button variants --- */
+
+/* Requirements: 4.4 */
+.btn-ghost {
+  display:          inline-flex;
+  align-items:      center;
+  justify-content:  center;
+  gap:              var(--gap-inline);
+  padding-inline:   var(--pad-btn-x-sm);
+  height:           var(--space-12);
+  background-color: transparent;
+  border:           none;
+  color:            var(--color-text-body);
+  border-radius:    var(--radius-sm);
+  font-family:      var(--font-body);
+  font-size:        var(--size-body);
+  font-weight:      var(--weight-medium, 500);
+  cursor:           pointer;
+  transition:       all var(--transition-fast);
+}
+.btn-ghost:hover { background-color: var(--color-bg-hover); }
+
+/* Requirements: 4.5 — alias for btn-ghost with identical rules */
+.btn-tertiary {
+  display:          inline-flex;
+  align-items:      center;
+  justify-content:  center;
+  gap:              var(--gap-inline);
+  padding-inline:   var(--pad-btn-x-sm);
+  height:           var(--space-12);
+  background-color: transparent;
+  border:           none;
+  color:            var(--color-text-body);
+  border-radius:    var(--radius-sm);
+  font-family:      var(--font-body);
+  font-size:        var(--size-body);
+  font-weight:      var(--weight-medium, 500);
+  cursor:           pointer;
+  transition:       all var(--transition-fast);
+}
+.btn-tertiary:hover { background-color: var(--color-bg-hover); }
+
+/* Requirements: 4.6 */
+.btn-tertiary-bordered {
+  display:          inline-flex;
+  align-items:      center;
+  justify-content:  center;
+  gap:              var(--gap-inline);
+  padding-inline:   var(--pad-btn-x-sm);
+  height:           var(--space-12);
+  background-color: transparent;
+  border:           1px solid var(--color-border);
+  color:            var(--color-text-body);
+  border-radius:    var(--radius-sm);
+  font-family:      var(--font-body);
+  font-size:        var(--size-body);
+  font-weight:      var(--weight-medium, 500);
+  cursor:           pointer;
+  transition:       all var(--transition-fast);
+}
+.btn-tertiary-bordered:hover {
+  background-color: var(--color-bg-hover);
+  border-color:     var(--accent);
+}
+
+/* Requirements: 4.7, 8.7 */
+.btn-destructive {
+  display:          inline-flex;
+  align-items:      center;
+  justify-content:  center;
+  gap:              var(--gap-inline);
+  padding-inline:   var(--pad-btn-x);
+  height:           var(--space-12);
+  background-color: var(--tone-danger-bg);
+  color:            var(--tone-danger-text);
+  border:           none;
+  border-radius:    var(--radius-sm);
+  font-family:      var(--font-body);
+  font-size:        var(--size-body);
+  font-weight:      600;
+  cursor:           pointer;
+  transition:       all var(--transition-fast);
+}
+.btn-destructive:hover {
+  background-color: var(--tone-danger-text);
+  color:            var(--white);
+  transform:        translateY(-1px);
+}
+.btn-destructive:active { transform: translateY(0) scale(0.98); }
+
+/* ============================================================
+   END @layer components
+   ============================================================ */
+
+} /* end @layer components */

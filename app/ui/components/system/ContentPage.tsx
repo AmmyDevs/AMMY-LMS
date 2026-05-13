@@ -35,11 +35,11 @@ export function ContentPage() {
       <div className="min-h-screen bg-page flex items-center justify-center">
         <div className="text-center">
           <BookOpen className="w-12 h-12 text-muted mx-auto mb-4" />
-          <h2 className="text-xl font-semibold text-text mb-2">Content Not Found</h2>
-          <p className="text-muted mb-4">The requested lecture content could not be loaded.</p>
+          <h2 className="text-subheading mb-2">Content Not Found</h2>
+          <p className="text-caption text-muted mb-4">The requested lecture content could not be loaded.</p>
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-brand hover:underline"
+            className="inline-flex items-center gap-2 text-accent hover:underline"
           >
             <ChevronLeft className="w-4 h-4" />
             Back to Dashboard
@@ -56,7 +56,7 @@ export function ContentPage() {
         <div className="mb-8">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand transition-colors"
+            className="inline-flex items-center gap-2 text-caption text-muted hover:text-accent transition-colors"
           >
             <ChevronLeft className="w-4 h-4" />
             Back to Dashboard
@@ -64,7 +64,7 @@ export function ContentPage() {
         </div>
 
         {/* Content */}
-        <article className="bg-surface rounded-xl border border-border p-8 md:p-10">
+        <article className="surface-card p-8 md:p-12">
           <MarkdownRenderer content={content} />
         </article>
       </div>

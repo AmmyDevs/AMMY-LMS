@@ -55,7 +55,6 @@ const TopicTag = ({
 }
 
 export default function LessonCard({
-  id,
   title,
   topicsCount,
   progress,

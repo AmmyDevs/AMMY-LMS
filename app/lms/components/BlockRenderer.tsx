@@ -17,7 +17,7 @@ interface BlockRendererProps {
   onQuizAnswer?: (blockId: string, correct: boolean) => void
 }
 
-export default function BlockRenderer({ block, lessonId, onQuizAnswer }: BlockRendererProps) {
+export default function BlockRenderer({ block, onQuizAnswer }: BlockRendererProps) {
   switch (block.type) {
     case 'heading':
       return <HeadingBlock block={block} />

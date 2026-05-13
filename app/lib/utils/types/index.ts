@@ -51,7 +51,7 @@ export interface LMSState {
   setProgress: (key: string, data: Partial<ProgressEntry>) => void
   resetProgress: () => void
 
-  theme: 'light' | 'dark'
+  theme: 'light' | 'dark' | null
   toggleTheme: () => void
   setTheme: (t: 'light' | 'dark') => void
 }
