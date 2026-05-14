@@ -12,7 +12,7 @@ export default function ModulesPage() {
     <div className="animate-fade-up">
       <header className="mb-12">
         <h1 className="text-title mb-2">My Modules</h1>
-        <p className="text-base color-muted">Select a module to start learning and track your academic progress.</p>
+        <p className="text-body color-muted">Select a module to start learning and track your academic progress.</p>
       </header>
 
       <div className="grid-auto">

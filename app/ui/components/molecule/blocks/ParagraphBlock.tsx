@@ -6,7 +6,7 @@ interface ParagraphBlockProps {
 
 export default function ParagraphBlock({ block }: ParagraphBlockProps) {
   return (
-    <p className="text-sm leading-relaxed text-gray-700 dark:text-gray-300 mb-4">
+    <p className="text-body color-body mb-5 leading-relaxed">
       {block.text}
     </p>
   )

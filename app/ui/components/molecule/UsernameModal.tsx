@@ -25,23 +25,25 @@ export function UsernameModal() {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-[2px]">
-      <div className="w-full max-w-md mx-4 card-surface p-8 animate-fade-in">
-        <div className="flex flex-col items-center text-center mb-6">
-          <div className="w-14 h-14 rounded-xl bg-brand/10 flex items-center justify-center mb-4">
-            <GraduationCap className="w-7 h-7 text-brand" />
+    <div className="overlay active" style={{ zIndex: 'var(--z-toaster)' }}>
+      <div className="pop-up" style={{ maxWidth: '28rem' }}>
+        {/* Icon + heading */}
+        <div className="col items-center text-center mb-8 gap-item">
+          <div className="w-14 h-14 radius-xl bg-accent-light flex items-center justify-center mb-2">
+            <GraduationCap className="w-7 h-7 text-accent" />
           </div>
-          <h2 className="text-2xl font-semibold text-text mb-2">
+          <h2 className="text-heading color-heading">
             Welcome to AMMY LMS
           </h2>
-          <p className="text-muted">
+          <p className="text-caption color-muted">
             Your personal learning environment for Digital Image Processing
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label htmlFor="username" className="block text-sm font-medium text-text mb-2">
+        {/* Form */}
+        <form onSubmit={handleSubmit} className="col gap-item">
+          <div className="col gap-item">
+            <label htmlFor="username" className="text-caption weight-bold color-heading">
               What should we call you?
             </label>
             <input
@@ -53,18 +55,17 @@ export function UsernameModal() {
                 setError('')
               }}
               placeholder="Enter your name"
-              className="w-full px-4 py-3 rounded-lg border border-border bg-page text-text placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-brand/50 focus:border-brand transition-all"
+              className="input-primary"
               autoFocus
             />
             {error && (
-              <p className="mt-2 text-sm text-red-500">{error}</p>
+              <p className="text-fine" style={{ color: 'var(--tone-danger-text)' }}>
+                {error}
+              </p>
             )}
           </div>
 
-          <button
-            type="submit"
-            className="w-full py-3 px-4 rounded-lg bg-brand text-white font-medium hover:bg-brand/90 transition-colors focus:outline-none focus:ring-2 focus:ring-brand/50"
-          >
+          <button type="submit" className="btn-primary w-full mt-2">
             Start Learning
           </button>
         </form>

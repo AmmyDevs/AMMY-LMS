@@ -7,7 +7,7 @@ import { ParameterPanel } from './ParameterPanel'
 import { CompareSlider } from './CompareSlider'
 import type { InteractiveBlockInternalState } from '@/lib/utils/types'
 
-interface InteractiveBlockProps {
+interface ImageProcessingWidgetProps {
   effectId: string
 }
 
@@ -643,7 +643,7 @@ function applyRegionGrowing(
 
 // ─── InteractiveBlock Component ────────────────────────────────────────────
 
-export function InteractiveBlock({ effectId }: InteractiveBlockProps) {
+export function ImageProcessingWidget({ effectId }: ImageProcessingWidgetProps) {
   const config = EFFECT_REGISTRY[effectId]
   const { setProgress } = useLMSStore()
   const [state, setState] = useState<InteractiveBlockInternalState>({
@@ -845,11 +845,11 @@ export function InteractiveBlock({ effectId }: InteractiveBlockProps) {
   }
 
   return (
-    <div className="my-8 rounded-xl border border-border bg-surface overflow-hidden">
+    <div className="my-8 surface-card p-0 overflow-hidden">
       {/* Header */}
-      <div className="px-6 py-5 border-b border-border">
-        <h3 className="text-lg font-semibold text-text mb-1">{config.title}</h3>
-        <p className="text-sm text-muted">{config.description}</p>
+      <div className="px-6 py-5 border-bottom">
+        <h3 className="text-subheading color-heading mb-1">{config.title}</h3>
+        <p className="text-caption color-muted">{config.description}</p>
       </div>
 
       {/* Upload zone */}
@@ -857,7 +857,12 @@ export function InteractiveBlock({ effectId }: InteractiveBlockProps) {
         <div
           onDragOver={(e) => e.preventDefault()}
           onDrop={handleDrop}
-          className="m-6 border-2 border-dashed border-border rounded-lg p-10 text-center hover:border-brand/50 hover:bg-navy-fill transition-colors cursor-pointer"
+          className="m-6 radius-md p-10 text-center cursor-pointer transition-colors"
+          style={{
+            border: '2px dashed var(--color-border)',
+          }}
+          onMouseEnter={(e) => (e.currentTarget.style.borderColor = 'var(--accent)')}
+          onMouseLeave={(e) => (e.currentTarget.style.borderColor = 'var(--color-border)')}
         >
           <input
             type="file"
@@ -867,11 +872,11 @@ export function InteractiveBlock({ effectId }: InteractiveBlockProps) {
             id={`upload-${effectId}`}
           />
           <label htmlFor={`upload-${effectId}`} className="cursor-pointer block">
-            <ImagePlus className="w-10 h-10 text-muted mx-auto mb-4" />
-            <p className="text-sm font-medium text-text mb-1">
+            <ImagePlus className="w-10 h-10 color-muted mx-auto mb-4" />
+            <p className="text-caption weight-bold color-heading mb-1">
               Drop an image here or click to upload
             </p>
-            <p className="text-xs text-muted">
+            <p className="text-fine color-muted">
               JPG or PNG, max 10 MB
             </p>
           </label>
@@ -880,7 +885,7 @@ export function InteractiveBlock({ effectId }: InteractiveBlockProps) {
 
       {/* Ready / Processing / Done / Error */}
       {state.blockState !== 'idle' && state.originalUrl && (
-        <div className="p-6 space-y-6">
+        <div className="px-6 pb-6 col gap-block">
           {/* Compare slider */}
           {state.blockState === 'done' && state.processedUrl ? (
             <CompareSlider
@@ -888,7 +893,7 @@ export function InteractiveBlock({ effectId }: InteractiveBlockProps) {
               processedUrl={state.processedUrl}
             />
           ) : (
-            <div className="relative w-full aspect-[4/3] rounded-lg border border-border bg-page flex items-center justify-center">
+            <div className="relative w-full aspect-[4/3] radius-md border-standard bg-page flex items-center justify-center overflow-hidden">
               <Image
                 src={state.originalUrl}
                 alt="Original"
@@ -897,9 +902,12 @@ export function InteractiveBlock({ effectId }: InteractiveBlockProps) {
                 className="object-contain opacity-60"
               />
               {state.blockState === 'processing' && (
-                <div className="absolute inset-0 flex flex-col items-center justify-center bg-surface/80">
-                  <Loader2 className="w-8 h-8 text-brand animate-spin mb-2" />
-                  <span className="text-sm text-muted">Processing...</span>
+                <div
+                  className="absolute inset-0 flex flex-col items-center justify-center"
+                  style={{ backgroundColor: 'rgba(var(--color-bg-surface), 0.8)' }}
+                >
+                  <Loader2 className="w-8 h-8 text-accent animate-spin mb-2" />
+                  <span className="text-caption color-muted">Processing...</span>
                 </div>
               )}
             </div>
@@ -907,17 +915,24 @@ export function InteractiveBlock({ effectId }: InteractiveBlockProps) {
 
           {/* Error */}
           {state.blockState === 'error' && state.errorMessage && (
-            <div className="flex items-center gap-2 text-sm text-red-500 bg-red-50 border border-red-200 rounded-lg px-4 py-3">
+            <div
+              className="row gap-item text-caption radius-md px-4 py-3"
+              style={{
+                color: 'var(--tone-danger-text)',
+                backgroundColor: 'var(--tone-danger-bg)',
+                border: '1px solid var(--tone-danger-text)',
+              }}
+            >
               <AlertCircle className="w-4 h-4 shrink-0" />
               {state.errorMessage}
             </div>
           )}
 
           {/* Parameters */}
-          <div className="rounded-lg border border-border bg-page p-5">
-            <div className="flex items-center gap-2 mb-4">
-              <SlidersHorizontal className="w-4 h-4 text-muted" />
-              <span className="text-sm font-semibold text-text">Parameters</span>
+          <div className="surface-sunken px-5 py-5">
+            <div className="row gap-item mb-4">
+              <SlidersHorizontal className="w-4 h-4 color-muted" />
+              <span className="text-caption weight-bold color-heading">Parameters</span>
             </div>
             <ParameterPanel
               parameters={config.parameters}
@@ -928,27 +943,21 @@ export function InteractiveBlock({ effectId }: InteractiveBlockProps) {
           </div>
 
           {/* Action bar */}
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
+          <div className="row-between">
+            <div className="row gap-item">
               {state.blockState === 'done' && (
-                <button
-                  onClick={handleDownload}
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-brand text-white text-sm font-medium hover:bg-brand/90 transition-colors"
-                >
+                <button onClick={handleDownload} className="btn-primary btn-sm">
                   <Download className="w-4 h-4" />
                   Download PNG
                 </button>
               )}
-              <button
-                onClick={handleReset}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-border text-sm font-medium text-text hover:bg-elevated transition-colors"
-              >
+              <button onClick={handleReset} className="btn-outline btn-sm">
                 <RotateCcw className="w-4 h-4" />
                 Reset
               </button>
             </div>
             {state.processingTimeMs !== null && state.blockState === 'done' && (
-              <span className="text-xs text-muted">
+              <span className="text-fine color-muted">
                 Processed in {state.processingTimeMs}ms
               </span>
             )}
@@ -956,7 +965,10 @@ export function InteractiveBlock({ effectId }: InteractiveBlockProps) {
 
           {/* Hint */}
           {config.hint && (
-            <p className="text-xs text-muted italic border-l-2 border-brand pl-3">
+            <p
+              className="text-fine color-muted italic pl-3"
+              style={{ borderLeft: '2px solid var(--accent)' }}
+            >
               {config.hint}
             </p>
           )}

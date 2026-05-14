@@ -18,7 +18,7 @@ export function Hero({ onLogin }: HeroProps) {
   }
 
   return (
-    <section className="page-section">
+    <section className="page-section" style={{ paddingTop: 'var(--pad-page-y)', paddingBottom: 'var(--pad-page-y)' }}>
       <div className="page-container">
         <div className="grid-halves gap-section">
 
@@ -62,7 +62,7 @@ export function Hero({ onLogin }: HeroProps) {
                 Start your journey
               </label>
               <p className="text-fine color-muted">No account needed — just enter your name.</p>
-              <div className="form-input-wrapper">
+              <div className="col gap-item">
                 <input
                   id="hero-name"
                   type="text"

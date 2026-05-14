@@ -39,45 +39,42 @@ export function Sidebar() {
     setExpanded((prev) => ({ ...prev, [id]: !prev[id] }))
   }
 
-  const isActive = (slug: string) => {
-    return pathname === `/modules/${slug}`
-  }
+  const isActive = (slug: string) => pathname === `/modules/${slug}`
 
   const getProgressForItem = (slug: string) => {
-    const slugProgress = Object.keys(progress).filter((k) =>
-      k.startsWith(slug)
-    )
+    const slugProgress = Object.keys(progress).filter((k) => k.startsWith(slug))
     if (slugProgress.length === 0) return null
     const completed = slugProgress.filter((k) => progress[k]?.completed).length
     return { completed, total: slugProgress.length }
   }
 
   return (
-    <aside className="fixed left-0 top-0 h-screen w-72 bg-surface border-r border-standard flex flex-col z-40">
+    <aside className="fixed left-0 top-0 h-screen w-72 bg-surface border-standard flex flex-col z-40"
+      style={{ borderTop: 'none', borderBottom: 'none', borderLeft: 'none' }}
+    >
       {/* Header */}
-      <div className="px-5 py-5 border-b border-standard">
+      <div className="px-5 py-5 border-bottom">
         <Link href="/" className="flex items-center gap-3">
           <div className="w-10 h-10 radius-md flex items-center justify-center bg-accent-light">
             <GraduationCap className="w-5 h-5 text-accent" />
           </div>
           <div>
-            <h1 className="text-subheading font-bold text-heading leading-tight">AMMY LMS</h1>
+            <h1 className="text-subheading weight-bold color-heading leading-tight">AMMY LMS</h1>
           </div>
         </Link>
       </div>
 
       {/* User info */}
       {username && (
-        <div className="px-5 py-3 border-b border-standard bg-surface">
-          <p className="text-caption text-muted">
-            Hello, <span className="font-medium text-body">{username}</span>
+        <div className="px-5 py-3 border-bottom bg-surface">
+          <p className="text-caption color-muted">
+            Hello, <span className="weight-bold color-body">{username}</span>
           </p>
         </div>
       )}
 
       {/* Navigation */}
-      <nav className="flex-1 overflow-y-auto scrollbar-thin py-3">
-
+      <nav className="flex-1 overflow-y-auto py-4 px-3">
         {CONTENT_NAV.map((section) => {
           const Icon = TYPE_ICONS[section.type]
           const isExpanded = expanded[section.id] ?? false
@@ -92,8 +89,10 @@ export function Sidebar() {
                     setCurrentPath([section.id, section.children![0].id])
                   }
                 }}
-                className={`w-full flex items-center gap-2 px-4 py-2.5 text-caption radius-lg transition-colors ${
-                  isExpanded ? 'bg-surface text-body' : 'text-muted hover:text-body hover:bg-surface'
+                className={`w-full flex items-center gap-3 px-4 py-3 text-caption radius-md transition-colors ${
+                  isExpanded
+                    ? 'bg-subtle color-body'
+                    : 'color-muted hover:color-body hover:bg-subtle'
                 }`}
               >
                 <Icon className={`w-4 h-4 shrink-0 ${TYPE_COLORS[section.type]}`} />
@@ -101,16 +100,14 @@ export function Sidebar() {
                   {section.label}
                 </span>
                 {hasChildren && (
-                  isExpanded ? (
-                    <ChevronDown className="w-4 h-4 text-muted" />
-                  ) : (
-                    <ChevronRight className="w-4 h-4 text-muted" />
-                  )
+                  isExpanded
+                    ? <ChevronDown className="w-4 h-4 color-muted" />
+                    : <ChevronRight className="w-4 h-4 color-muted" />
                 )}
               </button>
 
               {isExpanded && hasChildren && (
-                <div className="ml-4 mt-0.5 space-y-0.5">
+                <div className="ml-4 mt-1 space-y-0.5">
                   {section.children!.map((child) => {
                     const active = isActive(child.slug)
                     const prog = getProgressForItem(child.slug)
@@ -120,16 +117,16 @@ export function Sidebar() {
                       <Link
                         key={child.id}
                         href={`/modules/${child.slug}`}
-                        className={`flex items-center gap-2 px-4 py-2 text-caption radius-lg transition-colors ${
+                        className={`flex items-center gap-2 px-4 py-2.5 text-caption radius-md transition-colors ${
                           active
-                            ? 'bg-accent-light text-accent font-medium'
-                            : 'text-muted hover:text-body hover:bg-surface'
+                            ? 'bg-accent-light color-accent font-medium'
+                            : 'color-muted hover:color-body hover:bg-subtle'
                         }`}
                       >
                         {isCompleted ? (
                           <CheckCircle2 className="w-3.5 h-3.5 text-accent shrink-0" />
                         ) : (
-                          <Circle className="w-3.5 h-3.5 text-muted opacity-40 shrink-0" />
+                          <Circle className="w-3.5 h-3.5 color-muted opacity-40 shrink-0" />
                         )}
                         <span className="truncate">{child.label}</span>
                         {active && (

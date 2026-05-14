@@ -27,7 +27,7 @@ export function ParameterPanel({ parameters, values, onChange, disabled }: Param
 
   if (parameters.length === 0) {
     return (
-      <div className="flex items-center gap-2 text-sm text-muted py-2">
+      <div className="row gap-item text-caption color-muted py-3">
         <SlidersHorizontal className="w-4 h-4" />
         <span>No parameters — effect is parameter-free</span>
       </div>
@@ -35,23 +35,30 @@ export function ParameterPanel({ parameters, values, onChange, disabled }: Param
   }
 
   return (
-    <div className="space-y-5">
+    <div className="col gap-block">
       {parameters.map((param) => (
-        <div key={param.id} className="space-y-2">
-          <div className="flex items-center justify-between">
-            <label className="text-sm font-medium text-text">
+        <div key={param.id} className="col gap-item">
+          <div className="row-between">
+            <label className="text-caption weight-bold color-heading">
               {param.label}
             </label>
             {param.type === 'slider' && (
-              <span className="text-sm font-mono text-brand bg-brand/10 px-2 py-0.5 rounded">
-                {String(localValues[param.id] ?? param.default)}{param.unit ? ` ${param.unit}` : ''}
+              <span
+                className="text-fine font-mono px-2 py-0.5 radius-xs"
+                style={{
+                  backgroundColor: 'var(--accent-light)',
+                  color: 'var(--accent)',
+                }}
+              >
+                {String(localValues[param.id] ?? param.default)}
+                {param.unit ? ` ${param.unit}` : ''}
               </span>
             )}
           </div>
 
           {param.type === 'slider' && (
-            <div className="flex items-center gap-3">
-              <span className="text-xs text-muted w-8 text-right">{param.min}</span>
+            <div className="row gap-item">
+              <span className="text-fine color-muted w-8 text-right">{param.min}</span>
               <input
                 type="range"
                 min={param.min}
@@ -60,9 +67,13 @@ export function ParameterPanel({ parameters, values, onChange, disabled }: Param
                 value={Number(localValues[param.id] ?? param.default)}
                 onChange={(e) => handleChange(param.id, Number(e.target.value))}
                 disabled={disabled}
-                className="flex-1 h-2 appearance-none rounded-full bg-border accent-brand cursor-pointer disabled:opacity-50"
+                className="flex-1 h-2 appearance-none radius-pill cursor-pointer disabled:opacity-50"
+                style={{
+                  backgroundColor: 'var(--color-border)',
+                  accentColor: 'var(--accent)',
+                }}
               />
-              <span className="text-xs text-muted w-8">{param.max}</span>
+              <span className="text-fine color-muted w-8">{param.max}</span>
             </div>
           )}
 
@@ -71,7 +82,8 @@ export function ParameterPanel({ parameters, values, onChange, disabled }: Param
               value={String(localValues[param.id] ?? param.default)}
               onChange={(e) => handleChange(param.id, e.target.value)}
               disabled={disabled}
-              className="w-full px-3 py-2 rounded-lg border border-border bg-surface text-text text-sm focus:outline-none focus:ring-2 focus:ring-brand/50 focus:border-brand disabled:opacity-50"
+              className="input-primary disabled:opacity-50"
+              style={{ height: '40px' }}
             >
               {param.options.map((opt) => (
                 <option key={opt.value} value={opt.value}>
@@ -85,16 +97,22 @@ export function ParameterPanel({ parameters, values, onChange, disabled }: Param
             <button
               onClick={() => handleChange(param.id, !(localValues[param.id] ?? param.default))}
               disabled={disabled}
-              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-brand/50 ${
-                (localValues[param.id] ?? param.default)
-                  ? 'bg-brand'
-                  : 'bg-border'
-              } disabled:opacity-50`}
+              className="relative inline-flex h-6 w-11 items-center radius-pill transition-colors disabled:opacity-50"
+              style={{
+                backgroundColor: (localValues[param.id] ?? param.default)
+                  ? 'var(--accent)'
+                  : 'var(--color-border)',
+              }}
+              aria-pressed={Boolean(localValues[param.id] ?? param.default)}
             >
               <span
-                className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                  (localValues[param.id] ?? param.default) ? 'translate-x-6' : 'translate-x-1'
-                }`}
+                className="inline-block h-4 w-4 transform radius-pill transition-transform"
+                style={{
+                  backgroundColor: 'var(--white)',
+                  transform: (localValues[param.id] ?? param.default)
+                    ? 'translateX(1.5rem)'
+                    : 'translateX(0.25rem)',
+                }}
               />
             </button>
           )}

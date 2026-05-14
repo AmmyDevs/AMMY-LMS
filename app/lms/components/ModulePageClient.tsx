@@ -2,8 +2,8 @@
 import { useState, useEffect, useCallback } from 'react'
 import { LessonContent } from '@/app/lms/types/module'
 import { useModuleProgress } from '@/app/lms/hooks/useModuleProgress'
-import LessonBoard from '@/app/lms/components/LessonBoard'
-import BlockRenderer from '@/app/lms/components/BlockRenderer'
+import LessonSidebarNav from '@/app/ui/components/molecule/LessonSidebarNav'
+import BlockRenderer from '@/app/ui/components/system/BlockRenderer'
 
 interface ModulePageClientProps {
   module: LessonContent
@@ -86,8 +86,8 @@ export default function ModulePageClient({ module }: ModulePageClientProps) {
   return (
     <div className="layout-shell h-screen overflow-hidden bg-page">
       <div className="layout-main pt-0"> {/* Override padding-top for full-screen lesson */}
-        <aside className="layout-aside border-r border-standard bg-surface overflow-y-auto hidden lg:block" style={{ top: 0, height: '100vh' }}>
-          <LessonBoard
+        <aside className="layout-aside border-standard bg-surface overflow-y-auto hidden lg:block" style={{ top: 0, height: '100vh', borderRight: '1px solid var(--color-border)', borderTop: 'none', borderBottom: 'none', borderLeft: 'none' }}>
+          <LessonSidebarNav
             module={module}
             activeLessonId={activeLessonId}
             getLessonStatus={getLessonStatus}

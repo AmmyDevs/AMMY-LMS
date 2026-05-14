@@ -5,7 +5,7 @@ import { LessonContent } from '@/app/lms/types/module'
 import { CheckCircle2, PlayCircle, Lock, ChevronRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
-interface LessonBoardProps {
+interface LessonSidebarNavProps {
   module: LessonContent
   activeLessonId: string
   getLessonStatus: (lessonId: string) => 'completed' | 'active' | 'locked'
@@ -16,12 +16,12 @@ interface LessonBoardProps {
  * High-end sidebar navigation for lesson content.
  * Aligned with Design System v2.0.
  */
-export default function LessonBoard({
+export default function LessonSidebarNav({
   module,
   activeLessonId,
   getLessonStatus,
   onLessonClick
-}: LessonBoardProps) {
+}: LessonSidebarNavProps) {
   return (
     <div className="flex flex-col h-full">
       {/* Module Info Header */}

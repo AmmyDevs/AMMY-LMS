@@ -6,7 +6,7 @@ export function Footer() {
 
   return (
     <footer className="page-footer">
-      <div className="page-container grid-auto gap-section"> {/* Applied grid-auto and gap-section */}
+      <div className="page-container grid-auto gap-row">
 
         {/* Brand column */}
         <div className="col gap-block"> {/* Changed to col gap-block for vertical spacing */}
@@ -46,7 +46,7 @@ export function Footer() {
       </div>
 
       {/* Bottom bar */}
-      <div className="row-between border-top page-container text-caption color-muted" style={{ marginTop: 'var(--gap-section)' }}> {/* Applied row-between, border-top, page-container, text-caption, color-muted, and inline style for margin */}
+      <div className="row-between border-top page-container text-caption color-muted" style={{ marginTop: 'var(--gap-section)', paddingTop: 'var(--space-6)', paddingBottom: 'var(--space-6)' }}>
         <p>© {year} AMMY LMS. All rights reserved.</p>
         <span className="text-caption">Built with passion for learning</span> {/* Applied text-caption */}
       </div>

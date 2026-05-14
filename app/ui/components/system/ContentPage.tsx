@@ -64,7 +64,7 @@ export function ContentPage() {
         </div>
 
         {/* Content */}
-        <article className="surface-card p-8 md:p-12">
+        <article className="surface-card">
           <MarkdownRenderer content={content} />
         </article>
       </div>

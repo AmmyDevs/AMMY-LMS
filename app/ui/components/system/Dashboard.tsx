@@ -61,7 +61,7 @@ export function Dashboard() {
 
         {/* Progress overview */}
         {completedItems > 0 && (
-          <div className="mb-10 p-6 radius-xl border border-standard bg-surface">
+          <div className="mb-10 surface-card-sm radius-xl">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-3">
                 <BarChart3 className="w-5 h-5 text-accent" />
@@ -71,7 +71,7 @@ export function Dashboard() {
                 {completedItems} / {totalItems} completed
               </span>
             </div>
-            <div className="w-full h-2.5 bg-page radius-pill overflow-hidden">
+            <div className="w-full h-2.5 bg-subtle radius-pill overflow-hidden">
               <div
                 className="h-full bg-accent radius-pill transition-all duration-500"
                 style={{ width: `${progressPct}%` }}
@@ -98,9 +98,9 @@ export function Dashboard() {
             return (
               <div
                 key={section.id}
-                className={`group relative radius-lg border bg-surface p-6 transition-all hover:shadow-md ${config.border}`}
+                className={`group relative surface-card transition-all hover:shadow-md hover:border-accent`}
               >
-                <div className="flex items-start justify-between mb-4">
+                <div className="flex items-start justify-between mb-5">
                   <div className={`w-12 h-12 radius-lg ${config.color} flex items-center justify-center`}>
                     <Icon className="w-6 h-6" />
                   </div>
@@ -109,14 +109,14 @@ export function Dashboard() {
                   </span>
                 </div>
 
-                <h3 className="text-subheading mb-1">
+                <h3 className="text-subheading mb-2">
                   {section.label}
                 </h3>
-                <p className="text-caption text-muted mb-4">
+                <p className="text-caption text-muted mb-5">
                   {section.subtitle}
                 </p>
 
-                <div className="space-y-2 mb-5">
+                <div className="space-y-2 mb-6">
                   {section.children?.map((child) => {
                     const prog = Object.keys(progress).filter((k) =>
                       k.startsWith(child.slug)

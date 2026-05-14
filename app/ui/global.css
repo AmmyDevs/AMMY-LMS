@@ -301,6 +301,12 @@ body {
   padding-inline: var(--pad-page-x);
 }
 
+@media (min-width: 1024px) {
+  .page-container {
+    padding-inline: var(--space-10);
+  }
+}
+
 /* Section wrapper — consistent vertical rhythm across all sections */
 .page-section { margin-bottom: var(--gap-section); }
 
@@ -339,6 +345,7 @@ body {
 .gap-item    { gap: var(--gap-item); }
 .gap-row     { gap: var(--gap-row); }
 .gap-block   { gap: var(--gap-block); }
+.gap-section { gap: var(--gap-section); }
 
 /* Vertical stacks — space between siblings only */
 .stack-sm > * + * { margin-top: var(--space-2); }
@@ -378,7 +385,7 @@ body {
   top: var(--header-h);
   height: calc(100vh - var(--header-h));
   overflow-y: auto;
-  padding: var(--space-6);
+  padding: var(--space-4) var(--space-3);
   flex-shrink: 0;
 }
 
@@ -497,6 +504,7 @@ body {
   border:           1px solid var(--color-border);
   border-radius:    var(--radius-lg);
   padding:          var(--pad-card);
+  box-shadow:       var(--shadow-sm);
   transition:
     box-shadow   var(--transition-normal),
     border-color var(--transition-normal);
@@ -507,6 +515,7 @@ body {
   border:           1px solid var(--color-border);
   border-radius:    var(--radius-lg);
   padding:          var(--pad-card-sm);
+  box-shadow:       var(--shadow-sm);
   transition:
     box-shadow   var(--transition-normal),
     border-color var(--transition-normal);
@@ -530,10 +539,13 @@ body {
    § 7. BACKGROUNDS
    ============================================================ */
 
-.bg-page    { background-color: var(--color-bg-page); }
-.bg-surface { background-color: var(--color-bg-surface); }
-.bg-accent  { background-color: var(--accent); }
-.bg-white   { background-color: var(--white); }
+.bg-page        { background-color: var(--color-bg-page); }
+.bg-surface     { background-color: var(--color-bg-surface); }
+.bg-accent      { background-color: var(--accent); }
+.bg-white       { background-color: var(--white); }
+.bg-card        { background-color: var(--color-bg-card); }
+.bg-hover       { background-color: var(--color-bg-hover); }
+.bg-accent-light { background-color: var(--accent-light); }
 
 .bg-gradient {
   background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
@@ -575,7 +587,8 @@ body {
 .border-subtle   { border: 1px solid var(--color-border-subtle); }
 .border-strong   { border: 2px solid var(--color-border-strong); }
 .border-accent   { border: 1px solid var(--accent); }
-.border-top      { border-top: 1px solid var(--color-border); }
+.border-top      { border-top:    1px solid var(--color-border); }
+.border-bottom   { border-bottom: 1px solid var(--color-border); }
 
 .radius-xs   { border-radius: var(--radius-xs); }
 .radius-sm   { border-radius: var(--radius-sm); }
@@ -638,9 +651,13 @@ body {
   height:           48px;
   padding-inline:   var(--pad-btn-x);
   background-color: transparent;
-  border-color: var(--color-border);
-  color: var(--color-text-heading);
+  border:           1px solid var(--color-border);
+  color:            var(--color-text-heading);
   border-radius:    var(--radius-sm);
+  font-family:      var(--font-body);
+  font-size:        var(--size-body);
+  font-weight:      600;
+  cursor:           pointer;
   transition:       all var(--transition-fast);
 }
 .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
@@ -652,10 +669,14 @@ body {
   height:           48px;
   padding-inline:   var(--pad-btn-x);
   background-color: var(--color-bg-card);
-  border-color: var(--color-border);
-  color: var(--color-text-heading);
+  border:           1px solid var(--color-border);
+  color:            var(--color-text-heading);
   border-radius:    var(--radius-sm);
-  box-shadow: var(--shadow-sm);
+  font-family:      var(--font-body);
+  font-size:        var(--size-body);
+  font-weight:      600;
+  cursor:           pointer;
+  box-shadow:       var(--shadow-sm);
   transition:       all var(--transition-fast);
 }
 .btn-premium:hover { border-color: var(--accent); color: var(--accent); box-shadow: var(--shadow-md); }
@@ -674,7 +695,7 @@ body {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
+  gap: var(--space-1);
 }
 
 .nav-link {
@@ -685,8 +706,10 @@ body {
   border-radius: var(--radius-md);
   color: var(--color-text-body);
   text-decoration: none;
+  font-size: var(--size-caption);
   font-weight: 500;
   transition: all var(--transition-fast);
+  white-space: nowrap;
 }
 
 .nav-link:hover {
@@ -921,8 +944,9 @@ body {
 
 .page-footer {
   background-color: var(--color-bg-surface);
-  padding-top: var(--gap-section);
-  border-top: 1px solid var(--color-border);
+  padding-top:      var(--pad-page-y);
+  padding-bottom:   var(--space-4);
+  border-top:       1px solid var(--color-border);
 }
 
 .dot-accent { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; }

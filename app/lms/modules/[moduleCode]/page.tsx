@@ -50,7 +50,7 @@ export default async function ModuleOverviewPage({ params }: Props) {
         <h1 className="text-title mb-3">
           {moduleInfo.name}
         </h1>
-        <p className="text-base color-muted max-w-2xl">
+        <p className="text-body color-muted max-w-2xl">
           Explore the lectures and course materials for this module. Each lesson contains interactive blocks, quizzes, and practical examples.
         </p>
       </header>
