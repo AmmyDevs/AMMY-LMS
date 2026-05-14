@@ -17,7 +17,9 @@ export default function HomePage() {
   return (
     <div className="page-wrapper">
       <Navbar />
-      <Hero onLogin={handleLogin} />
+      <main>
+        <Hero onLogin={handleLogin} />
+      </main>
       <Footer />
     </div>
   )

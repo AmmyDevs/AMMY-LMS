@@ -291,7 +291,6 @@ body {
   color:            var(--color-text-body);
   min-height:       100vh;
   padding-top:      var(--header-h, 4.5rem);
-  padding-bottom:   var(--pad-page-y);
 }
 
 .page-container {
@@ -308,7 +307,19 @@ body {
 }
 
 /* Section wrapper — consistent vertical rhythm across all sections */
-.page-section { margin-bottom: var(--gap-section); }
+/* Section wrapper — consistent vertical rhythm across all sections */
+.page-section { 
+  position: relative;
+  padding-top: var(--space-20);
+  padding-bottom: var(--space-20);
+}
+
+@media (max-width: 768px) {
+  .page-section {
+    padding-top: var(--space-12);
+    padding-bottom: var(--space-12);
+  }
+}
 
 /* Section header row (icon + heading) */
 .section-header {
@@ -351,6 +362,13 @@ body {
 .stack-sm > * + * { margin-top: var(--space-2); }
 .stack-md > * + * { margin-top: var(--space-4); }
 .stack-lg > * + * { margin-top: var(--space-8); }
+.stack-xl > * + * { margin-top: var(--space-16); }
+
+/* Semantic stack for Hero/Landing content to maintain Law of Proximity */
+.stack-hero > * + * { margin-top: var(--space-10); }
+.stack-hero > .text-label + * { margin-top: var(--space-2); }
+.stack-hero > .text-display-hero + * { margin-top: var(--space-4); }
+.stack-hero > .text-subheading + * { margin-top: var(--space-10); }
 
 /* Misc positioning */
 .relative    { position: relative; }
@@ -432,6 +450,15 @@ body {
   letter-spacing: var(--tracking-tight);
 }
 
+.text-display-hero {
+  font-family:    var(--font-display);
+  font-weight:    700;
+  font-size:      clamp(3.5rem, 8vw, 5.5rem);
+  color:          var(--color-text-heading);
+  line-height:    1.1;
+  letter-spacing: -0.03em;
+}
+
 .text-title {
   font-family:    var(--font-display);
   font-weight:    700;
@@ -493,6 +520,14 @@ body {
 .color-white   { color: var(--color-text-white)   !important; }
 .color-heading { color: var(--color-text-heading) !important; }
 .weight-bold   { font-weight: 700; }
+
+.text-gradient-accent {
+  background: linear-gradient(135deg, var(--accent) 0%, #06b6d4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
 
 /* ============================================================
    § 6. SURFACES
@@ -561,6 +596,20 @@ body {
 .dark .bg-glass {
   background:   rgba(255, 255, 255, 0.05);
   border-color: rgba(255, 255, 255, 0.08);
+}
+
+/* Premium Glass — Deeper blur and subtle reflection for hero cards */
+.bg-glass-premium {
+  background:              rgba(255, 255, 255, 0.2);
+  backdrop-filter:         blur(24px) saturate(200%);
+  -webkit-backdrop-filter: blur(24px) saturate(200%);
+  border:                  1px solid rgba(255, 255, 255, 0.3);
+  box-shadow:              0 8px 32px 0 rgba(31, 38, 135, 0.07);
+}
+.dark .bg-glass-premium {
+  background:   rgba(15, 23, 42, 0.6);
+  border:       1px solid rgba(255, 255, 255, 0.1);
+  box-shadow:   0 8px 32px 0 rgba(0, 0, 0, 0.3);
 }
 
 /* Mesh — subtle radial accent tint on a neutral surface */
@@ -1127,6 +1176,85 @@ body {
   transform:        translateY(-1px);
 }
 .btn-destructive:active { transform: translateY(0) scale(0.98); }
+
+/* ============================================================
+   § 15. SEMANTIC SPACING & LAYOUT
+   ============================================================ */
+
+.pad-page {
+  padding-inline: var(--pad-page-x);
+  padding-top: var(--pad-page-y);
+  padding-bottom: var(--pad-page-y);
+}
+
+.pad-y-section {
+  padding-top: var(--pad-page-y);
+  padding-bottom: var(--pad-page-y);
+}
+
+.pad-y-standard {
+  padding-top: var(--space-6);
+  padding-bottom: var(--space-6);
+}
+
+.margin-top-section {
+  margin-top: var(--gap-section);
+}
+
+.margin-bottom-section {
+  margin-bottom: var(--gap-section);
+}
+
+.border-bottom-subtle {
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+/* ============================================================
+   § 15. ANIMATIONS & EFFECTS
+   ============================================================ */
+
+@keyframes fade-in-up {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+@keyframes pulse-glow {
+  0% { box-shadow: 0 0 0 0 rgba(var(--accent-rgb), 0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(var(--accent-rgb), 0); }
+  100% { box-shadow: 0 0 0 0 rgba(var(--accent-rgb), 0); }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s infinite;
+}
+
+/* Stagger delays */
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-500 { animation-delay: 500ms; }
 
 /* ============================================================
    END @layer components

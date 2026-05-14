@@ -4,7 +4,7 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
-  "select-none [&_svg]:pointer-events-none [&_svg]:size-4 shrink-0 transition-all",
+  "group select-none [&_svg]:pointer-events-none [&_svg]:size-4 shrink-0 transition-all active:scale-[0.98] hover:scale-[1.02]",
   {
     variants: {
       variant: {

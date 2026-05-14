@@ -41,14 +41,14 @@ export default function ThemeToggle({ size = 'md', className }: ThemeToggleProps
     <button
       onClick={toggleTheme}
       type="button"
-      className={cn("theme-toggle", sizeClass, className)}
+      className={cn("theme-toggle shadow-inner hover:shadow-md transition-shadow", sizeClass, className)}
       aria-label={`Switch to ${isDark ? 'light' : 'dark'} mode`}
     >
       {/* Sliding High-End Thumb */}
-      <div className="theme-toggle-thumb" />
+      <div className="theme-toggle-thumb shadow-md" />
 
       {/* Horizontal Icons Track */}
-      <div className="theme-toggle-track">
+      <div className="theme-toggle-track relative z-10">
         <div className={`
           centered transition-all duration-500
           ${!isDark ? 'text-accent scale-100 rotate-0' : 'text-muted dim scale-75 -rotate-12'}

@@ -10,11 +10,11 @@ import Link from 'next/link'
 ───────────────────────────────────────── */
 export function Navbar() {
   return (
-    <nav className="header-sticky bg-glass" style={{ '--header-h': '4.5rem' } as React.CSSProperties} role="navigation">
-      <div className="page-container row-between">
+    <nav className="header-sticky bg-glass border-bottom-subtle" role="navigation">
+      <div className="page-container row-between h-full">
 
         {/* Brand */}
-        <Link href="/" className="brand-link row gap-item" aria-label="AMMY LMS home">
+        <Link href="/" className="brand-link row gap-item effect-enlarge" aria-label="AMMY LMS home">
           <Logo variant="icon" size={24} withBackground />
           <span className="text-subheading">
             AMMY <span className="color-accent">LMS</span>
