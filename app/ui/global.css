@@ -41,28 +41,28 @@
   --font-body:                 var(--font-body);
 
   /* --- Type Scale --- */
-  --size-hero:                 var(--size-hero);
-  --size-title:                var(--size-title);
-  --size-heading:              var(--size-heading);
-  --size-subheading:           var(--size-subheading);
-  --size-body:                 var(--size-body);
-  --size-caption:              var(--size-caption);
-  --size-fine:                 var(--size-fine);
-  --size-label:                var(--size-label);
+  --font-size-hero:            var(--size-hero);
+  --font-size-title:           var(--size-title);
+  --font-size-heading:         var(--size-heading);
+  --font-size-subheading:      var(--size-subheading);
+  --font-size-body:            var(--size-body);
+  --font-size-caption:         var(--size-caption);
+  --font-size-fine:            var(--size-fine);
+  --font-size-label:           var(--size-label);
 
   /* --- Base Spacing Scale --- */
-  --space-1:                   var(--space-1);
-  --space-2:                   var(--space-2);
-  --space-3:                   var(--space-3);
-  --space-4:                   var(--space-4);
-  --space-5:                   var(--space-5);
-  --space-6:                   var(--space-6);
-  --space-8:                   var(--space-8);
-  --space-10:                  var(--space-10);
-  --space-12:                  var(--space-12);
-  --space-16:                  var(--space-16);
-  --space-20:                  var(--space-20);
-  --space-32:                  var(--space-32);
+  --spacing-1:                 var(--space-1);
+  --spacing-2:                 var(--space-2);
+  --spacing-3:                 var(--space-3);
+  --spacing-4:                 var(--space-4);
+  --spacing-5:                 var(--space-5);
+  --spacing-6:                 var(--space-6);
+  --spacing-8:                 var(--space-8);
+  --spacing-10:                var(--space-10);
+  --spacing-12:                var(--space-12);
+  --spacing-16:                var(--space-16);
+  --spacing-20:                var(--space-20);
+  --spacing-32:                var(--space-32);
 
   /* --- Border Radius --- */
   --radius-xs:                 var(--radius-xs);
@@ -364,11 +364,15 @@ body {
 .stack-lg > * + * { margin-top: var(--space-8); }
 .stack-xl > * + * { margin-top: var(--space-16); }
 
-/* Semantic stack for Hero/Landing content to maintain Law of Proximity */
-.stack-hero > * + * { margin-top: var(--space-10); }
-.stack-hero > .text-label + * { margin-top: var(--space-2); }
-.stack-hero > .text-display-hero + * { margin-top: var(--space-4); }
-.stack-hero > .text-subheading + * { margin-top: var(--space-10); }
+/* Semantic stack for Hero content — using flex gaps for cleaner alignment */
+.stack-hero {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  align-items: flex-start;
+}
+.stack-hero > .text-label { margin-bottom: calc(var(--space-2) * -1); }
+.stack-hero > h1 { margin-bottom: calc(var(--space-2) * -1); }
 
 /* Misc positioning */
 .relative    { position: relative; }

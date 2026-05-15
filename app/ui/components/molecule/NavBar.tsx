@@ -1,14 +1,14 @@
 'use client'
-import ThemeToggle from '../atomic/ThemeToggle'
-import { Logo } from '../atomic/Logo'
-import { Button } from '../atomic/button' // Import the Button component
+import ThemeToggle from '@/app/ui/components/atomic/ThemeToggle'
+import { Logo } from '@/app/ui/components/atomic/Logo'
+import { Button } from '@/app/ui/components/atomic/button' // Import the Button component
 import Link from 'next/link'
 
 
 /* ─────────────────────────────────────────
    Navbar — fixed, frosted glass
 ───────────────────────────────────────── */
-export function Navbar() {
+export function NavBar() {
   return (
     <nav className="header-sticky bg-glass border-bottom-subtle" role="navigation">
       <div className="page-container row-between h-full">
@@ -22,8 +22,8 @@ export function Navbar() {
         </Link>
 
         {/* Actions */}
-        <div className="row gap-block">
-          <ThemeToggle size="lg" />
+        <div className="row gap-4">
+          <ThemeToggle className="theme-toggle-md" />
           <Button variant="default" size="lg">Get Started</Button>
         </div>
 

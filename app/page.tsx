@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { Navbar } from '@/app/ui/components/molecule/NavBar'
+import { NavBar } from '@/app/ui/components/molecule/NavBar'
 import { Hero } from './ui/components/molecule/Hero'
 import { Footer } from './ui/components/molecule/Footer'
 
@@ -16,8 +16,8 @@ export default function HomePage() {
 
   return (
     <div className="page-wrapper">
-      <Navbar />
-      <main>
+      <NavBar />
+      <main className="animate-fade-up">
         <Hero onLogin={handleLogin} />
       </main>
       <Footer />

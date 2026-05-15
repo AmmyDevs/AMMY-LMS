@@ -34,22 +34,22 @@ export function Hero({ onLogin }: HeroProps) {
               Now in early access
             </span>
 
-            <h1 className="text-display-hero">
+            <h1 className="text-display-hero max-w-[800px]">
               Learn smarter with <br/>
               <span className="text-gradient-accent">AMMY LMS</span>
             </h1>
 
-            <p className="text-subheading color-muted max-w-[500px]">
+            <p className="text-subheading color-muted max-w-[540px]">
               Interactive study notes, AI-powered tutoring, and sharp assessments —
               everything you need to go from confused to confident.
             </p>
 
             {/* Login Form */}
-            <div className="surface-card-sm col gap-item max-w-[500px]">
+            <div className="surface-card-sm col gap-item w-full max-w-[500px]">
               <label className="text-body weight-bold" htmlFor="hero-name">
                 Start your journey
               </label>
-              <div className="flex flex-col sm:flex-row gap-[var(--space-2)] w-full">
+              <div className="flex flex-col sm:flex-row gap-2 w-full">
                 <input
                   id="hero-name"
                   type="text"
@@ -62,7 +62,7 @@ export function Hero({ onLogin }: HeroProps) {
                 />
                 <Button
                   variant="premium"
-                  size="lg"
+                  size="md"
                   className="w-full sm:w-auto shrink-0 group"
                   onClick={handleSubmit}
                   endIcon={<Sparkles className="ml-2 size-4 group-hover:text-accent transition-colors" />}
@@ -74,16 +74,16 @@ export function Hero({ onLogin }: HeroProps) {
             </div>
 
             {/* Stats Row */}
-            <div className="row gap-[var(--space-6)] pt-[var(--space-6)] border-top">
-              <div className="col gap-1">
+            <div className="row gap-8 pt-8 border-top">
+              <div className="col">
                 <span className="text-heading text-gradient-accent">500+</span>
                 <span className="text-caption color-muted">Learners</span>
               </div>
-              <div className="col gap-1">
+              <div className="col">
                 <span className="text-heading text-gradient-accent">50+</span>
                 <span className="text-caption color-muted">Modules</span>
               </div>
-              <div className="col gap-1">
+              <div className="col">
                 <span className="text-heading text-gradient-accent">AI</span>
                 <span className="text-caption color-muted">Powered</span>
               </div>
@@ -105,11 +105,10 @@ export function Hero({ onLogin }: HeroProps) {
               <HoverCard>
                 <HoverCardTrigger asChild>
                   <div 
-                    className="bg-glass-premium radius-lg row gap-item absolute animate-float cursor-pointer z-20" 
+                    className="bg-glass-premium radius-lg row gap-item absolute animate-float cursor-pointer z-20 shadow-lg" 
                     style={{ 
-                      padding: 'var(--pad-card-sm)',
                       top: '10%', 
-                      left: '-10%', 
+                      left: '-5%', 
                       minWidth: '180px', 
                     }}
                   >
@@ -132,11 +131,10 @@ export function Hero({ onLogin }: HeroProps) {
               <HoverCard>
                 <HoverCardTrigger asChild>
                   <div 
-                    className="bg-glass-premium radius-lg row gap-item absolute animate-float cursor-pointer z-20 delay-500" 
+                    className="bg-glass-premium radius-lg row gap-item absolute animate-float cursor-pointer z-20 delay-500 shadow-lg" 
                     style={{ 
-                      padding: 'var(--pad-card-sm)',
                       bottom: '15%', 
-                      right: '-10%', 
+                      right: '-5%', 
                       minWidth: '180px', 
                     }}
                   >
