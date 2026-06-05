@@ -1,27 +1,24 @@
+import { Suspense } from 'react'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
 import { getModuleByCode, getLessonsForModule, getLessonContent } from '@/lib/lms'
 import LessonBoard, { LessonItem } from '@/app/ui/components/molecule/LessonBoard'
+import { LessonListSkeleton } from '@/app/ui/components/system/LoadingSkeleton'
+import { ErrorBoundary } from '@/app/ui/components/system/ErrorBoundary'
 
 interface Props {
   params: Promise<{ moduleCode: string }>
 }
 
-/**
- * Module Detail Page.
- * Displays lesson board for a specific module.
- */
-export default async function ModuleOverviewPage({ params }: Props) {
-  const { moduleCode } = await params
-  
+async function ModuleContent({ moduleCode }: { moduleCode: string }) {
   const moduleInfo = await getModuleByCode(moduleCode)
   if (!moduleInfo) {
     notFound()
   }
 
   const lessonIds = await getLessonsForModule(moduleCode)
-  
+
   const lessons: LessonItem[] = []
   for (const id of lessonIds) {
     const content = await getLessonContent(moduleCode, id)
@@ -34,18 +31,18 @@ export default async function ModuleOverviewPage({ params }: Props) {
           title: l.title,
           blockCount: l.blocks.length,
           progress: 0,
-          status: 'New'
+          status: 'New' as const
         }))
       })
     }
   }
 
   return (
-    <div className="animate-fade-up">
+    <>
       {/* Module Header */}
       <header className="mb-12">
         <div className="flex items-center gap-3 mb-4">
-           <span className="pill pill-info">{moduleInfo.code}</span>
+          <span className="pill pill-info">{moduleInfo.code}</span>
         </div>
         <h1 className="text-title mb-3">
           {moduleInfo.name}
@@ -55,7 +52,7 @@ export default async function ModuleOverviewPage({ params }: Props) {
         </p>
       </header>
 
-      {/* The Reference-Accurate LessonBoard */}
+      {/* LessonBoard */}
       <div className="surface-card p-0 overflow-hidden">
         <LessonBoard lessons={lessons} />
       </div>
@@ -70,6 +67,39 @@ export default async function ModuleOverviewPage({ params }: Props) {
           <span>Back to Modules</span>
         </Link>
       </div>
+    </>
+  )
+}
+
+/**
+ * Module Detail Page.
+ * Displays lesson board for a specific module.
+ */
+export default async function ModuleOverviewPage({ params }: Props) {
+  const { moduleCode } = await params
+
+  return (
+    <div className="animate-fade-up">
+      {/* Breadcrumbs */}
+      <nav aria-label="Breadcrumb" className="mb-8">
+        <ol className="row gap-inline text-fine color-muted">
+          <li>
+            <Link href="/lms" className="hover:text-accent transition-colors">Dashboard</Link>
+          </li>
+          <li aria-hidden="true">/</li>
+          <li>
+            <Link href="/lms/modules" className="hover:text-accent transition-colors">Modules</Link>
+          </li>
+          <li aria-hidden="true">/</li>
+          <li className="color-heading weight-bold" aria-current="page">{moduleCode}</li>
+        </ol>
+      </nav>
+
+      <ErrorBoundary>
+        <Suspense fallback={<LessonListSkeleton />}>
+          <ModuleContent moduleCode={moduleCode} />
+        </Suspense>
+      </ErrorBoundary>
     </div>
   )
 }

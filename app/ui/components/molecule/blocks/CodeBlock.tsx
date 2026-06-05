@@ -22,7 +22,7 @@ export default function CodeBlock({ block }: CodeBlockProps) {
       >
         <pre
           className="text-fine font-mono leading-relaxed whitespace-pre"
-          style={{ color: '#34d399' /* emerald-400 equivalent — code syntax green */ }}
+          style={{ color: '#34d399' }}
         >
           {block.code}
         </pre>

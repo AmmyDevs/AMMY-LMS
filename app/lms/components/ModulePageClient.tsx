@@ -1,4 +1,5 @@
 'use client'
+import Link from 'next/link'
 import { useState, useEffect, useCallback } from 'react'
 import { LessonContent } from '@/app/lms/types/module'
 import { useModuleProgress } from '@/app/lms/hooks/useModuleProgress'
@@ -139,9 +140,9 @@ export default function ModulePageClient({ module }: ModulePageClientProps) {
             
             {/* Footer Navigation */}
             <footer className="mt-20 pt-10 border-top row-between text-fine color-muted">
-               <a href={`/lms/modules/${module.course.replace(/\s+/g, '')}`} className="btn-secondary btn-sm">
+               <Link href={`/lms/modules/${module.course.replace(/\s+/g, '')}`} className="btn-secondary btn-sm">
                  ← Back to Module Overview
-               </a>
+               </Link>
                <span className="text-label">End of Lesson</span>
             </footer>
           </div>

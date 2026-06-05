@@ -24,7 +24,10 @@ export function NavBar() {
         {/* Actions */}
         <div className="row gap-4">
           <ThemeToggle className="theme-toggle-md" />
-          <Button variant="default" size="lg">Get Started</Button>
+          <Button variant="default" size="lg" onClick={() => {
+              const heroSection = document.getElementById('hero-section')
+              heroSection?.scrollIntoView({ behavior: 'smooth' })
+            }}>Get Started</Button>
         </div>
 
       </div>

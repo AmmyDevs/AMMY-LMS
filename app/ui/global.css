@@ -1113,7 +1113,7 @@ body {
 }
 .btn-ghost:hover { background-color: var(--color-bg-hover); }
 
-/* Requirements: 4.5 — alias for btn-ghost with identical rules */
+/* Requirements: 4.5 — alias for btn-ghost */
 .btn-tertiary {
   display:          inline-flex;
   align-items:      center;
@@ -1259,6 +1259,166 @@ body {
 .delay-300 { animation-delay: 300ms; }
 .delay-400 { animation-delay: 400ms; }
 .delay-500 { animation-delay: 500ms; }
+
+/* ============================================================
+   § 16. ACCESSIBILITY & FOCUS
+   ============================================================ */
+
+/* Global focus-visible ring for all interactive elements */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-xs);
+}
+
+/* Custom focus styles for specific components */
+.lesson-board-trigger:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+.quiz-option:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.compare-slider:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Skip to content — visually hidden until focused */
+.skip-to-content {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  z-index: var(--z-toaster);
+  padding: var(--space-3) var(--space-6);
+  background-color: var(--accent);
+  color: var(--white);
+  font-weight: 600;
+  border-radius: 0 0 var(--radius-md) 0;
+  transition: top var(--transition-fast);
+}
+.skip-to-content:focus {
+  top: 0;
+}
+
+/* ============================================================
+   § 17. BLOCK-LEVEL SEMANTIC CLASSES
+   ============================================================ */
+
+/* Callout blocks */
+.callout {
+  border-radius: var(--radius-md);
+  padding: var(--space-5) var(--space-5);
+  margin-top: var(--space-6);
+  margin-bottom: var(--space-6);
+  border-left: 4px solid;
+}
+.callout-title {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-inline);
+  margin-bottom: var(--space-2);
+}
+.callout-text {
+  font-family: var(--font-body);
+  font-size: var(--size-body);
+  line-height: var(--leading-relaxed);
+}
+
+/* Definition tables */
+.definition-table {
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  overflow: hidden;
+  margin-top: var(--space-6);
+  margin-bottom: var(--space-6);
+}
+.definition-table-header {
+  padding: var(--space-3) var(--space-5);
+  border-bottom: 1px solid var(--color-border);
+  background-color: var(--tone-info-bg);
+}
+.definition-table-row {
+  display: flex;
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+.definition-table-row:last-child {
+  border-bottom: none;
+}
+.definition-table-term {
+  width: 33%;
+  flex-shrink: 0;
+  padding: var(--space-3) var(--space-5);
+  border-right: 1px solid var(--color-border);
+}
+.definition-table-desc {
+  flex: 1;
+  padding: var(--space-3) var(--space-5);
+}
+
+/* Image step blocks */
+.image-step {
+  position: relative;
+  display: flex;
+  gap: var(--space-5);
+  padding-bottom: var(--space-8);
+}
+.image-step:last-child {
+  padding-bottom: 0;
+}
+.image-step-number {
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--radius-pill);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--size-fine);
+  font-weight: 700;
+  flex-shrink: 0;
+  background-color: var(--tone-info-bg);
+  color: var(--tone-info-text);
+  border: 1px solid var(--tone-info-text);
+}
+.image-step-connector {
+  width: 1px;
+  flex: 1;
+  margin-top: var(--space-2);
+  background-color: var(--color-border);
+}
+
+/* Quiz option cards */
+.quiz-option {
+  width: 100%;
+  text-align: left;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-5);
+  font-size: var(--size-body);
+  transition: all var(--transition-fast);
+  cursor: pointer;
+}
+.quiz-option:hover {
+  background-color: var(--color-bg-hover);
+}
+.quiz-option-correct {
+  border-color: var(--tone-success-text);
+  background-color: var(--tone-success-bg);
+  color: var(--tone-success-text);
+}
+.quiz-option-wrong {
+  border-color: var(--tone-danger-text);
+  background-color: var(--tone-danger-bg);
+  color: var(--tone-danger-text);
+}
+.quiz-option-dimmed {
+  opacity: 0.5;
+}
+
+/* End of new sections */
 
 /* ============================================================
    END @layer components

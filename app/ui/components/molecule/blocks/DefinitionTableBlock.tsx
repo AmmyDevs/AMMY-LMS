@@ -6,12 +6,9 @@ interface DefinitionTableBlockProps {
 
 export default function DefinitionTableBlock({ block }: DefinitionTableBlockProps) {
   return (
-    <div className="radius-md border-standard overflow-hidden my-6">
+    <div className="definition-table">
       {/* Table header */}
-      <div
-        className="px-5 py-3 border-bottom"
-        style={{ backgroundColor: 'var(--tone-info-bg)' }}
-      >
+      <div className="definition-table-header">
         <h3 className="text-caption weight-bold" style={{ color: 'var(--tone-info-text)' }}>
           {block.title}
         </h3>
@@ -22,22 +19,19 @@ export default function DefinitionTableBlock({ block }: DefinitionTableBlockProp
         {block.rows.map((row, index) => (
           <div
             key={index}
-            className="flex border-bottom last:border-0"
+            className="definition-table-row"
             style={{
               backgroundColor: index % 2 === 0
                 ? 'var(--color-bg-card)'
                 : 'var(--color-bg-surface)',
             }}
           >
-            <div
-              className="px-5 py-3 border-r border-standard"
-              style={{ width: '33%', flexShrink: 0 }}
-            >
+            <div className="definition-table-term">
               <span className="text-caption weight-bold color-heading">
                 {row.term}
               </span>
             </div>
-            <div className="flex-1 px-5 py-3">
+            <div className="definition-table-desc">
               <span className="text-caption color-body">
                 {row.description}
               </span>

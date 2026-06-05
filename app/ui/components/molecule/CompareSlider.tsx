@@ -21,17 +21,22 @@ export function CompareSlider({
   const [pointerId, setPointerId] = useState<number | null>(null)
   const containerRef = useRef<HTMLDivElement>(null)
 
+  const updatePosition = useCallback((clientX: number) => {
+    if (!containerRef.current) return
+    const rect = containerRef.current.getBoundingClientRect()
+    const x = clientX - rect.left
+    const pct = Math.max(0, Math.min(100, (x / rect.width) * 100))
+    setPosition(pct)
+    onPositionChange?.(pct)
+  }, [onPositionChange])
+
   const handlePointerMove = useCallback(
     (e: PointerEvent) => {
-      if (!isDragging || !containerRef.current) return
+      if (!isDragging) return
       e.preventDefault()
-      const rect = containerRef.current.getBoundingClientRect()
-      const x = e.clientX - rect.left
-      const pct = Math.max(0, Math.min(100, (x / rect.width) * 100))
-      setPosition(pct)
-      onPositionChange?.(pct)
+      updatePosition(e.clientX)
     },
-    [isDragging, onPositionChange]
+    [isDragging, updatePosition]
   )
 
   const handlePointerUp = useCallback(() => {
@@ -39,9 +44,6 @@ export function CompareSlider({
     if (containerRef.current && pointerId !== null) {
       containerRef.current.releasePointerCapture(pointerId)
       setPointerId(null)
-      try {
-        // releasePointerCapture might throw if not captured
-      } catch { /* ignore */ }
     }
   }, [pointerId])
 
@@ -62,18 +64,49 @@ export function CompareSlider({
     if (containerRef.current) {
       containerRef.current.setPointerCapture(e.pointerId)
     }
-    const rect = containerRef.current!.getBoundingClientRect()
-    const x = e.clientX - rect.left
-    const pct = Math.max(0, Math.min(100, (x / rect.width) * 100))
-    setPosition(pct)
-    onPositionChange?.(pct)
+    updatePosition(e.clientX)
   }
+
+  // Keyboard support: arrow keys adjust position by 5%
+  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
+    if (e.key === 'ArrowLeft') {
+      e.preventDefault()
+      setPosition(prev => {
+        const next = Math.max(0, prev - 5)
+        onPositionChange?.(next)
+        return next
+      })
+    } else if (e.key === 'ArrowRight') {
+      e.preventDefault()
+      setPosition(prev => {
+        const next = Math.min(100, prev + 5)
+        onPositionChange?.(next)
+        return next
+      })
+    } else if (e.key === 'Home') {
+      e.preventDefault()
+      setPosition(0)
+      onPositionChange?.(0)
+    } else if (e.key === 'End') {
+      e.preventDefault()
+      setPosition(100)
+      onPositionChange?.(100)
+    }
+  }, [onPositionChange])
 
   return (
     <div
       ref={containerRef}
-      className="relative w-full aspect-[4/3] overflow-hidden radius-md border-standard bg-page cursor-crosshair select-none touch-none"
+      className="compare-slider relative w-full aspect-[4/3] overflow-hidden radius-md border-standard bg-page cursor-crosshair select-none touch-none"
       onPointerDown={handlePointerDown}
+      onKeyDown={handleKeyDown}
+      tabIndex={0}
+      role="slider"
+      aria-label="Compare original and processed images"
+      aria-valuemin={0}
+      aria-valuemax={100}
+      aria-valuenow={Math.round(position)}
+      aria-valuetext={`${Math.round(position)}% visible`}
     >
       {/* Original image (bottom layer) */}
       <Image
@@ -126,6 +159,12 @@ export function CompareSlider({
         style={{ backgroundColor: 'rgba(var(--accent-rgb), 0.8)' }}
       >
         Processed
+      </div>
+
+      {/* Keyboard hint */}
+      <div className="absolute bottom-3 left-1/2 -translate-x-1/2 px-2 py-1 radius-xs text-fine text-white opacity-60"
+        style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}>
+        ← → arrow keys
       </div>
     </div>
   )

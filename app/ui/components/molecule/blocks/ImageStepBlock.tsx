@@ -8,24 +8,14 @@ export default function ImageStepBlock({ block }: ImageStepBlockProps) {
   return (
     <div className="my-6">
       {block.steps.map((step, index) => (
-        <div key={step.number} className="relative flex gap-5 pb-8 last:pb-0">
+        <div key={step.number} className="image-step">
           {/* Step number + connector line */}
           <div className="flex flex-col items-center flex-shrink-0">
-            <div
-              className="w-8 h-8 radius-pill flex items-center justify-center text-fine weight-bold"
-              style={{
-                backgroundColor: 'var(--tone-info-bg)',
-                color: 'var(--tone-info-text)',
-                border: '1px solid var(--tone-info-text)',
-              }}
-            >
+            <div className="image-step-number">
               {step.number}
             </div>
             {index < block.steps.length - 1 && (
-              <div
-                className="w-px flex-1 mt-2"
-                style={{ backgroundColor: 'var(--color-border)' }}
-              />
+              <div className="image-step-connector" />
             )}
           </div>
 

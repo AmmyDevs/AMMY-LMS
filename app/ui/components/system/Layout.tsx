@@ -11,6 +11,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
 
   const isLandingPage = pathname === '/'
+  const isAdminPage = pathname.startsWith('/admin')
   const isLMSPage = pathname.startsWith('/lms')
 
   useEffect(() => {
@@ -22,8 +23,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="min-h-screen bg-page">
-      {isLandingPage || isLMSPage ? (
-        <main className="min-h-screen">
+      {isLandingPage || isLMSPage || isAdminPage ? (
+        <main className="min-h-screen" id="main-content">
           {children}
         </main>
       ) : (
@@ -33,7 +34,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
             <aside className="layout-aside">
               <SideNav />
             </aside>
-            <main className="layout-content">
+            <main className="layout-content" id="main-content" tabIndex={-1}>
               {children}
             </main>
           </div>

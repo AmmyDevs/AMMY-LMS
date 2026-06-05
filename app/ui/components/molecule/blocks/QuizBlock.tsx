@@ -25,27 +25,11 @@ export default function QuizBlock({ block, onAnswer }: QuizBlockProps) {
   }
 
   const getOptionClass = (index: number) => {
-    if (!revealed) {
-      return 'border-standard bg-card hover:bg-hover cursor-pointer'
-    }
-    if (index === block.answer) {
-      return 'border-accent pill-success' // pill-success class might need adjustment or we use inline
-    }
-    if (index === selectedOption && index !== block.answer) {
-      return 'border-standard pill-danger'
-    }
-    return 'border-standard opacity-50'
-  }
-
-  const getOptionStyle = (index: number) => {
-    if (!revealed) return {}
-    if (index === block.answer) {
-      return { borderColor: 'var(--tone-success-text)', backgroundColor: 'var(--tone-success-bg)', color: 'var(--tone-success-text)' }
-    }
-    if (index === selectedOption && index !== block.answer) {
-      return { borderColor: 'var(--tone-danger-text)', backgroundColor: 'var(--tone-danger-bg)', color: 'var(--tone-danger-text)' }
-    }
-    return {}
+    const base = 'quiz-option'
+    if (!revealed) return base
+    if (index === block.answer) return cn(base, 'quiz-option-correct')
+    if (index === selectedOption && index !== block.answer) return cn(base, 'quiz-option-wrong')
+    return cn(base, 'quiz-option-dimmed')
   }
 
   return (
@@ -59,11 +43,7 @@ export default function QuizBlock({ block, onAnswer }: QuizBlockProps) {
             <button
               key={index}
               onClick={() => handleOptionClick(index)}
-              className={cn(
-                'w-full text-left border radius-md px-5 py-3 text-body transition-all duration-200',
-                getOptionClass(index)
-              )}
-              style={getOptionStyle(index)}
+              className={getOptionClass(index)}
               disabled={revealed}
             >
               <div className="row gap-item">

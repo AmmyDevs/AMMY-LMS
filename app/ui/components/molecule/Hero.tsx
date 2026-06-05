@@ -19,7 +19,7 @@ export function Hero({ onLogin }: HeroProps) {
   }
 
   return (
-    <section className="page-section overflow-hidden">
+    <section id="hero-section" className="page-section overflow-hidden">
       {/* Background Mesh */}
       <div className="absolute inset-0 z-0 bg-mesh opacity-50" />
       
@@ -62,7 +62,7 @@ export function Hero({ onLogin }: HeroProps) {
                 />
                 <Button
                   variant="premium"
-                  size="md"
+                  size="default"
                   className="w-full sm:w-auto shrink-0 group"
                   onClick={handleSubmit}
                   endIcon={<Sparkles className="ml-2 size-4 group-hover:text-accent transition-colors" />}

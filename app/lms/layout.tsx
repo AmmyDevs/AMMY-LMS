@@ -15,7 +15,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           <SideNav />
         </aside>
 
-        <main className="layout-content">
+        <main className="layout-content" id="main-content" tabIndex={-1}>
           {children}
         </main>
       </div>

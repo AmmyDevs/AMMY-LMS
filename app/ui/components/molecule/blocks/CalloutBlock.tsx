@@ -6,13 +6,13 @@ interface CalloutBlockProps {
 
 const variantStyles: Record<
   CalloutBlockType['variant'],
-  { bg: string; text: string; border: string; icon: string }
+  { border: string; bg: string; color: string; icon: string }
 > = {
-  tip:       { bg: 'var(--tone-info-bg)',    text: 'var(--tone-info-text)',    border: 'var(--tone-info-text)',    icon: '💡' },
-  key:       { bg: 'var(--tone-info-bg)',    text: 'var(--tone-info-text)',    border: 'var(--tone-info-text)',    icon: '🔑' },
-  important: { bg: 'var(--tone-alert-bg)',   text: 'var(--tone-alert-text)',   border: 'var(--tone-alert-text)',   icon: '⚠️' },
-  analogy:   { bg: 'var(--tone-purple-bg)',  text: 'var(--tone-purple-text)',  border: 'var(--tone-purple-text)',  icon: '🔍' },
-  warning:   { bg: 'var(--tone-danger-bg)',  text: 'var(--tone-danger-text)',  border: 'var(--tone-danger-text)',  icon: '🚨' },
+  tip:       { border: 'var(--tone-info-text)',    bg: 'var(--tone-info-bg)',    color: 'var(--tone-info-text)',    icon: '💡' },
+  key:       { border: 'var(--tone-info-text)',    bg: 'var(--tone-info-bg)',    color: 'var(--tone-info-text)',    icon: '🔑' },
+  important: { border: 'var(--tone-alert-text)',   bg: 'var(--tone-alert-bg)',   color: 'var(--tone-alert-text)',   icon: '⚠️' },
+  analogy:   { border: 'var(--tone-purple-text)',  bg: 'var(--tone-purple-bg)',  color: 'var(--tone-purple-text)',  icon: '🔍' },
+  warning:   { border: 'var(--tone-danger-text)',  bg: 'var(--tone-danger-bg)',  color: 'var(--tone-danger-text)',  icon: '🚨' },
 }
 
 export default function CalloutBlock({ block }: CalloutBlockProps) {
@@ -20,19 +20,16 @@ export default function CalloutBlock({ block }: CalloutBlockProps) {
 
   return (
     <div
-      className="radius-md px-5 py-4 my-6"
-      style={{
-        borderLeft: `4px solid ${style.border}`,
-        backgroundColor: style.bg,
-      }}
+      className="callout"
+      style={{ borderLeftColor: style.border, backgroundColor: style.bg }}
     >
-      <div className="flex items-center gap-2 mb-2">
+      <div className="callout-title">
         <span>{style.icon}</span>
-        <span className="text-label" style={{ color: style.text }}>
+        <span className="text-label" style={{ color: style.color }}>
           {block.title}
         </span>
       </div>
-      <p className="text-body color-body leading-relaxed">
+      <p className="callout-text color-body">
         {block.text}
       </p>
     </div>
