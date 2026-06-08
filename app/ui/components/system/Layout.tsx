@@ -3,14 +3,14 @@
 import { useLMSStore } from '@/lib/store'
 import { useEffect } from 'react'
 import { usePathname } from 'next/navigation'
-import TopBar from '@/app/ui/components/atomic/TopBar'
-import SideNav from '@/app/ui/components/atomic/SideNav'
+import TopBar from '@/app/ui/components/molecule/TopBar'
+import SideNav from '@/app/ui/components/molecule/SideNav'
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const { theme } = useLMSStore()
   const pathname = usePathname()
 
-  const isLandingPage = pathname === '/'
+  const isLandingPage = pathname === '/' || pathname === '/testing'
   const isAdminPage = pathname.startsWith('/admin')
   const isLMSPage = pathname.startsWith('/lms')
 

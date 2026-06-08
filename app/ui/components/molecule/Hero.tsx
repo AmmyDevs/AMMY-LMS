@@ -1,15 +1,17 @@
 'use client'
 
 import { useState } from 'react'
-import Image from 'next/image'
-import { Target, Bot, Sparkles } from 'lucide-react'
-import { Button } from '../atomic/button'
-import { HoverCard, HoverCardTrigger, HoverCardContent } from '../atomic/hover-card'
+import { BookOpen, Brain, FileCheck, ArrowRight, Sparkles } from 'lucide-react'
+import { Button } from '../primitives/Button'
 
 interface HeroProps {
   onLogin: (name: string) => void
 }
 
+/**
+ * Landing page Hero — premium two-column layout with CTA form
+ * and floating feature badges.
+ */
 export function Hero({ onLogin }: HeroProps) {
   const [name, setName] = useState('')
 
@@ -20,36 +22,43 @@ export function Hero({ onLogin }: HeroProps) {
 
   return (
     <section id="hero-section" className="page-section overflow-hidden">
-      {/* Background Mesh */}
-      <div className="absolute inset-0 z-0 bg-mesh opacity-50" />
-      
+      {/* Background mesh */}
+      <div className="absolute inset-0 z-0 bg-mesh opacity-60" />
+
+      {/* Decorative gradient orbs */}
+      <div className="absolute top-[-20%] right-[-10%] w-[600px] h-[600px] rounded-full bg-accent/5 blur-3xl pointer-events-none" />
+      <div className="absolute bottom-[-10%] left-[-5%] w-[400px] h-[400px] rounded-full bg-accent/8 blur-3xl pointer-events-none" />
+
       <div className="page-container relative z-10">
         <div className="grid-halves gap-section items-center">
 
-          {/* ── Left Column ─────────────────────────── */}
+          {/* ── Left Column: Copy + CTA ─────────────── */}
           <div className="stack-hero animate-fade-in-up">
 
+            {/* Eyebrow */}
             <span className="text-label row gap-inline">
-              <span className="dot-accent animate-pulse-glow" /> 
-              Now in early access
+              <span className="dot-accent animate-pulse-glow" />
+              Computer Engineering — 7 Modules
             </span>
 
-            <h1 className="text-display-hero max-w-[800px]">
-              Learn smarter with <br/>
-              <span className="text-gradient-accent">AMMY LMS</span>
+            {/* Headline */}
+            <h1 className="text-display-hero max-w-[700px]">
+              Your Complete{' '}
+              <span className="text-gradient-accent">Learning Archive</span>
             </h1>
 
-            <p className="text-subheading color-muted max-w-[540px]">
-              Interactive study notes, AI-powered tutoring, and sharp assessments —
-              everything you need to go from confused to confident.
+            {/* Subheadline */}
+            <p className="text-subheading color-muted max-w-[480px] leading-relaxed">
+              Study notes, summaries, AI tutoring, and quizzes — everything for your
+              Computer Engineering modules, in one place.
             </p>
 
-            {/* Login Form */}
-            <div className="surface-card-sm col gap-item w-full max-w-[500px]">
-              <label className="text-body weight-bold" htmlFor="hero-name">
+            {/* CTA Form */}
+            <div className="surface-card col gap-4 w-full max-w-[480px]">
+              <label className="text-body weight-bold color-heading" htmlFor="hero-name">
                 Start your journey
               </label>
-              <div className="flex flex-col sm:flex-row gap-2 w-full">
+              <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 w-full">
                 <input
                   id="hero-name"
                   type="text"
@@ -58,30 +67,29 @@ export function Hero({ onLogin }: HeroProps) {
                   onChange={(e) => setName(e.target.value)}
                   required
                   className="input-primary flex-1"
-                  onKeyDown={(e) => e.key === 'Enter' && handleSubmit(e as unknown as React.FormEvent)}
                 />
                 <Button
-                  variant="premium"
-                  size="default"
+                  variant="primary"
+                  size="md"
+                  type="submit"
                   className="w-full sm:w-auto shrink-0 group"
-                  onClick={handleSubmit}
-                  endIcon={<Sparkles className="ml-2 size-4 group-hover:text-accent transition-colors" />}
+                  endIcon={<ArrowRight className="size-4 group-hover:translate-x-0.5 transition-transform" />}
                 >
-                  Start Learning
+                  Enter Archives
                 </Button>
-              </div>
-              <p className="text-fine color-muted">No account needed — just enter your name.</p>
+              </form>
+              <p className="text-fine color-muted">No account needed — just enter your name and start learning.</p>
             </div>
 
-            {/* Stats Row */}
-            <div className="row gap-8 pt-8 border-top">
+            {/* Stats row */}
+            <div className="row gap-10 pt-8 border-top">
               <div className="col">
-                <span className="text-heading text-gradient-accent">500+</span>
-                <span className="text-caption color-muted">Learners</span>
+                <span className="text-heading text-gradient-accent">7</span>
+                <span className="text-caption color-muted">Modules</span>
               </div>
               <div className="col">
                 <span className="text-heading text-gradient-accent">50+</span>
-                <span className="text-caption color-muted">Modules</span>
+                <span className="text-caption color-muted">Lessons</span>
               </div>
               <div className="col">
                 <span className="text-heading text-gradient-accent">AI</span>
@@ -90,68 +98,83 @@ export function Hero({ onLogin }: HeroProps) {
             </div>
           </div>
 
-          {/* ── Right Column ────────────────────────── */}
-          <div className="centered relative delay-200 animate-fade-in-up w-full max-w-[600px] mx-auto">
+          {/* ── Right Column: Visual + Floating Badges ── */}
+          <div className="centered relative animate-fade-in-up delay-200 w-full max-w-[560px] mx-auto">
             <div className="relative w-full aspect-[4/3]">
-              <div className="absolute inset-0 bg-gradient-to-tr from-accent/20 to-transparent radius-xl animate-pulse-glow" />
-              <Image
-                src="/image/HeroBackground.png"
-                alt="Student learning illustration"
-                fill
-                className="radius-xl object-cover shadow-premium z-10"
-              />
 
-              {/* Floating badge 1: Interactive with HoverCard */}
-              <HoverCard>
-                <HoverCardTrigger asChild>
-                  <div 
-                    className="bg-glass-premium radius-lg row gap-item absolute animate-float cursor-pointer z-20 shadow-lg" 
-                    style={{ 
-                      top: '10%', 
-                      left: '-5%', 
-                      minWidth: '180px', 
-                    }}
-                  >
-                    <Target className="color-accent" size={24} />
-                    <div>
-                      <div className="text-body weight-bold">Quiz Streak</div>
-                      <div className="text-caption color-muted">7 days in a row</div>
-                    </div>
-                  </div>
-                </HoverCardTrigger>
-                <HoverCardContent side="top" align="start">
-                  <div className="col gap-item">
-                    <div className="row gap-inline"><Target className="color-accent" size={16}/> <span className="weight-bold">Consistent Effort!</span></div>
-                    <p className="text-caption">You're in the top 5% of active learners this week. Keep up the streak to unlock the "Focus Master" badge.</p>
-                  </div>
-                </HoverCardContent>
-              </HoverCard>
+              {/* Gradient backdrop */}
+              <div className="absolute inset-0 bg-gradient-to-br from-accent/15 via-accent/5 to-transparent radius-xl" />
 
-              {/* Floating badge 2: Interactive with HoverCard */}
-              <HoverCard>
-                <HoverCardTrigger asChild>
-                  <div 
-                    className="bg-glass-premium radius-lg row gap-item absolute animate-float cursor-pointer z-20 delay-500 shadow-lg" 
-                    style={{ 
-                      bottom: '15%', 
-                      right: '-5%', 
-                      minWidth: '180px', 
-                    }}
-                  >
-                    <Bot className="color-accent" size={24} />
-                    <div>
-                      <div className="text-body weight-bold">AI Tutor</div>
-                      <div className="text-caption color-muted">Always available</div>
-                    </div>
+              {/* Abstract pattern (no external image dependency) */}
+              <div className="absolute inset-0 radius-xl overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-accent/10 via-transparent to-accent/5" />
+                {/* Grid pattern overlay */}
+                <div
+                  className="absolute inset-0 opacity-[0.03]"
+                  style={{
+                    backgroundImage: `linear-gradient(var(--accent) 1px, transparent 1px), linear-gradient(90deg, var(--accent) 1px, transparent 1px)`,
+                    backgroundSize: '40px 40px',
+                  }}
+                />
+                {/* Center accent glow */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-accent/10 rounded-full blur-3xl" />
+              </div>
+
+              {/* Floating badge: Study Notes */}
+              <div
+                className="bg-glass-premium radius-lg row gap-item absolute animate-float cursor-default z-20"
+                style={{ top: '8%', left: '-8%', minWidth: '180px' }}
+              >
+                <div className="w-10 h-10 radius-md bg-accent/10 centered shrink-0">
+                  <BookOpen className="color-accent" size={20} />
+                </div>
+                <div>
+                  <div className="text-body weight-bold color-heading">Study Notes</div>
+                  <div className="text-fine color-muted">Interactive blocks</div>
+                </div>
+              </div>
+
+              {/* Floating badge: AI Tutor */}
+              <div
+                className="bg-glass-premium radius-lg row gap-item absolute animate-float cursor-default z-20 delay-300"
+                style={{ bottom: '12%', right: '-6%', minWidth: '180px' }}
+              >
+                <div className="w-10 h-10 radius-md bg-accent/10 centered shrink-0">
+                  <Brain className="color-accent" size={20} />
+                </div>
+                <div>
+                  <div className="text-body weight-bold color-heading">AI Tutor</div>
+                  <div className="text-fine color-muted">Always available</div>
+                </div>
+              </div>
+
+              {/* Floating badge: Quizzes */}
+              <div
+                className="bg-glass-premium radius-lg row gap-item absolute animate-float cursor-default z-20 delay-500"
+                style={{ top: '50%', right: '-12%', minWidth: '170px' }}
+              >
+                <div className="w-10 h-10 radius-md bg-accent/10 centered shrink-0">
+                  <FileCheck className="color-accent" size={20} />
+                </div>
+                <div>
+                  <div className="text-body weight-bold color-heading">Quizzes</div>
+                  <div className="text-fine color-muted">Test yourself</div>
+                </div>
+              </div>
+
+              {/* Central icon cluster */}
+              <div className="absolute inset-0 flex items-center justify-center z-10">
+                <div className="relative">
+                  <div className="w-24 h-24 radius-xl bg-accent/10 border border-accent/20 centered animate-pulse-glow">
+                    <Sparkles className="color-accent" size={40} />
                   </div>
-                </HoverCardTrigger>
-                <HoverCardContent side="bottom" align="end">
-                  <div className="col gap-item">
-                    <div className="row gap-inline"><Bot className="color-accent" size={16}/> <span className="weight-bold">Personalized Help</span></div>
-                    <p className="text-caption">The AI tutor analyzes your learning style and adapts explanations in real-time for maximum comprehension.</p>
-                  </div>
-                </HoverCardContent>
-              </HoverCard>
+                  {/* Orbital dots */}
+                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-3 h-3 bg-accent rounded-full opacity-60" />
+                  <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-2 h-2 bg-accent/40 rounded-full" />
+                  <div className="absolute top-1/2 -left-3 -translate-y-1/2 w-2 h-2 bg-accent/50 rounded-full" />
+                  <div className="absolute top-1/2 -right-3 -translate-y-1/2 w-3 h-3 bg-accent/30 rounded-full" />
+                </div>
+              </div>
 
             </div>
           </div>

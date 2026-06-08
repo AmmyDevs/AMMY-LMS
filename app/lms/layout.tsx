@@ -1,5 +1,5 @@
-import TopBar from '@/app/ui/components/atomic/TopBar'
-import SideNav from '@/app/ui/components/atomic/SideNav'
+import TopBar from '@/app/ui/components/molecule/TopBar'
+import SideNav from '@/app/ui/components/molecule/SideNav'
 
 /**
  * LMS Layout component.
