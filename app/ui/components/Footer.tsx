@@ -14,8 +14,8 @@ export function Footer() {
           {/* Brand column */}
           <div className="t-footer__brand">
             <div className="t-footer__brand-row">
-              <div className="t-footer__brand-mark">AM</div>
-              <span className="t-text-heading">AMMY Archives</span>
+              <div className="t-footer__brand-mark">56</div>
+              <span className="t-text-heading">56 Archives</span>
             </div>
             <p className="t-text-body t-color-muted">
               Your complete learning archive for Computer Engineering.
@@ -49,7 +49,7 @@ export function Footer() {
 
         {/* Bottom bar */}
         <div className="t-footer__bottom">
-          <p>© {year} AMMY Archives. Built for learning.</p>
+          <p>© {year} 56 Archives. Built for learning.</p>
           <span className="t-footer__bottom-badge">
             Made with ✨ for Computer Engineering
           </span>

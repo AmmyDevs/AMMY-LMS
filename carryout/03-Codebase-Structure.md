@@ -18,12 +18,10 @@ ammy-lms/
 │   │   │       ├── page.tsx      # Module overview (lesson board)
 │   │   │       └── [lessonId]/
 │   │   │           └── page.tsx  # Individual lesson view
-│   │   ├── assistant/            # AI Tutor (planned)
+│   │   ├── assistant/            # AI Tutor (planned v1.1)
 │   │   │   └── page.tsx
 │   │   ├── assessment/           # Quizzes & assessments
 │   │   │   └── page.tsx
-│   │   ├── components/           # LMS-specific client components
-│   │   │   └── ModulePageClient.tsx
 │   │   ├── hooks/                # LMS-specific hooks
 │   │   │   └── useModuleProgress.ts
 │   │   └── types/                # LMS TypeScript interfaces
@@ -33,65 +31,33 @@ ammy-lms/
 │   │   ├── layout.tsx
 │   │   └── page.tsx
 │   │
-│   ├── lib/                      # App-level shared code
-│   │   ├── api/                  # API route stubs (empty)
-│   │   ├── store.ts              # ⚠️ DUPLICATE — see lib/store.ts
-│   │   ├── utils.ts              # ⚠️ DUPLICATE — see lib/utils.ts
-│   │   ├── utils/
-│   │   │   └── types/index.ts
-│   │   ├── mock/                 # Mock data (content/index.ts)
-│   │   ├── hooks/
-│   │   │   └── use-mobile.ts
-│   │   └── effects.ts
+│   ├── testing/                  # Isolated Testing Sandbox
+│   │   └── page.tsx              # Safe testing environment (standalone CSS/components)
 │   │
-│   └── ui/                       # Component Library
+│   └── ui/                       # Component Library (Custom Tokens)
 │       ├── global.css            # Design System v2.0 (single source of truth)
-│       ├── components.json       # ⚠️ STALE — references old paths
-│       └── components/
-│           ├── atomic/           # Primitives (50+ components)
-│           │   ├── button.tsx    # Custom Button with CVA variants
-│           │   ├── Logo.tsx      # AMMY brand logo
-│           │   ├── ThemeToggle.tsx
-│           │   ├── TopBar.tsx    # Dashboard header
-│           │   ├── SideNav.tsx   # Dashboard sidebar nav
-│           │   └── ...           # shadcn/ui components (being phased out)
-│           ├── molecule/         # Composed UI patterns
-│           │   ├── NavBar.tsx    # Landing page nav
-│           │   ├── Hero.tsx      # Landing page hero
-│           │   ├── Footer.tsx    # Landing page footer
-│           │   ├── ModuleCard.tsx
-│           │   ├── LessonBoard.tsx
-│           │   ├── MarkdownRenderer.tsx
-│           │   └── blocks/       # Content block renderers
-│           │       ├── HeadingBlock.tsx
-│           │       ├── ParagraphBlock.tsx
-│           │       ├── QuizBlock.tsx
-│           │       ├── CodeBlock.tsx
-│           │       ├── CalloutBlock.tsx
-│           │       ├── TableBlock.tsx
-│           │       ├── DefinitionTableBlock.tsx
-│           │       ├── ImageStepBlock.tsx
-│           │       ├── InteractiveBlock.tsx
-│           │       └── FlashcardBlock.tsx
-│           └── system/           # Layout & orchestration
-│               ├── Layout.tsx    # Root layout shell
-│               ├── BlockRenderer.tsx
-│               ├── ErrorBoundary.tsx
-│               └── LoadingSkeleton.tsx
+│       ├── testing/              # Safely isolated test components (LandingNav, Hero, etc.)
+│       └── components/           # (To be rebuilt)
+│           ├── atomic/           # Primitives (Button, Input, Card, Dialog, etc.)
+│           ├── molecule/         # Composed UI patterns (NavBar, Hero, Footer, LessonBoard)
+│           └── system/           # Layout & orchestration (Layout, MDXRenderer, ErrorBoundary)
 │
 ├── lib/                          # Shared utilities & data layer
-│   ├── lms.ts                    # Server-side data functions (read JSON files)
+│   ├── api/                      # Data Abstraction Layer
+│   │   └── modules.ts            # Data fetching logic
 │   ├── store.ts                  # Zustand global store (theme, user, progress)
 │   ├── utils.ts                  # cn() helper (clsx + tailwind-merge)
+│   ├── hooks/                    # App-wide hooks
+│   │   └── use-mobile.ts
 │   └── utils/
 │       └── types.ts              # Shared TypeScript types
 │
 ├── content/                      # Static lesson content
 │   └── lms/
 │       └── CS6307/
-│           ├── L1.json
-│           ├── L2.json
-│           └── L3.json
+│           ├── L1.mdx
+│           ├── L2.mdx
+│           └── L3.mdx
 │
 ├── carryout/                     # Design & architecture docs (this directory)
 │   ├── 00-Single-Source-of-Truth.md
@@ -103,7 +69,6 @@ ammy-lms/
 │   └── 06-Page-Architecture.md
 │
 ├── public/                       # Static assets
-│   ├── components.json           # ⚠️ STALE shadcn config
 │   └── image/                    # Logo, hero images
 │
 ├── scripts/                      # Build/utility scripts
@@ -118,32 +83,18 @@ ammy-lms/
 ├── eslint.config.js
 ├── postcss.config.mjs
 ├── jest.config.cjs
-├── info.md                       # ⚠️ STALE — references Vite/React setup
 ├── commit.sh
 └── README.md
 ```
 
-## 2. Known Structural Issues
-
-| Issue | Location | Action |
-|-------|----------|--------|
-| Duplicate store | `lib/store.ts` vs `app/lib/store.ts` | Consolidate to `lib/store.ts` |
-| Duplicate utils | `lib/utils.ts` vs `app/lib/utils.ts` | Consolidate to `lib/utils.ts` |
-| Stale components.json | `app/ui/components.json` | Remove or update |
-| Stale public/components.json | `public/components.json` | Remove or update |
-| Stale info.md | `info.md` | Remove or update |
-| Path alias mismatch | `@/* → ./src/*` in tsconfig | Fix to `@/* → ./*` |
-| Empty api stubs | `app/lib/api/.gitkeep` | Remove or implement |
-| Empty hooks stubs | `app/ui/hooks/.gitkeep`, `app/lib/hooks/.gitkeep` | Remove or implement |
-
-## 3. Naming Conventions
+## 2. Naming Conventions
 
 ### Files & Folders
 - **Components:** PascalCase (`Button.tsx`, `LessonBoard.tsx`)
 - **Pages:** Next.js conventions (`page.tsx`, `layout.tsx`)
-- **Utilities:** camelCase (`useModuleProgress.ts`, `lms.ts`)
+- **Utilities:** camelCase (`useModuleProgress.ts`, `api/modules.ts`)
 - **Types:** camelCase (`module.ts`, `types.ts`)
-- **Content:** UPPER-CASE (`CS6307/L1.json`)
+- **Content:** UPPER-CASE (`CS6307/L1.mdx`)
 - **Config:** lowercase (`next.config.js`, `tsconfig.json`)
 
 ### CSS Classes

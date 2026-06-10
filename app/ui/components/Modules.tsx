@@ -1,4 +1,4 @@
-import { BookOpen, User, Calendar, ArrowRight } from 'lucide-react'
+import { BookOpen, User, Calendar } from 'lucide-react'
 import { Card } from './Card'
 
 const modules = [

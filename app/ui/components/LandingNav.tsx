@@ -49,9 +49,9 @@ export function LandingNav() {
 
           {/* Brand */}
           <div className="t-nav__brand">
-            <div className="t-nav__brand-mark">AM</div>
+            <div className="t-nav__brand-mark">56</div>
             <span className="t-nav__brand-text">
-              AMMY <span>Archives</span>
+              56 <span>Archives</span>
             </span>
           </div>
 

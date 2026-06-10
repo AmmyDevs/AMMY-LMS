@@ -19,19 +19,21 @@
 6. **Flashcards** — Spaced repetition study aids
 7. **Progress Tracking** — Local progress persistence across sessions
 
-### Current Scope (v1.0)
-- File-based content delivery (no backend)
+### Current Scope (v1.0 — "The Single-File Backend")
+- File-based MDX content delivery through a clean Data Abstraction Layer.
+- Complete reliance on a single file system structure for deployment.
 - Local state persistence (Zustand + localStorage)
-- 6-7 modules with structured lesson content
-- Landing page + student dashboard + lesson viewer
+- 6-7 modules with polished, interactive lesson content.
+- Landing page + student dashboard + lesson viewer.
 
-### Future Scope (Post-Polish)
-- AI integration (OpenAI/Anthropic) for tutoring
-- User authentication and personalized profiles
-- Database-backed content management
-- Real-time progress sync across devices
-- PDF/PPTX download library
-- Analytics and performance dashboards
+### Version 1.1 Scope (Post-UI Polish)
+- **PWA Integration:** Service workers allowing students offline access to lessons on their phones.
+- **AI Integration (Tutor Assistant):** OpenAI/Anthropic answering deep concept questions based on MDX context.
+
+### Future Scope (v2.0)
+- User authentication and personalized cloud profiles.
+- Database-backed content management (Supabase).
+- Real-time progress sync across devices.
 
 ## 2. Target Personas
 
@@ -39,7 +41,7 @@
 - **Role:** Computer Engineering student at the university
 - **Goal:** Access all study materials for their modules in one place, study effectively, track progress
 - **Behavior:** Checks the platform daily during semester, uses it for revision before exams
-- **Needs:** Clean navigation, fast content loading, mobile-friendly (phone access between classes)
+- **Needs:** Clean navigation, fast content loading, mobile-friendly (phone access between classes), offline capability (v1.1)
 - **Pain Points:** Materials scattered across WhatsApp groups, email attachments, and lecturer portals
 
 ### Persona B: The Lecturer (Future)
@@ -49,8 +51,8 @@
 
 ### Persona C: The Admin (AMMY — You)
 - **Role:** Platform creator and maintainer
-- **Goal:** Build and maintain the platform, add new modules and content
-- **Needs:** Admin panel, design system gallery, content authoring tools
+- **Goal:** Build and maintain the platform, author MDX content blocks
+- **Needs:** Admin panel, design system gallery, content authoring efficiency
 
 ## 3. Critical User Journeys (CUJ)
 
@@ -72,11 +74,11 @@ Landing Page → Enter Name → Dashboard → Resume Where Left Off → Continue
 ```
 **Success Criteria:** Progress is preserved and user can pick up exactly where they stopped.
 
-### CUJ 4: Mobile Study
+### CUJ 4: Mobile & Offline Study (v1.1)
 ```
 Phone Browser → Landing Page → Navigate to Module → Read Content → Take Quiz
 ```
-**Success Criteria:** Full functionality on mobile devices (sidebar collapses to hamburger).
+**Success Criteria:** Full functionality on mobile devices (sidebar collapses to hamburger) and access without active Wi-Fi.
 
 ### CUJ 5: Dark Mode Study (Night Session)
 ```

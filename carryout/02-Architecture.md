@@ -4,63 +4,61 @@
 
 - **Frontend Framework:** Next.js 15 (App Router) with React 19
 - **Language:** TypeScript 5.9 (strict mode)
-- **Styling:** Tailwind CSS v4 (CSS-first config) + custom design system tokens in `global.css`
+- **Styling:** Tailwind CSS v4 (CSS-first config) + custom design system tokens in `app/ui/global.css`
 - **State Management:** Zustand (client-side, single store in `lib/store.ts`)
-- **Data Fetching:** File-system based (JSON content files read server-side via `lib/lms.ts`)
-- **Component Library:** Custom component system (atomic → molecule → system hierarchy)
-  - Legacy: shadcn/ui components in `app/ui/components/atomic/` (being phased out)
-  - Target: Bespoke components built on design system tokens
-- **Forms:** React Hook Form + Zod validation
+- **Data Fetching:** Data Abstraction Layer (Server-side rendering via `lib/api/modules.ts`)
+- **Component Library:** Custom component system built strictly on design system tokens. (No shadcn/ui).
+  - `atomic/` → Primitives
+  - `molecule/` → Composed UI
+  - `system/` → Layouts
+- **Content Engine:** MDX (Markdown + JSX components) for polished, interactive lesson content.
 - **Icons:** Lucide React
-- **Markdown:** react-markdown + remark-gfm
-- **Charts:** Recharts
 - **Theming:** next-themes + custom Zustand store toggle
 - **Build:** Bun (package manager), Next.js built-in bundler
-- **Testing:** Jest (configured, tests pending)
 
 ## 2. Data Flow
 
-### Content Pipeline (Current — File-Based)
+### Content Pipeline (v1.0 — Single File Backend)
 ```
-content/lms/{MODULE_CODE}/{LESSON}.json
+content/lms/{MODULE_CODE}/{LESSON}.mdx
         ↓
-lib/lms.ts (server functions: getAllModules, getModuleByCode, getLessonContent)
+lib/api/modules.ts (Data Abstraction Layer: getModuleByCode, getLessonContent)
         ↓
 Next.js Server Components (app/lms/modules/[moduleCode]/page.tsx)
         ↓
-Client Components (LessonBoard, BlockRenderer, QuizBlock, etc.)
+Client Components (LessonBoard, MDXRenderer, QuizBlock, etc.)
         ↓
 Zustand Store (progress tracking, theme, user state)
 ```
 
 ### Key Data Patterns
-- **Module Registry:** `docs/module.json` — static list of all modules with metadata
-- **Lesson Content:** `content/lms/{CODE}/{L1,L2,L3...}.json` — structured block-based content
-- **User State:** Zustand store persisted to localStorage (theme, username, progress)
-- **No backend API:** All data is file-system based, read at build/request time
+- **Module Registry:** `docs/module.json` — static list of all modules with metadata.
+- **Lesson Content:** `content/lms/{CODE}/{L1,L2,L3...}.mdx` — markdown content with embedded interactive React components.
+- **User State:** Zustand store persisted to localStorage (theme, username, progress).
+- **Data Abstraction Layer:** All fetches go through an API interface (`lib/api/`) which currently reads local MDX files, but is decoupled from UI so it can easily swap to a DB later.
 
-### Future Data Flow (Post-Auth/DB Integration)
+### Future Data Flow (Post-v1.0 DB Integration)
 ```
-Client → Next.js API Routes → Database (Supabase/Firebase)
-       → AI Provider (OpenAI/Anthropic)
-       → File Storage (PDF/PPTX downloads)
+Client → lib/api/ → Database (Supabase/Firebase)
+                  → AI Provider (OpenAI/Anthropic)
+                  → File Storage (PDF/PPTX downloads)
 ```
 
 ## 3. Component Hierarchy
 
 ### Three-Tier Architecture
 ```
-atomic/     → Primitives (Button, Input, Card, Dialog, etc.)
-               Stateless, theme-aware, built on design tokens
-               Legacy: shadcn/ui wrappers. Target: custom implementations
-
-molecule/   → Composed UI (NavBar, Hero, Footer, LessonBoard, ModuleCard)
-               Combine atomic primitives into feature-specific patterns
-               May contain light state (expanded/collapsed, form inputs)
-
-system/     → Layout & Orchestration (Layout, BlockRenderer, ErrorBoundary)
-               Page-level shell, routing logic, error boundaries
-               Manages theme application and navigation structure
+ui/components/
+├── atomic/     → Primitives (Button, Input, Card, Dialog, etc.)
+│                  Stateless, theme-aware, built explicitly on global.css design tokens.
+│
+├── molecule/   → Composed UI (NavBar, Hero, Footer, LessonBoard, ModuleCard)
+│                  Combine atomic primitives into feature-specific patterns.
+│                  May contain light state (expanded/collapsed, form inputs).
+│
+└── system/     → Layout & Orchestration (Layout, MDXRenderer, ErrorBoundary)
+                   Page-level shell, routing logic, error boundaries.
+                   Manages theme application and navigation structure.
 ```
 
 ### Separation of Concerns
@@ -68,45 +66,25 @@ system/     → Layout & Orchestration (Layout, BlockRenderer, ErrorBoundary)
 - **Molecule:** Feature-aware. May use hooks, manage local UI state.
 - **System:** Layout-aware. Reads pathname, manages global UI structure.
 
-### Block Rendering System
-```
-BlockRenderer (system/)
-  → HeadingBlock (molecule/blocks/)
-  → ParagraphBlock
-  → CalloutBlock
-  → DefinitionTableBlock
-  → TableBlock
-  → ImageStepBlock
-  → CodeBlock
-  → InteractiveBlock
-  → QuizBlock
-  → FlashcardBlock
-```
-
 ## 4. Third-Party Integrations
 
 ### Current
 - **Lucide React:** Icon library (consistent stroke-based icons)
-- **Recharts:** Charting for future analytics/progress dashboards
-- **react-markdown + remark-gfm:** Markdown rendering for lesson content
-- **Radix UI Primitives:** Foundation for atomic components (via shadcn — being replaced)
+- **MDX / react-markdown:** Markdown rendering with embedded custom UI blocks.
 
-### Planned (Post-Polish Phase)
-- **AI Provider:** OpenAI or Anthropic API for AI tutor assistant
+### Planned (Version 1.1+)
+- **Progressive Web App (PWA):** Service worker caching for offline access.
+- **AI Provider:** OpenAI or Anthropic API for an integrated AI tutor assistant.
 - **Authentication:** Supabase Auth or NextAuth.js
 - **Database:** Supabase (PostgreSQL) or Firebase Firestore
-- **File Storage:** Supabase Storage or Cloudflare R2 (PDF/PPTX downloads)
-- **Analytics:** PostHog or Vercel Analytics (usage tracking)
 
 ## 5. Path Aliases
 
 ```json
 {
-  "@/*":     "./src/*",       // ⚠️ NOTE: tsconfig maps to ./src but code uses ./app and ./lib
+  "@/*":     "./*",           // Root directory mapping
   "@/app/*": "./app/*",       // Primary app routes and UI components
-  "@/lib/*": "./lib/*",       // Shared utilities, store, types, LMS data functions
-  "@/hooks/*": "./app/lib/hooks/*"  // Custom hooks
+  "@/lib/*": "./lib/*",       // Shared utilities, store, types, API functions
+  "@/hooks/*": "./lib/hooks/*"// Custom hooks
 }
 ```
-
-**Known Issue:** `tsconfig.json` base `@/*` maps to `./src/*` which doesn't exist. Most imports use `@/app/*` or `@/lib/*` directly. This should be cleaned up during refactoring.
