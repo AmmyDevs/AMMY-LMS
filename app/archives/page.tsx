@@ -1,5 +1,9 @@
+'use client'
+
+import { useEffect, useState } from 'react'
+import Link from 'next/link'
 import { BookOpen, User, Calendar } from 'lucide-react'
-import { Card } from './Card'
+import { Card } from '../ui/components/Card'
 
 const modules = [
   {
@@ -46,33 +50,34 @@ const modules = [
   },
 ]
 
-/**
- * Testing Modules — card grid of available modules.
- * Uses the isolated Card component with clean metadata layout.
- */
-export function Modules() {
+export default function ArchivesPage() {
+  const [userName, setUserName] = useState('Student')
+
+  useEffect(() => {
+    const storedName = localStorage.getItem('ammy-username')
+    if (storedName) setUserName(storedName)
+  }, [])
+
   return (
-    <section id="modules" className="t-section t-modules">
-      <div className="t-container">
+    <div className="space-y-8 t-animate-fade-in">
+      <header className="space-y-2">
+        <h1 className="t-text-title" style={{ margin: 0 }}>
+          Hello, <span className="t-color-accent">{userName}</span>
+        </h1>
+        <p className="t-text-body t-color-muted">
+          Welcome back. Select a module to begin your interactive study session.
+        </p>
+      </header>
 
-        {/* Section header */}
-        <div className="t-modules__header">
-          <span className="t-text-label">Modules</span>
-          <h2 className="t-text-title">
-            Your{' '}
-            <span className="t-text-gradient">Computer Engineering</span>{' '}
-            subjects
-          </h2>
-          <p className="t-text-body t-color-muted">
-            {modules.length} modules with structured study materials, ready for you.
-          </p>
-        </div>
-
-        {/* Module grid */}
-        <div className="t-grid-3">
-          {modules.map((module) => (
+      <div className="t-grid-3">
+        {modules.map((module) => (
+          <Link 
+            key={module.code} 
+            href={`/archives/${module.slug}`}
+            className="block outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-xl"
+            style={{ textDecoration: 'none' }}
+          >
             <Card
-              key={module.code}
               icon={<BookOpen size={20} />}
               badge={module.code}
               title={module.name}
@@ -81,11 +86,12 @@ export function Modules() {
                 { icon: <Calendar size={14} />, text: module.schedule },
               ]}
               footerLabel="View Lessons"
+              className="h-full hover:-translate-y-1 transition-transform duration-300"
             />
-          ))}
-        </div>
-
+          </Link>
+        ))}
       </div>
-    </section>
+    </div>
   )
 }
+

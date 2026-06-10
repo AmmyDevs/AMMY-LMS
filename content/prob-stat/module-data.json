@@ -1,0 +1,195 @@
+{
+  "moduleSlug": "prob-stat",
+  "title": "Probability & Statistics",
+  "topics": [
+    {
+      "id": "t1",
+      "title": "1. Introduction to Statistics",
+      "subtopics": [
+        {
+          "id": "s1-1",
+          "title": "What is Statistics?",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "content": "Statistics is the **science of collecting, organizing, analyzing, interpreting, and presenting data**. It can be understood in two senses:"
+            },
+            {
+              "type": "definition",
+              "title": "Singular sense",
+              "content": "Refers to the methods and techniques used for collecting, analyzing, and interpreting data."
+            },
+            {
+              "type": "definition",
+              "title": "Plural sense",
+              "content": "Refers to the actual numerical data or facts collected for a specific purpose."
+            },
+            {
+              "type": "paragraph",
+              "content": "Statistics is used in virtually every field — from business and economics to medicine and engineering — to make informed decisions based on data."
+            }
+          ]
+        },
+        {
+          "id": "s1-2",
+          "title": "Characteristics of Statistics",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "content": "Statistics has several key characteristics that define its nature:"
+            },
+            {
+              "type": "list",
+              "items": [
+                "**Numerically expressed:** Statistics deals with data that can be measured or counted in numerical form.",
+                "**Estimates of accuracy:** Statistical methods help determine how accurate and reliable data estimates are.",
+                "**Aggregates of facts:** Statistics concerns itself with **series of data**, not isolated or single facts.",
+                "**Influenced by multiple factors:** Statistical results can be affected by various conditions and factors.",
+                "**Systematic collection:** Data is collected in a planned and organized manner for a specific purpose."
+              ]
+            },
+            {
+              "type": "key-note",
+              "title": "Key Takeaway",
+              "content": "Statistics deals with **numerically expressed data** and concerns **aggregates of facts** (series, not single values)."
+            }
+          ]
+        },
+        {
+          "id": "s1-3",
+          "title": "Key Terminology",
+          "blocks": [
+            {
+              "type": "definition",
+              "title": "Population",
+              "content": "The entire group of individuals or items that is the focus of a study."
+            },
+            {
+              "type": "definition",
+              "title": "Sample",
+              "content": "A representative subset of the population selected for analysis."
+            },
+            {
+              "type": "definition",
+              "title": "Parameter",
+              "content": "A numerical summary that describes a characteristic of the **entire population**."
+            },
+            {
+              "type": "definition",
+              "title": "Statistic",
+              "content": "A numerical summary derived from **sample data**."
+            },
+            {
+              "type": "definition",
+              "title": "Estimator",
+              "content": "The rule or formula used to estimate a population parameter."
+            },
+            {
+              "type": "definition",
+              "title": "Estimate",
+              "content": "The specific numerical value produced by applying the estimator."
+            }
+          ]
+        },
+        {
+          "id": "s1-4",
+          "title": "Types of Variables",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "content": "Variables are objects or characteristics that can take on different values. They are classified into two main types:"
+            },
+            {
+              "type": "definition",
+              "title": "Qualitative (Categorical) Variables",
+              "content": "Describe non-numerical attributes or qualities."
+            },
+            {
+              "type": "example",
+              "title": "Examples of Qualitative Variables",
+              "content": "Gender, color, nationality, or grade level — any attribute described by categories rather than numbers."
+            },
+            {
+              "type": "definition",
+              "title": "Quantitative Variables",
+              "content": "Represent measurable numerical data. These are further divided into Discrete and Continuous variables."
+            },
+            {
+              "type": "key-note",
+              "title": "Discrete vs Continuous",
+              "content": "**Discrete** variables have countable values with gaps (e.g., number of students). **Continuous** variables can take any value within a range (e.g., height, weight)."
+            }
+          ]
+        },
+        {
+          "id": "s1-5",
+          "title": "Descriptive vs. Inferential Statistics",
+          "blocks": [
+            {
+              "type": "definition",
+              "title": "Descriptive Statistics",
+              "content": "Involves **summarizing and organizing** data to describe patterns. Key tools include measures of central tendency (mean, median, mode) and dispersion (range, variance, standard deviation)."
+            },
+            {
+              "type": "formula",
+              "title": "Sample Mean",
+              "content": "\\bar{x} = \\frac{\\sum_{i=1}^{n} x_i}{n}"
+            },
+            {
+              "type": "formula",
+              "title": "Population Mean",
+              "content": "\\mu = \\frac{\\sum_{i=1}^{N} x_i}{N}"
+            },
+            {
+              "type": "definition",
+              "title": "Inferential Statistics",
+              "content": "Uses **sample data to make generalizations** about a larger population. This includes parameter estimation and hypothesis testing."
+            }
+          ]
+        },
+        {
+          "id": "s1-6",
+          "title": "Practice Questions",
+          "blocks": [
+            {
+              "type": "question",
+              "title": "Question 1",
+              "content": "A researcher surveys all 500 employees in a company to determine average satisfaction. The average score is 7.2 out of 10. Is 7.2 a parameter or a statistic?"
+            },
+            {
+              "type": "solution",
+              "title": "Answer",
+              "content": "Since the researcher surveyed **all 500 employees** (the entire population), the average score of 7.2 is a **parameter** — a numerical summary of the population. If only a subset had been surveyed, it would be a statistic."
+            },
+            {
+              "type": "question",
+              "title": "Question 2",
+              "content": "A data set has the following values: 12, 15, 18, 22, 25. Calculate the mean (average)."
+            },
+            {
+              "type": "solution",
+              "title": "Answer",
+              "content": "The mean is calculated by summing all values and dividing by the number of values: $\\bar{x} = \\frac{12 + 15 + 18 + 22 + 25}{5} = \\frac{92}{5} = 18$"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "t2",
+      "title": "2. Data Presentation",
+      "subtopics": [
+        {
+          "id": "s2-1",
+          "title": "Frequency Distributions",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "content": "A frequency distribution is a tabular summary of data showing the frequency (or number) of items in each of several non-overlapping classes."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

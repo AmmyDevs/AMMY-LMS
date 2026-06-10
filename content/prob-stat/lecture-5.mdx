@@ -1,0 +1,213 @@
+---
+moduleSlug: "probability-and-statistics"
+lectureNumber: 5
+title: "Probability Distributions"
+---
+
+# Probability Distributions
+
+**Course:** ST 6323 — Probability and Statistics
+**Semester:** Year 3, Semester II (2025/2026)
+**Facilitator:** Dickson Mwangalika
+
+---
+
+## Random Variables
+
+A **random variable** is a variable whose value is determined by the outcome of a random experiment. It assigns a numerical value to each outcome in the sample space.
+
+Unlike standard variables, random variables take numerical values with associated probabilities.
+
+<Flashcard front="What is a random variable?" back="A variable whose value is **determined by the outcome of a random experiment**, assigning a numerical value to each outcome with an associated probability." />
+
+---
+
+## Probability Distributions
+
+A **probability distribution** is a mathematical model that describes all possible outcomes of a random variable along with their associated probabilities.
+
+### Properties
+
+1. All probabilities must be between 0 and 1: $0 \leq P(X = x) \leq 1$
+2. The sum of all probabilities must equal 1: $\sum P(X = x) = 1$
+
+### Classification
+
+| Type | Description | Examples |
+|------|-------------|----------|
+| **Discrete** | Takes specific, countable values | Binomial, Poisson, Bernoulli |
+| **Continuous** | Takes any value within an interval | Normal, Uniform, Exponential |
+
+<Flashcard front="What are the two properties of a probability distribution?" back="1. All probabilities are between 0 and 1: $0 \\leq P(X = x) \\leq 1$\n2. The sum of all probabilities equals 1: $\\sum P(X = x) = 1$" />
+
+---
+
+## Mathematical Expectation
+
+The **expected value** (or population mean) of a random variable $X$ is:
+
+### For Discrete Random Variables
+
+$$\mu = E(X) = \sum x \cdot P(x)$$
+
+### For Continuous Random Variables
+
+$$\mu = E(X) = \int_{-\infty}^{\infty} x \cdot f(x) \, dx$$
+
+### Variance
+
+$$\sigma^2 = E(X^2) - [E(X)]^2$$
+
+### Standard Deviation
+
+$$\sigma = \sqrt{\sigma^2}$$
+
+<Flashcard front="How do you calculate the expected value of a discrete random variable?" back="$E(X) = \\sum x \\cdot P(x)$ — multiply each value by its probability and sum." />
+
+<Flashcard front="What is the relationship between variance and standard deviation?" back="Variance $\\sigma^2$ is the **square** of standard deviation $\\sigma$, and standard deviation is the **square root** of variance: $\\sigma = \\sqrt{\\sigma^2}$." />
+
+---
+
+## Bernoulli Trials
+
+A **Bernoulli trial** is a random experiment with exactly two outcomes:
+- **Success** (with probability $p$)
+- **Failure** (with probability $q = 1 - p$)
+
+Key properties:
+- Trials are **independent**
+- The probability of success remains **constant** across trials
+
+<Flashcard front="What are the properties of Bernoulli trials?" back="1. Exactly **two outcomes** (success/failure)\n2. Trials are **independent**\n3. Probability of success $p$ is **constant**" />
+
+---
+
+## Binomial Distribution
+
+The binomial distribution counts the **number of successes** in $n$ independent Bernoulli trials.
+
+### Parameters
+- $n$ — number of trials
+- $p$ — probability of success
+- $q = 1 - p$ — probability of failure
+
+### Probability Mass Function
+
+$$P(X = k) = \binom{n}{k} p^k q^{n-k}$$
+
+where $k = 0, 1, 2, \ldots, n$
+
+### Properties
+
+| Property | Formula |
+|----------|---------|
+| Mean | $\mu = np$ |
+| Variance | $\sigma^2 = npq$ |
+| Standard Deviation | $\sigma = \sqrt{npq}$ |
+
+<Flashcard front="What is the binomial distribution used for?" back="It counts the **number of successes** in $n$ independent Bernoulli trials, each with constant probability $p$ of success." />
+
+<Flashcard front="What is the mean and variance of a binomial distribution?" back="Mean: $\\mu = np$. Variance: $\\sigma^2 = npq$ where $q = 1 - p$." />
+
+---
+
+## Poisson Distribution
+
+The Poisson distribution models the **number of events** occurring in a fixed interval of time or space. It is a limiting form of the binomial distribution when $n$ is large and $p$ is small.
+
+### Parameters
+
+$\lambda$ — average number of occurrences in the interval
+
+### Probability Mass Function
+
+$$P(X = k) = \frac{\lambda^k e^{-\lambda}}{k!}$$
+
+where $k = 0, 1, 2, \ldots$
+
+### Properties
+
+| Property | Formula |
+|----------|---------|
+| Mean | $\mu = \lambda$ |
+| Variance | $\sigma^2 = \lambda$ |
+
+<Flashcard front="When do you use the Poisson distribution?" back="When counting the **number of events** in a fixed interval of time or space, especially when $n$ is large and $p$ is small." />
+
+<Flashcard front="What is unique about the mean and variance of a Poisson distribution?" back="The mean and variance are **equal**: both equal $\\lambda$." />
+
+---
+
+## Normal Distribution
+
+The **Normal (Gaussian) Distribution** is the most important distribution in statistics. It is symmetric and bell-shaped.
+
+### Parameters
+
+- $\mu$ — mean (center of the distribution)
+- $\sigma$ — standard deviation (spread)
+
+### Key Properties
+
+- Mean = Median = Mode
+- Symmetric about the mean
+- Asymptotic (tails approach but never touch the x-axis)
+- Total area under the curve = 1
+- **Mesokurtic** (medium peak)
+
+### The Empirical Rule
+
+| Range | Percentage of Data |
+|-------|-------------------|
+| $\mu \pm 1\sigma$ | 68.3% |
+| $\mu \pm 2\sigma$ | 95.4% |
+| $\mu \pm 3\sigma$ | 99.7% |
+
+### Z-Score
+
+$$z = \frac{x - \mu}{\sigma}$$
+
+The Z-score measures how many standard deviations a data point is from the mean.
+
+<Flashcard front="What is the Empirical Rule?" back="68.3% of data falls within $\\pm 1\\sigma$, 95.4% within $\\pm 2\\sigma$, and 99.7% within $\\pm 3\\sigma$ of the mean." />
+
+<Flashcard front="What is a Z-score?" back="A Z-score measures how many **standard deviations** a data point is from the mean: $z = \\frac{x - \\mu}{\\sigma}$." />
+
+---
+
+## Practice Questions
+
+<Question
+  text="A coin is tossed 10 times. What is the probability of getting exactly 6 heads? (Use binomial distribution, p = 0.5)"
+  options={["0.205", "0.250", "0.117", "0.300"]}
+  correctAnswer="0.205"
+  explanation="$P(X=6) = \\binom{10}{6}(0.5)^6(0.5)^4 = 210 \\times 0.015625 \\times 0.0625 \\approx 0.205$."
+/>
+
+<Question
+  text="A factory produces an average of 3 defective items per batch of 100. What is the probability of exactly 2 defective items in a batch? (Use Poisson distribution)"
+  options={["0.224", "0.180", "0.406", "0.150"]}
+  correctAnswer="0.224"
+  explanation="$P(X=2) = \\frac{3^2 e^{-3}}{2!} = \\frac{9 \\times 0.0498}{2} = \\frac{0.448}{2} \\approx 0.224$."
+/>
+
+<Question
+  text="If the heights of students are normally distributed with mean 170cm and standard deviation 10cm, what percentage of students are taller than 185cm?"
+  options={["6.68%", "15.87%", "2.28%", "93.32%"]}
+  correctAnswer="6.68%"
+  explanation="$z = \\frac{185 - 170}{10} = 1.5$. From Z-table, $P(Z < 1.5) = 0.9332$. Therefore $P(Z > 1.5) = 1 - 0.9332 = 0.0668 = 6.68\\%$."
+/>
+
+<Question
+  text="For a binomial distribution with n = 20 and p = 0.4, what is the mean?"
+  options={["8", "6", "4.8", "12"]}
+  correctAnswer="8"
+  explanation="Mean $\\mu = np = 20 \\times 0.4 = 8$."
+/>
+
+<Question
+  text="The standard deviation of a Poisson distribution with λ = 5 is:"
+  options={["25", "5", "$\\sqrt{5}$", "10"]}
+  correctAnswer="$\\sqrt{5}$"
+  explanation="For a Poisson distribution, variance = $\\lambda = 5$. Therefore standard deviation = $\\sqrt{5} \\approx 2.236$."
+/>

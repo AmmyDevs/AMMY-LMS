@@ -1,0 +1,152 @@
+---
+moduleSlug: "probability-and-statistics"
+lectureNumber: 7
+title: "Point Estimation and Confidence Intervals"
+---
+
+# Point Estimation and Confidence Intervals
+
+**Course:** ST 6323 — Probability and Statistics
+**Semester:** Year 3, Semester II (2025/2026)
+**Facilitator:** Dickson Mwangalika
+
+---
+
+## Point Estimation
+
+**Point estimation** uses a single sample statistic to estimate an unknown population parameter. It provides a "best guess" value.
+
+| Population Parameter | Point Estimator |
+|---------------------|-----------------|
+| Population mean $\mu$ | Sample mean $\bar{x}$ |
+| Population proportion $p$ | Sample proportion $\hat{p}$ |
+| Population variance $\sigma^2$ | Sample variance $s^2$ |
+
+<Flashcard front="What is point estimation?" back="Using a **single sample statistic** (like $\\bar{x}$) to estimate an unknown **population parameter** (like $\\mu$)." />
+
+---
+
+## Interval Estimation
+
+**Interval estimation** provides a range of values (a **confidence interval**) that is likely to contain the true population parameter. This accounts for the uncertainty inherent in using a sample.
+
+### Margin of Error
+
+The **margin of error** is the distance from the point estimate to the endpoints of the confidence interval.
+
+<Flashcard front="What is the margin of error?" back="The **distance** from the point estimate to the endpoints of the confidence interval — it quantifies the uncertainty of the estimate." />
+
+---
+
+## Confidence Intervals for Population Mean
+
+### Case 1: Population Standard Deviation ($\sigma$) Known
+
+When $\sigma$ is known, we use the **Standard Normal (Z) distribution**.
+
+$$\text{CI} = \bar{x} \pm Z_c \times \frac{\sigma}{\sqrt{n}}$$
+
+### Common Critical Values
+
+| Confidence Level | $Z_c$ Value |
+|-----------------|-------------|
+| 90% | 1.645 |
+| 95% | 1.960 |
+| 99% | 2.578 |
+
+<Flashcard front="What is the formula for a confidence interval when σ is known?" back="$\\bar{x} \\pm Z_c \\times \\frac{\\sigma}{\\sqrt{n}}$ where $Z_c$ is the critical value from the standard normal distribution." />
+
+### Case 2: Population Standard Deviation ($\sigma$) Unknown
+
+When $\sigma$ is unknown, we use the **Student's t-distribution** with the sample standard deviation $s$.
+
+$$\text{CI} = \bar{x} \pm t_c \times \frac{s}{\sqrt{n}}$$
+
+<Flashcard front="When do you use the t-distribution instead of Z?" back="When the **population standard deviation $\\sigma$ is unknown** and the sample size is small ($n < 30$)." />
+
+---
+
+## Student's t-Distribution
+
+The t-distribution was introduced by William Sealy Gosset to handle the extra uncertainty when using $s$ instead of $\sigma$.
+
+### Properties
+
+- **Continuous** and **bell-shaped** (like Z)
+- **Symmetrical** about zero (mean = 0)
+- **Flatter and more spread out** than Z
+- Shape depends on **degrees of freedom** ($df = n - 1$)
+- **Approaches Z** as $n$ increases
+
+| Characteristic | Z Distribution | t Distribution |
+|---------------|----------------|----------------|
+| Symmetric | Yes | Yes |
+| Bell-shaped | Yes | Yes |
+| Mean | 0 | 0 |
+| Spread | Narrower | Wider |
+| Depends on $n$ | No | Yes (via $df$) |
+
+<Flashcard front="How does the t-distribution differ from the Z distribution?" back="The t-distribution is **flatter and more spread out** than Z, with heavier tails. Its shape depends on degrees of freedom ($df = n - 1$), and it **approaches Z** as $n$ increases." />
+
+---
+
+## Decision Matrix: Z vs. t
+
+| Sample Size | $\sigma$ Known | $\sigma$ Unknown |
+|-------------|----------------|-------------------|
+| $n \geq 30$ | Use $Z$ | Use $Z$ (approximate) |
+| $n < 30$ | Use $Z$ | Use $t$ |
+
+<Flashcard front="When should you use Z vs. t?" back="Use **Z** when $\\sigma$ is known or $n \\geq 30$. Use **t** when $\\sigma$ is unknown AND $n < 30$." />
+
+---
+
+## Key Principles
+
+1. **Increasing the confidence level** always increases the margin of error
+2. **A 100% confidence interval** is impossible without a full census
+3. **Larger sample sizes** produce narrower confidence intervals
+4. The confidence interval gives a **range of plausible values** for the parameter
+
+<Flashcard front="Why can't you have a 100% confidence interval?" back="Because to be 100% confident, you would need to include **all possible values** — which is equivalent to a full census and provides no useful information." />
+
+<Flashcard front="What happens to the confidence interval when you increase the confidence level?" back="The interval becomes **wider** — a higher confidence level requires capturing more of the distribution to ensure the parameter is included." />
+
+---
+
+## Practice Questions
+
+<Question
+  text="A sample of n = 50 has a mean of 82 and the population standard deviation is σ = 10. Construct a 95% confidence interval for the population mean."
+  options={["(79.17, 84.83)", "(80.00, 84.00)", "(78.50, 85.50)", "(81.00, 83.00)"]}
+  correctAnswer="(79.17, 84.83)"
+  explanation="CI = $82 \\pm 1.96 \\times \\frac{10}{\\sqrt{50}} = 82 \\pm 1.96 \\times 1.414 = 82 \\pm 2.77$. So the interval is $(79.23, 84.77)$, closest to $(79.17, 84.83)$."
+/>
+
+<Question
+  text="A sample of n = 16 has a mean of 45 and sample standard deviation s = 8. Construct a 95% confidence interval for the population mean. (t-critical for df=15, 95% is 2.131)"
+  options={["(40.74, 49.26)", "(41.00, 49.00)", "(39.50, 50.50)", "(42.00, 48.00)"]}
+  correctAnswer="(40.74, 49.26)"
+  explanation="Since $\\sigma$ is unknown and $n < 30$, use t-distribution. CI = $45 \\pm 2.131 \\times \\frac{8}{\\sqrt{16}} = 45 \\pm 2.131 \\times 2 = 45 \\pm 4.262$. Interval: $(40.74, 49.26)$."
+/>
+
+<Question
+  text="What happens to the width of a confidence interval when the sample size increases?"
+  options={["It gets wider", "It gets narrower", "It stays the same", "It depends on the confidence level"]}
+  correctAnswer="It gets narrower"
+  explanation="The margin of error is proportional to $\\frac{1}{\\sqrt{n}}$. As $n$ increases, $\\frac{1}{\\sqrt{n}}$ decreases, making the interval **narrower** and more precise."
+/>
+
+<Question
+  text="For a 90% confidence interval, the critical value Zc is:"
+  options={["1.645", "1.960", "2.578", "2.326"]}
+  correctAnswer="1.645"
+  explanation="For a 90% confidence level, $Z_c = 1.645$ from the standard normal table."
+/>
+
+<Question
+  text="Why does the t-distribution approach the Z-distribution as sample size increases?"
+  options={["Because the sample mean becomes more accurate", "Because s becomes a better estimate of σ", "Because degrees of freedom increase", "All of the above"]}
+  correctAnswer="All of the above"
+  explanation="As $n$ increases: (1) the sample mean becomes more precise, (2) $s$ becomes a better estimator of $\\sigma$, and (3) degrees of freedom ($df = n - 1$) increase, making the t-distribution approach Z."
+/>

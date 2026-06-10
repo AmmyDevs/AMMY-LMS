@@ -2,7 +2,7 @@
 
 import { BookOpen, Brain, FileCheck } from 'lucide-react'
 import { WelcomeForm } from './WelcomeForm'
-import { useEffect, useState } from 'react'
+
 
 interface HeroProps {
   onLogin: (name: string) => void
@@ -11,7 +11,14 @@ interface HeroProps {
 /**
  * Free Floating Feature Node component
  */
-const FloatingNode = ({ icon, title, desc, delay = '0s' }: any) => (
+interface FloatingNodeProps {
+  icon: React.ReactNode
+  title: string
+  desc?: string
+  delay?: string
+}
+
+const FloatingNode = ({ icon, title, desc, delay = '0s' }: FloatingNodeProps) => (
   <div 
     className="t-hero__tag" 
     style={{ 
@@ -35,12 +42,6 @@ const FloatingNode = ({ icon, title, desc, delay = '0s' }: any) => (
  * Testing Hero — Clean Free Floating Tags Layout
  */
 export function Hero({ onLogin }: HeroProps) {
-  const [mounted, setMounted] = useState(false)
-  
-  useEffect(() => {
-    setMounted(true)
-  }, [])
-
   return (
     <section id="hero" className="t-hero" style={{ minHeight: '100vh', display: 'flex', alignItems: 'center' }}>
       
@@ -81,12 +82,12 @@ export function Hero({ onLogin }: HeroProps) {
             </span>
           </div>
 
-          <h1 className="t-hero__headline" style={{ textShadow: '0 4px 24px rgba(0,0,0,0.5)' }}>
+          <h1 className="t-hero__headline">
             Your Complete{' '}
-            <span className="t-text-gradient-white">Learning Archive</span>
+            <span className="t-color-accent">Learning Archive</span>
           </h1>
 
-          <p className="t-hero__subheadline" style={{ margin: '24px auto', textShadow: '0 2px 12px rgba(0,0,0,0.5)' }}>
+          <p className="t-hero__subheadline" style={{ margin: '24px auto' }}>
             Study notes, summaries, AI tutoring, and quizzes — everything for your
             Computer Engineering modules, connected in one central system.
           </p>

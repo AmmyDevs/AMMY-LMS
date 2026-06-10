@@ -1,0 +1,198 @@
+---
+moduleSlug: "probability-and-statistics"
+lectureNumber: 4
+title: "Probability Theory"
+---
+
+# Probability Theory
+
+**Course:** ST 6323 — Probability and Statistics
+**Semester:** Year 3, Semester II (2025/2026)
+**Facilitator:** Dickson Mwangalika
+
+---
+
+## Introduction to Probability
+
+Probability is a **measure of uncertainty** that ranges from 0 (impossible event) to 1 (certain event). It provides a mathematical framework for reasoning about events whose outcomes are not known with certainty.
+
+A **random experiment** is any process whose outcome cannot be predicted with certainty. The set of all possible outcomes is called the **sample space** $\Omega$. Any subset of the sample space is called an **event**.
+
+<Flashcard front="What is probability?" back="Probability is a **measure of uncertainty** that ranges from 0 (impossible event) to 1 (certain event)." />
+
+<Flashcard front="What is a sample space?" back="The sample space $\Omega$ is the set of **all possible outcomes** of a random experiment." />
+
+---
+
+## Key Terminology
+
+| Term | Definition |
+|------|------------|
+| **Random Experiment** | A process whose outcome cannot be predicted with certainty |
+| **Sample Space ($\Omega$)** | The set of all possible outcomes of a random experiment |
+| **Event** | A subset of the sample space |
+| **Sure Event** | An event that includes all outcomes in the sample space |
+| **Impossible Event** | An event with no outcomes (empty set $\emptyset$) |
+| **Equally Likely Events** | Events with the same probability of occurring |
+| **Mutually Exclusive Events** | Events that cannot occur simultaneously |
+| **Exhaustive Events** | A collection of events whose union equals the sample space |
+| **Dependent Events** | Events where the occurrence of one affects the probability of another |
+
+<Flashcard front="What are mutually exclusive events?" back="Events that **cannot occur simultaneously** — if one occurs, the other cannot." />
+
+<Flashcard front="What is the difference between exhaustive and mutually exclusive events?" back="**Exhaustive** events cover all possible outcomes (their union = $\Omega$). **Mutually exclusive** events cannot occur together (their intersection = $\emptyset$)." />
+
+---
+
+## Permutations and Combinations
+
+### Permutations
+
+Permutations count the number of **arrangements** where order matters.
+
+$$P(n, r) = \frac{n!}{(n - r)!}$$
+
+### Combinations
+
+Combinations count the number of **selections** where order does not matter.
+
+$$C(n, r) = \binom{n}{r} = \frac{n!}{r!(n - r)!}$$
+
+<Flashcard front="When do you use permutations vs. combinations?" back="Use **permutations** when the **order matters** (arrangements). Use **combinations** when the **order does not matter** (selections/groupings)." />
+
+---
+
+## Schools of Thought on Probability
+
+There are four main approaches to defining probability:
+
+### 1. Classical (A Priori)
+
+Probability is the ratio of favorable cases to total equally likely cases.
+
+$$P(A) = \frac{\text{Number of favorable outcomes}}{\text{Total number of equally likely outcomes}}$$
+
+### 2. Relative Frequency (Empirical)
+
+Probability is based on the frequency of occurrence in a large number of trials.
+
+$$P(A) = \lim_{n \to \infty} \frac{f_A}{n}$$
+
+where $f_A$ is the frequency of event $A$ in $n$ trials.
+
+### 3. Subjective (Personalistic)
+
+Probability is based on personal belief, confidence, or degree of belief.
+
+### 4. Axiomatic (Modern)
+
+Probability is defined through mathematical axioms:
+- $P(A) \geq 0$ for any event $A$
+- $P(\Omega) = 1$
+- For mutually exclusive events: $P(A \cup B) = P(A) + P(B)$
+
+<Flashcard front="What are the four schools of thought on probability?" back="**Classical** (ratio of outcomes), **Relative Frequency** (long-run observations), **Subjective** (personal belief), and **Axiomatic** (mathematical axioms)." />
+
+---
+
+## Addition Theorem
+
+The addition theorem gives the probability of the union of two events.
+
+### Mutually Exclusive Events
+
+$$P(A \cup B) = P(A) + P(B)$$
+
+### Not Mutually Exclusive
+
+$$P(A \cup B) = P(A) + P(B) - P(A \cap B)$$
+
+<Flashcard front="What is the addition theorem for mutually exclusive events?" back="$P(A \cup B) = P(A) + P(B)$ — since they cannot occur together, you simply add their probabilities." />
+
+<Flashcard front="Why do we subtract P(A ∩ B) in the general addition theorem?" back="Because $P(A) + P(B)$ **double-counts** the overlap. Subtracting $P(A \cap B)$ corrects for this." />
+
+---
+
+## Multiplication Theorem
+
+The multiplication theorem gives the probability of the intersection of two events.
+
+### Independent Events
+
+$$P(A \cap B) = P(A) \cdot P(B)$$
+
+### Dependent Events
+
+$$P(A \cap B) = P(A) \cdot P(B|A)$$
+
+where $P(B|A)$ is the conditional probability of $B$ given $A$ has occurred.
+
+<Flashcard front="What is the difference between the multiplication rules for independent and dependent events?" back="For **independent** events: $P(A \cap B) = P(A) \cdot P(B)$. For **dependent** events: $P(A \cap B) = P(A) \cdot P(B|A)$." />
+
+---
+
+## Conditional Probability
+
+Conditional probability is the probability of an event given that another event has already occurred.
+
+$$P(B|A) = \frac{P(A \cap B)}{P(A)}$$
+
+This is fundamental to understanding Bayes' Theorem.
+
+<Flashcard front="What is conditional probability?" back="The probability of event $B$ **given that event $A$ has occurred**, calculated as $P(B|A) = \\frac{P(A \\cap B)}{P(A)}$." />
+
+---
+
+## Bayes' Theorem
+
+Bayes' Theorem allows us to **revise prior probabilities** into posterior probabilities based on new evidence.
+
+$$P(A_i|B) = \frac{P(B|A_i) \cdot P(A_i)}{\sum_{j=1}^{n} P(B|A_j) \cdot P(A_j)}$$
+
+Where:
+- $P(A_i)$ — **Prior probability** (before revision)
+- $P(A_i|B)$ — **Posterior probability** (after revision)
+- $P(B|A_i)$ — **Likelihood** of observing $B$ given $A_i$
+
+<Flashcard front="What does Bayes' Theorem allow you to do?" back="It allows you to **revise prior probabilities** into **posterior probabilities** based on new evidence or information." />
+
+<Flashcard front="What is the difference between a prior and posterior probability?" back="A **prior** probability is the probability **before** considering new evidence. A **posterior** probability is the probability **after** incorporating new evidence via Bayes' Theorem." />
+
+---
+
+## Practice Questions
+
+<Question
+  text="A die is rolled once. What is the probability of getting a number greater than 4?"
+  options={["1/6", "1/3", "1/2", "2/3"]}
+  correctAnswer="1/3"
+  explanation="Numbers greater than 4 are {5, 6} — that's 2 outcomes out of 6 total: $P = \\frac{2}{6} = \\frac{1}{3}$."
+/>
+
+<Question
+  text="Two dice are rolled. What is the probability that the sum is 7?"
+  options={["1/12", "1/6", "7/36", "1/9"]}
+  correctAnswer="1/6"
+  explanation="Favorable outcomes: (1,6), (2,5), (3,4), (4,3), (5,2), (6,1) = 6 outcomes. Total outcomes = 36. $P = \\frac{6}{36} = \\frac{1}{6}$."
+/>
+
+<Question
+  text="If P(A) = 0.3 and P(B) = 0.5, and A and B are mutually exclusive, what is P(A ∪ B)?"
+  options={["0.15", "0.8", "0.65", "0.5"]}
+  correctAnswer="0.8"
+  explanation="For mutually exclusive events: $P(A \\cup B) = P(A) + P(B) = 0.3 + 0.5 = 0.8$."
+/>
+
+<Question
+  text="If P(A) = 0.4, P(B) = 0.6, and P(A ∩ B) = 0.24, are A and B independent?"
+  options={["Yes", "No", "Cannot determine", "Only if P(B|A) = 0.6"]}
+  correctAnswer="Yes"
+  explanation="Events are independent if $P(A \\cap B) = P(A) \\cdot P(B)$. Check: $0.4 \\times 0.6 = 0.24 = P(A \\cap B)$. Yes, they are independent."
+/>
+
+<Question
+  text="In a bag with 3 red and 5 blue balls, two balls are drawn without replacement. What is the probability that both are red?"
+  options={["3/28", "9/64", "3/8", "1/4"]}
+  correctAnswer="3/28"
+  explanation="First draw: $P(\\text{red}) = \\frac{3}{8}$. Second draw (without replacement): $P(\\text{red}) = \\frac{2}{7}$. $P(\\text{both red}) = \\frac{3}{8} \\times \\frac{2}{7} = \\frac{6}{56} = \\frac{3}{28}$."
+/>

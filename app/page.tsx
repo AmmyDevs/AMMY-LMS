@@ -15,7 +15,7 @@ export default function HomePage() {
 
   const handleLogin = (userName: string) => {
     localStorage.setItem('ammy-username', userName)
-    router.push('/lms')
+    router.push('/archives')
   }
 
   return (

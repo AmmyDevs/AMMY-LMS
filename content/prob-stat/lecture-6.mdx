@@ -1,0 +1,156 @@
+---
+moduleSlug: "probability-and-statistics"
+lectureNumber: 6
+title: "The Central Limit Theorem"
+---
+
+# The Central Limit Theorem
+
+**Course:** ST 6323 — Probability and Statistics
+**Semester:** Year 3, Semester II (2025/2026)
+**Facilitator:** Dickson Mwangalika
+
+---
+
+## The Empirical Rule
+
+The Empirical Rule describes how data is distributed around the mean in a normal distribution:
+
+| Range | Percentage |
+|-------|------------|
+| $\mu \pm 1\sigma$ | ≈ 68% |
+| $\mu \pm 2\sigma$ | ≈ 95% |
+| $\mu \pm 3\sigma$ | ≈ 99% |
+
+This rule helps identify whether a data point is typical or unusual relative to the rest of the data.
+
+<Flashcard front="What does the Empirical Rule state?" back="Approximately **68%** of data falls within 1 standard deviation, **95%** within 2, and **99%** within 3 standard deviations of the mean." />
+
+---
+
+## Z-Scores
+
+A **Z-score** measures how many standard deviations a data point is from the mean:
+
+$$z = \frac{x - \mu}{\sigma}$$
+
+### Interpretation
+
+| Z-Score Range | Interpretation |
+|---------------|----------------|
+| $-1 < z < 1$ | Typical / common value |
+| $\|z\| > 2$ | Unusual value |
+| $\|z\| > 3$ | Extremely unusual value |
+
+<Flashcard front="What does a Z-score of -2 mean?" back="The data point is **2 standard deviations below** the mean — an unusual value." />
+
+---
+
+## The Central Limit Theorem (CLT)
+
+The CLT is one of the most important theorems in statistics. It states that for a sufficiently large sample size $n$, the **sample mean $\bar{X}$ is approximately normally distributed**, regardless of the shape of the population distribution.
+
+### Key Properties
+
+1. The **mean** of the sample mean equals the population mean:
+$$\mu_{\bar{x}} = \mu$$
+
+2. The **standard deviation** of the sample mean (standard error) decreases as $n$ increases:
+$$\sigma_{\bar{x}} = \frac{\sigma}{\sqrt{n}}$$
+
+3. The distribution of $\bar{X}$ approaches Normal as $n$ increases.
+
+### CLT Formula
+
+$$Z = \frac{\bar{X} - \mu}{\sigma / \sqrt{n}}$$
+
+### Demonstration: Dice Experiment
+
+Rolling a single die gives a **uniform distribution** (each value 1-6 equally likely). But as we increase the sample size:
+
+| Sample Size ($n$) | Distribution of $\bar{X}$ |
+|-------------------|--------------------------|
+| $n = 1$ | Uniform (flat) |
+| $n = 2$ | Slightly bell-shaped |
+| $n = 10$ | Approximately normal |
+| $n = 30$ | Very close to normal |
+
+<Flashcard front="What does the Central Limit Theorem state?" back="For a sufficiently large $n$, the **sample mean $\\bar{X}$ is approximately normally distributed**, regardless of the population distribution." />
+
+<Flashcard front="What is the formula for the standard error of the mean?" back="$\\sigma_{\\bar{x}} = \\frac{\\sigma}{\\sqrt{n}}$ — the standard deviation of the sample mean decreases as sample size increases." />
+
+<Flashcard front="Why does the CLT matter?" back="It allows us to use the **Normal distribution** to make inferences about population means, even when the population itself is not normally distributed." />
+
+---
+
+## Sample Mean as a Random Variable
+
+The sample mean $\bar{X}$ is itself a random variable because it varies from sample to sample.
+
+### Key Observations from the Dice Experiment
+
+1. The **mean stays constant** regardless of sample size
+2. The **standard deviation decreases** as $n$ increases ($\sigma_{\bar{x}} = \frac{\sigma}{\sqrt{n}}$)
+3. The **distribution becomes more normal** as $n$ increases
+
+<Flashcard front="What happens to the standard error as sample size increases?" back="The standard error **decreases** — specifically, it equals $\\frac{\\sigma}{\\sqrt{n}}$, so larger samples give more precise estimates." />
+
+---
+
+## Practical Application
+
+The CLT enables **inferential statistics** by allowing us to:
+- Estimate population parameters from sample statistics
+- Construct confidence intervals for population means
+- Perform hypothesis tests about population means
+
+### Example
+
+If the mean height of American men is $\mu = 69$ inches with $\sigma = 2.8$ inches, and we take a sample of $n = 50$:
+
+$$\sigma_{\bar{x}} = \frac{2.8}{\sqrt{50}} \approx 0.396$$
+
+The probability that the sample mean exceeds 70 inches can be calculated using:
+
+$$Z = \frac{70 - 69}{0.396} \approx 2.53$$
+
+This gives $P(\bar{X} > 70) = P(Z > 2.53) \approx 0.0057$ — very unlikely.
+
+---
+
+## Practice Questions
+
+<Question
+  text="A population has mean μ = 50 and standard deviation σ = 12. For a sample of n = 36, what is the standard error of the mean?"
+  options={["2", "12", "0.5", "4"]}
+  correctAnswer="2"
+  explanation="$\\sigma_{\\bar{x}} = \\frac{\\sigma}{\\sqrt{n}} = \\frac{12}{\\sqrt{36}} = \\frac{12}{6} = 2$."
+/>
+
+<Question
+  text="According to the CLT, the distribution of the sample mean approaches which distribution as n increases?"
+  options={["Uniform", "Binomial", "Normal", "Poisson"]}
+  correctAnswer="Normal"
+  explanation="The Central Limit Theorem states that the distribution of the sample mean approaches a **Normal distribution** as the sample size $n$ increases, regardless of the population distribution."
+/>
+
+<Question
+  text="If a population has σ = 20 and we want the standard error to be at most 4, what is the minimum sample size needed?"
+  options={["5", "10", "25", "100"]}
+  correctAnswer="25"
+  explanation="We need $\\frac{\\sigma}{\\sqrt{n}} \\leq 4$. Solving: $\\sqrt{n} \\geq \\frac{20}{4} = 5$, so $n \\geq 25$."
+/>
+
+<Question
+  text="A Z-score of +3.0 means the data point is:"
+  options={["3 units above the mean", "3 standard deviations above the mean", "In the 97th percentile", "Both B and C"]}
+  correctAnswer="Both B and C"
+  explanation="A Z-score of +3.0 means the value is **3 standard deviations above the mean**. From the Z-table, $P(Z < 3.0) \\approx 0.9987$, placing it in approximately the 99.9th percentile."
+/>
+
+<Question
+  text="Which of the following is NOT a property of the CLT?"
+  options={["The mean of the sample mean equals the population mean", "The standard error decreases as n increases", "The population must be normally distributed", "The sample mean approaches normality for large n"]}
+  correctAnswer="The population must be normally distributed"
+  explanation="The CLT works **regardless** of the population distribution shape — that's its power. The other three are all true properties."
+/>

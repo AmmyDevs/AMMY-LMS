@@ -1,0 +1,183 @@
+{
+  "moduleSlug": "probability-and-statistics",
+  "topic": "Introduction to Statistics",
+  "studyNotes": [
+    {
+      "subtopic": "What is Statistics?",
+      "content": "Statistics is the **science of collecting, organizing, analyzing, interpreting, and presenting data**. It can be understood in two senses:\n\n- **Singular sense:** Refers to the methods and techniques used for collecting, analyzing, and interpreting data.\n- **Plural sense:** Refers to the actual numerical data or facts collected for a specific purpose.\n\nStatistics is used in virtually every field — from business and economics to medicine and engineering — to make informed decisions based on data.",
+      "formulas": [],
+      "flashcards": [
+        {
+          "front": "What is statistics in the singular sense?",
+          "back": "Statistics refers to the **methods and techniques** used for collecting, analyzing, and interpreting data."
+        },
+        {
+          "front": "What is statistics in the plural sense?",
+          "back": "Statistics refers to the actual **numerical data or facts** collected for a specific purpose."
+        }
+      ]
+    },
+    {
+      "subtopic": "General Characteristics of Statistics",
+      "content": "Statistics has several key characteristics that define its nature:\n\n1. **Numerically expressed:** Statistics deals with data that can be measured or counted in numerical form.\n2. **Estimates of accuracy:** Statistical methods help determine how accurate and reliable data estimates are.\n3. **Aggregates of facts:** Statistics concerns itself with **series of data**, not isolated or single facts.\n4. **Influenced by multiple factors:** Statistical results can be affected by various conditions and factors.\n5. **Systematic collection:** Data is collected in a planned and organized manner for a specific purpose.",
+      "formulas": [],
+      "flashcards": [
+        {
+          "front": "Name two key characteristics of statistics.",
+          "back": "Statistics deals with **numerically expressed data** and concerns **aggregates of facts** (series, not single values)."
+        }
+      ]
+    },
+    {
+      "subtopic": "Key Statistical Terminology",
+      "content": "Understanding these foundational terms is essential for any statistical study:\n\n- **Population:** The entire group of individuals or items that is the focus of a study.\n- **Sample:** A representative subset of the population selected for analysis.\n- **Parameter:** A numerical summary that describes a characteristic of the **entire population**.\n- **Statistic:** A numerical summary derived from **sample data**.\n- **Estimator:** The rule or formula used to estimate a population parameter.\n- **Estimate:** The specific numerical value produced by applying the estimator.\n- **Average (Central Tendency):** A single value representing the center of a data distribution.",
+      "formulas": [],
+      "flashcards": [
+        {
+          "front": "What is the difference between a parameter and a statistic?",
+          "back": "A **parameter** summarizes the entire population, while a **statistic** is derived from sample data."
+        },
+        {
+          "front": "What is the difference between an estimator and an estimate?",
+          "back": "An **estimator** is the rule or formula, while an **estimate** is the specific numerical value produced by that formula."
+        },
+        {
+          "front": "What is a population in statistics?",
+          "back": "A population is the **entire group** of individuals or items that is the focus of a study."
+        },
+        {
+          "front": "What is a sample?",
+          "back": "A sample is a **representative subset** of the population selected for analysis."
+        }
+      ]
+    },
+    {
+      "subtopic": "Types of Variables",
+      "content": "Variables are objects or characteristics that can take on different values. They are classified into two main types:\n\n- **Qualitative (Categorical) Variables:** Describe non-numerical attributes or qualities. Examples include gender, color, and nationality.\n- **Quantitative Variables:** Represent measurable numerical data. These are further divided into:\n  - **Discrete:** Countable values with gaps between them (e.g., number of children).\n  - **Continuous:** Any value within a range is possible (e.g., height, weight, temperature).",
+      "formulas": [],
+      "flashcards": [
+        {
+          "front": "What is the difference between discrete and continuous quantitative variables?",
+          "back": "**Discrete** variables have countable values with gaps (e.g., number of students). **Continuous** variables can take any value within a range (e.g., height, weight)."
+        },
+        {
+          "front": "Give an example of a qualitative variable.",
+          "back": "Examples include **gender**, **color**, **nationality**, or **grade level** — any attribute described by categories rather than numbers."
+        }
+      ]
+    },
+    {
+      "subtopic": "Descriptive vs. Inferential Statistics",
+      "content": "Statistics is broadly divided into two branches:\n\n- **Descriptive Statistics:** Involves **summarizing and organizing** data to describe patterns. Key tools include:\n  - Measures of central tendency (mean, median, mode)\n  - Measures of dispersion (range, variance, standard deviation)\n  - Graphical representations (charts, histograms)\n\n- **Inferential Statistics:** Uses **sample data to make generalizations** about a larger population. This includes:\n  - Parameter estimation (point and interval estimates)\n  - Hypothesis testing (determining if observed patterns are significant)",
+      "formulas": ["\\bar{x} = \\frac{\\sum_{i=1}^{n} x_i}{n}", "\\mu = \\frac{\\sum_{i=1}^{N} x_i}{N}", "s^2 = \\frac{\\sum_{i=1}^{n} (x_i - \\bar{x})^2}{n-1}", "s = \\sqrt{s^2}"],
+      "flashcards": [
+        {
+          "front": "What is descriptive statistics?",
+          "back": "Descriptive statistics **summarizes and organizes data** using measures like mean, median, mode, range, and standard deviation to describe patterns in a dataset."
+        },
+        {
+          "front": "What is inferential statistics?",
+          "back": "Inferential statistics uses **sample data to make generalizations** about a larger population, through parameter estimation and hypothesis testing."
+        }
+      ]
+    },
+    {
+      "subtopic": "Levels of Measurement",
+      "content": "Data can be classified into four levels of measurement, from least to most informative:\n\n1. **Nominal:** Labels or categories with **no inherent order**. Examples: gender, hair color, nationality.\n2. **Ordinal:** Categories with a **meaningful order**, but no defined distance between them. Example: satisfaction ratings (poor, fair, good, excellent).\n3. **Interval:** Order and **equal distance** between values are meaningful, but there is **no absolute zero**. Example: temperature in Celsius or Fahrenheit.\n4. **Ratio:** Has order, equal distances, and a **natural zero point**. Ratios are meaningful. Example: height, weight, number of children.",
+      "formulas": [],
+      "flashcards": [
+        {
+          "front": "What are the four levels of measurement?",
+          "back": "**Nominal** (labels, no order), **Ordinal** (ordered, no defined distance), **Interval** (ordered, equal distance, no true zero), **Ratio** (ordered, equal distance, true zero)."
+        },
+        {
+          "front": "Why does temperature in Celsius have an interval level of measurement?",
+          "back": "Because while values have order and equal distances, **there is no absolute zero** — 0°C does not mean 'no temperature'."
+        },
+        {
+          "front": "What level of measurement has a natural zero point?",
+          "back": "The **ratio** level of measurement has a natural zero point, making ratios meaningful (e.g., 10 kg is twice 5 kg)."
+        }
+      ]
+    },
+    {
+      "subtopic": "Data Classification by Source and Purpose",
+      "content": "Data can also be classified by its origin and intended use:\n\n**By Source:**\n- **Internal Data:** Collected within the organization (e.g., accounting records, employee performance data).\n- **External Data:** Compiled by agencies outside the organization (e.g., government statistics, market research reports).\n\n**By Purpose:**\n- **Primary Data:** Collected specifically for the current problem or study at hand.\n- **Secondary Data:** Data previously collected for another purpose but reused for the current study.",
+      "formulas": [],
+      "flashcards": [
+        {
+          "front": "What is the difference between primary and secondary data?",
+          "back": "**Primary data** is collected specifically for the current study. **Secondary data** was previously collected for another purpose but is reused."
+        }
+      ]
+    }
+  ],
+  "solveQuestions": [
+    {
+      "question": "A researcher surveys all 500 employees in a company to determine average satisfaction. The average score is 7.2 out of 10. Is 7.2 a parameter or a statistic?",
+      "type": "multiple-choice",
+      "options": [
+        "Parameter",
+        "Statistic",
+        "Estimator",
+        "Variable"
+      ],
+      "correctAnswer": "Parameter",
+      "solutionExplanation": "Since the researcher surveyed **all 500 employees** (the entire population), the average score of 7.2 is a **parameter** — a numerical summary of the population. If only a subset had been surveyed, it would be a statistic."
+    },
+    {
+      "question": "Classify the following variable: 'Temperature in Fahrenheit'",
+      "type": "multiple-choice",
+      "options": [
+        "Nominal",
+        "Ordinal",
+        "Interval",
+        "Ratio"
+      ],
+      "correctAnswer": "Interval",
+      "solutionExplanation": "Temperature in Fahrenheit has **order** and **equal intervals** between values, but **no absolute zero** (0°F does not mean 'no temperature'). This makes it an **interval** level variable."
+    },
+    {
+      "question": "Which branch of statistics would you use to estimate the average income of all citizens in a country based on a sample of 1,000 households?",
+      "type": "multiple-choice",
+      "options": [
+        "Descriptive Statistics",
+        "Inferential Statistics",
+        "Probability Theory",
+        "Data Collection"
+      ],
+      "correctAnswer": "Inferential Statistics",
+      "solutionExplanation": "Since you are using **sample data** to make a **generalization about a larger population** (all citizens), this falls under **inferential statistics**. Descriptive statistics would only summarize the 1,000 households without generalizing."
+    },
+    {
+      "question": "A data set has the following values: 12, 15, 18, 22, 25. Calculate the mean (average).",
+      "type": "numerical",
+      "correctAnswer": "18",
+      "solutionExplanation": "The **mean** is calculated by summing all values and dividing by the number of values:\n\n\\mu = \\frac{\\sum x_i}{N} = \\frac{12 + 15 + 18 + 22 + 25}{5} = \\frac{92}{5} = 18"
+    },
+    {
+      "question": "Classify the following as primary or secondary data: A government publishes national unemployment statistics, and a university researcher uses these figures to study economic trends.",
+      "type": "multiple-choice",
+      "options": [
+        "Primary Data",
+        "Secondary Data",
+        "Internal Data",
+        "Qualitative Data"
+      ],
+      "correctAnswer": "Secondary Data",
+      "solutionExplanation": "The unemployment statistics were originally collected by the government for its own purposes. When the university researcher **reuses** this data for a different study, it becomes **secondary data** for the researcher."
+    },
+    {
+      "question": "What is the level of measurement for 'Customer satisfaction rating: Poor, Fair, Good, Excellent'?",
+      "type": "multiple-choice",
+      "options": [
+        "Nominal",
+        "Ordinal",
+        "Interval",
+        "Ratio"
+      ],
+      "correctAnswer": "Ordinal",
+      "solutionExplanation": "The ratings have a **meaningful order** (Poor < Fair < Good < Excellent), but the **distance between categories is not defined or equal**. This makes it an **ordinal** level of measurement."
+    }
+  ]
+}
